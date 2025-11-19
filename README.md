@@ -16,13 +16,12 @@ Skyforge is a personal monorepo built with Turborepo. It contains my portfolio s
 
 ## Repository Structure
 skyforge/
-│
-├─ apps/
-│ ├─ portfolio/ # Primary website
-│ └─ labs/ # Experimental playgrounds and prototypes
-│
-└─ packages/
-└─ ui/ # Shared React component library (@skyforge/ui)
+├── apps/
+│   ├── portfolio/      # Primary website
+│   └── labs/           # Experimental playgrounds and prototypes
+└── packages/
+    └── ui/             # Shared React component library (@skyforge/ui)
+
 
 
 Each workspace is isolated but shares the same TypeScript configuration, linting standards, and React version.
