@@ -1,7 +1,11 @@
-'use client'
-import { Button } from "@skyforge/ui"
+'use client';
+import { Button, Input } from "@skyforge/ui";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function HomePage() {
+  const { theme, setTheme } = useTheme();
+  
   return (
     <main
       style={{
@@ -11,12 +15,12 @@ export default function HomePage() {
         justifyContent: "center"
       }}
     >
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: "1rem" }}>
         <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Welcome to Skyforge</h1>
-        <p style={{ marginBottom: "1.5rem", opacity: 0.8 }}>
-        </p>
-        <Button variant="primary" size="lg" onClick={() => alert("Hello From Skyforge, Welcome to Dev.")}>Danger</Button>
+        <Button text="Toggle Theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}/>
+        <Button text="Danger" color="primary" size="small" onClick={() => alert("Hello From Skyforge, Welcome to Dev.")} icon={faUser}/>
+        <Input type="text" label="Enter your name"/>
       </div>
     </main>
-  )
+  );
 }
