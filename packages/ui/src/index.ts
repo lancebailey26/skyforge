@@ -1,2 +1,3 @@
 import "./theme/tokens.css"
-export { default as Button } from "./components/button/button"
+export { Button } from "./components/button/button"
+export { Input } from "./components/input/input"
