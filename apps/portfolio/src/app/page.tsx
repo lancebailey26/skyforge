@@ -20,6 +20,7 @@ export default function HomePage() {
         <Button text="Toggle Theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}/>
         <Button text="Danger" color="primary" size="small" onClick={() => alert("Hello From Skyforge, Welcome to Dev.")} icon={faUser}/>
         <Input type="text" label="Enter your name"/>
+        <p>test</p>
       </div>
     </main>
   );
