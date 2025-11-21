@@ -24,14 +24,21 @@ export function Button(props: ButtonProps) {
 
   const handleClick = (evt: MouseEvent<HTMLButtonElement>) => {
     ref.current?.blur();
-    if (props.onClick) {
+    if(props.onClick) {
       props.onClick(evt);
     }
-  }
+  };
 
   return (
     <button 
-      className={`${styles.button} ${styles[props.size ?? '']} ${color} ${subColor} ${!props.text && styles.noText} ${props.className ?? ''} ${!props.onClick ? styles.noHover : ''}`} 
+      className={`
+        ${styles.button} 
+        ${styles[props.size ?? '']} 
+        ${color} ${subColor} 
+        ${!props.text && styles.noText} 
+        ${props.className ?? ''} 
+        ${!props.onClick ? styles.noHover : ''}
+      `} 
       onClick={handleClick} 
       disabled={props.disabled} 
       ref={ref} 

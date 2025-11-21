@@ -40,7 +40,7 @@
       &::before {
         content: '';
         position: absolute;
-        inset: 0;
+        inset: -1px;
         background-color: var(--color-surface-pressed);
         border-radius: inherit;
         z-index: 1;
@@ -49,12 +49,11 @@
   
     &:hover {
       color: var(--color-on-surface);
-
+      background-color: var(--color-surface-hover);
       &::before {
         content: '';
         position: absolute;
-        inset: 0;
-        background-color: var(--color-surface-hover);
+        inset: -1px;
         border-radius: inherit;
         z-index: 1;
       }
