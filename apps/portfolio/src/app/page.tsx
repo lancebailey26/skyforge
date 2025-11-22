@@ -4,8 +4,11 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
 import { Card } from "@skyforge/ui";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useTitle } from "../hooks/useTitle";
+
 export default function HomePage() {
   const { theme, setTheme } = useTheme();
+  useTitle("CHAOS");
   
   return (
     <main
@@ -28,11 +31,13 @@ export default function HomePage() {
             size="xlarge" 
             tagline="Card Tagline" 
             description="Card Description" 
-            subject={{ 
-              src: "https://www.starnewsonline.com/gcdn/authoring/2013/06/19/NSTN/ghows-NC-6d0e280e-bfec-4826-9efc-430f1ecdc18e-bf520249.jpeg?width=605&height=454&fit=crop&format=pjpg&auto=webp", 
-              alt: "James Gandolfini" 
-            }} 
-            headerControls={[{icon: faXmark, onClick: () => alert("Hello From Skyforge, Welcome to Dev."), ariaLabel: "Close"}]}
+            subject={{
+                src: "https://www.starnewsonline.com/gcdn/authoring/2013/06/19/NSTN/" +
+                    "ghows-NC-6d0e280e-bfec-4826-9efc-430f1ecdc18e-bf520249.jpeg?" +
+                    "width=605&height=454&fit=crop&format=pjpg&auto=webp",
+                alt: "James Gandolfini"
+            }}
+            headerControls={[ { icon: faXmark, onClick: () => alert("Hello From Skyforge, Welcome to Dev."), ariaLabel: "Close" } ]}
           />
         <Card mode="inlaid" size="large" tagline="Card Title" description="Card Description" subject="Card Subject" />
         </div>
