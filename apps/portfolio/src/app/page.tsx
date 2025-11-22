@@ -2,7 +2,8 @@
 import { Button, Input } from "@skyforge/ui";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
-
+import { Card } from "@skyforge/ui";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 export default function HomePage() {
   const { theme, setTheme } = useTheme();
   
@@ -20,8 +21,22 @@ export default function HomePage() {
         <Button text="Toggle Theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}/>
         <Button text="Danger" color="primary" size="small" onClick={() => alert("Hello From Skyforge, Welcome to Dev.")} icon={faUser}/>
         <Input type="text" label="Enter your name"/>
-        <p>test</p>
-      </div>
+          <div style={{ display: "flex", gap: "1rem" }}>
+          <Card 
+            // title="Card Title" 
+            mode="popup" 
+            size="xlarge" 
+            tagline="Card Tagline" 
+            description="Card Description" 
+            subject={{ 
+              src: "https://www.starnewsonline.com/gcdn/authoring/2013/06/19/NSTN/ghows-NC-6d0e280e-bfec-4826-9efc-430f1ecdc18e-bf520249.jpeg?width=605&height=454&fit=crop&format=pjpg&auto=webp", 
+              alt: "James Gandolfini" 
+            }} 
+            headerControls={[{icon: faXmark, onClick: () => alert("Hello From Skyforge, Welcome to Dev."), ariaLabel: "Close"}]}
+          />
+        <Card mode="inlaid" size="large" tagline="Card Title" description="Card Description" subject="Card Subject" />
+        </div>
+        </div>
     </main>
   );
 }
