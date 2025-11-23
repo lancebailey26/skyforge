@@ -8,3 +8,4 @@ export { Navigation } from "./components/header/navigation/navigation";
 export type { NavigationProps, NavigationItem } from "./components/header/navigation/navigation";
 export { Toggle } from "./components/toggle/toggle";
 export { Tag } from "./components/tag/tag";
+export { Notification } from "./components/notification/notification";
