@@ -175,6 +175,10 @@ html.dark {
               border-color var(--standard-time) var(--standard-ease);
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -183,4 +187,5 @@ body {
   color: var(--color-on-surface);
   transition: background-color var(--standard-time) var(--standard-ease),
               color var(--standard-time) var(--standard-ease);
+  scrollbar-gutter: stable;
 }
