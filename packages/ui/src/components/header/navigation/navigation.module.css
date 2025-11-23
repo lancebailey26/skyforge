@@ -1,0 +1,27 @@
+.navigation {
+  display: flex;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-2);
+}
+
+.navItem {
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  padding: var(--space-2) var(--space-3);
+  text-decoration: none;
+  color: var(--color-on-surface);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-md);
+}
+

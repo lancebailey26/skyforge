@@ -1,3 +1,4 @@
+'use client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import styles from './button.module.css';
@@ -33,9 +34,9 @@ export function Button(props: ButtonProps) {
     <button 
       className={`
         ${styles.button} 
-        ${styles[props.size ?? '']} 
+        ${props.size ? styles[props.size] : ''} 
         ${color} ${subColor} 
-        ${!props.text && styles.noText} 
+        ${!props.text ? styles.noText : ''} 
         ${props.className ?? ''} 
         ${!props.onClick ? styles.noHover : ''}
       `} 
