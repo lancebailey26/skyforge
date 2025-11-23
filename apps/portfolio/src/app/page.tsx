@@ -22,7 +22,12 @@ export default function HomePage() {
         <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Welcome to Skyforge</h1>
         <Input type="text" label="Enter your name"/>
         <Card description="Card Description" subject="Card Subject" />
-        <Tag icon={faUser} text="User" onClick={() => {}} removable onRemove={() => {}} />
+        <Tag icon={faUser} text="User" onClick={() => {}} color="secondary" removable onRemove={() => {}} />
+        <Tag icon={faUser} text="User" onClick={() => {}} color="tertiary" removable onRemove={() => {}} />
+        <Tag icon={faUser} text="User" onClick={() => {}} color="error" removable onRemove={() => {}} />
+        <Tag icon={faUser} text="User" onClick={() => {}} color="warning" removable onRemove={() => {}} />
+        <Tag icon={faUser} text="User" onClick={() => {}} color="info" removable onRemove={() => {}} />
+        <Tag icon={faUser} text="User" onClick={() => {}} color="success" removable onRemove={() => {}} />
         </div>
     </main>
   );

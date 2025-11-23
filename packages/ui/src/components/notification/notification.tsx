@@ -86,7 +86,7 @@ export function Notification(props: NotificationProps) {
                     <h3 className={styles.title}>{props.title}</h3>
                 </div>
                 <div 
-                    className={styles.closeButton} 
+                    className={`${styles.closeButton} ${props.type ? styles[props.type] : styles.info}`} 
                     onClick={handleClose} 
                     role="button"
                 >

@@ -38,59 +38,59 @@
 :root,
 html:not(.dark) {
   /* Brand */
-  --color-primary: #6366f1;
-  --color-primary-soft: #e0e7ff;
+  --color-primary: #059669;
+  --color-primary-soft: #d1fae5;
 
   /* Surfaces */
-  --color-bg: #f3f4f6;
+  --color-bg: #e8eaed;
   --color-surface: #ffffff;
-  --color-surface-alt: #f9fafb;
+  --color-surface-alt: #e8eaed;
 
   /* Containers */
-  --color-container-low: #f3f4f6;
+  --color-container-low: #e8eaed;
   --color-container: #ffffff;
   --color-container-high: #ffffff;
 
   /* "On" colors — text/icons on surfaces */
-  --color-on-surface: #111827;
-  --color-on-surface-alt: #4b5563;
+  --color-on-surface: #0f172a;
+  --color-on-surface-alt: #475569;
 
   /* "On" colors — text/icons on containers */
-  --color-on-container: #111827;
-  --color-on-container-alt: #4b5563;
+  --color-on-container: #0f172a;
+  --color-on-container-alt: #475569;
 
   /* Disabled */
-  --color-disabled: #9ca3af;
-  --color-disabled-container: #e5e7eb;
-  --color-on-disabled-container: #6b7280;
+  --color-disabled: #8a8f96;
+  --color-disabled-container: #d4d8dc;
+  --color-on-disabled-container: #6b6f75;
 
   /* Border / outline */
-  --color-border: #d1d5db;
-  --color-outline: #9ca3af;
+  --color-border: #bdc1c6;
+  --color-outline: #8a8f96;
 
   /* Semantic */
-  --color-success: #16a34a;
+  --color-success: #10b981;
   --color-warning: #f59e0b;
-  --color-danger: #ef4444;
+  --color-danger: #dc2626;
   --color-error: var(--color-danger);
-  --color-info: #0ea5e9;
+  --color-info: #0284c7;
 
   /* Secondary/Tertiary */
-  --color-secondary: #8b5cf6;
-  --color-tertiary: #ec4899;
+  --color-secondary: #ea580c;
+  --color-tertiary: #7c3aed;
 
   /* "On" colors for semantic and brand colors */
   --color-on-primary: #ffffff;
   --color-on-secondary: #ffffff;
   --color-on-tertiary: #ffffff;
   --color-on-error: #ffffff;
-  --color-on-warning: #111827;
+  --color-on-warning: #0f172a;
   --color-on-info: #ffffff;
   --color-on-success: #ffffff;
 
   /* Interaction states */
-  --color-surface-hover: #e5e7eb;
-  --color-surface-pressed: #d4d4d8;
+  --color-surface-hover: #d4d8dc;
+  --color-surface-pressed: #bdc1c6;
 
   /* Base */
   --color-black: #000000;
@@ -105,58 +105,58 @@ html:not(.dark) {
 /* Dark Theme */
 html.dark {
   /* Brand */
-  --color-primary: #818cf8;
-  --color-primary-soft: #312e81;
+  --color-primary: #10b981;
+  --color-primary-soft: #064e3b;
 
   /* Background / surfaces */
-  --color-bg: #020617;
-  --color-surface: #0f172a;
-  --color-surface-alt: #1e293b;
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-surface-alt: #262626;
 
   /* Containers */
-  --color-container-low: #0f172a;
-  --color-container: #0f172a;
-  --color-container-high: #0f172a;
+  --color-container-low: #1a1a1a;
+  --color-container: #1a1a1a;
+  --color-container-high: #1a1a1a;
 
   /* On colors */
-  --color-on-surface: #e2e8f0;
+  --color-on-surface: #f1f5f9;
   --color-on-surface-alt: #94a3b8;
 
-  --color-on-container: #e2e8f0;
+  --color-on-container: #f1f5f9;
   --color-on-container-alt: #94a3b8;
 
   /* Disabled */
-  --color-disabled: #64748b;
-  --color-disabled-container: #1e293b;
-  --color-on-disabled-container: #475569;
+  --color-disabled: #6b6b6b;
+  --color-disabled-container: #262626;
+  --color-on-disabled-container: #4a4a4a;
 
   /* Borders */
-  --color-border: #1e293b;
-  --color-outline: #475569;
+  --color-border: #262626;
+  --color-outline: #404040;
 
   /* Semantic */
-  --color-success: #22c55e;
+  --color-success: #34d399;
   --color-warning: #fbbf24;
-  --color-danger: #ef4444;
+  --color-danger: #f87171;
   --color-error: var(--color-danger);
   --color-info: #38bdf8;
 
   /* Secondary/Tertiary */
-  --color-secondary: #a78bfa;
-  --color-tertiary: #f472b6;
+  --color-secondary: #fb923c;
+  --color-tertiary: #a78bfa;
 
   /* "On" colors for semantic and brand colors */
   --color-on-primary: #ffffff;
-  --color-on-secondary: #ffffff;
+  --color-on-secondary: #0f0f0f;
   --color-on-tertiary: #ffffff;
   --color-on-error: #ffffff;
-  --color-on-warning: #020617;
+  --color-on-warning: #0f0f0f;
   --color-on-info: #ffffff;
   --color-on-success: #ffffff;
 
   /* Interaction */
-  --color-surface-hover: #1e293b;
-  --color-surface-pressed: #0f172a;
+  --color-surface-hover: #262626;
+  --color-surface-pressed: #1a1a1a;
 
   /* Base */
   --color-black: #000000;
