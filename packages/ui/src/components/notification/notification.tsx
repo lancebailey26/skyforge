@@ -20,6 +20,7 @@ interface NotificationProps {
     showProgressBar?: boolean;
     progressBarValue?: number;
     progressBarMax?: number;
+    placement?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 }
 
 export function Notification(props: NotificationProps) {
@@ -75,7 +76,7 @@ export function Notification(props: NotificationProps) {
     return createPortal(
         isVisible && <div
             ref={notificationRef}
-            className={notificationClass}
+            className={`${notificationClass} ${props.placement ? styles[props.placement] : ''}`}
             style={props.style}
             onClick={props.onClick}
             {...props.attributes}

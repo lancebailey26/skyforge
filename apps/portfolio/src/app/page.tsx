@@ -18,7 +18,7 @@ export default function HomePage() {
       }}
     >
       <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <Notification title="Notification Title" description="Notification Description" icon={faUser} type="info" onClose={() => {}} visible={true}/>
+        <Notification title="Notification Title" description="Notification Description" icon={faUser} placement="bottom-right" type="info" onClose={() => {}} visible={true}/>
         <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Welcome to Skyforge</h1>
         <Input type="text" label="Enter your name"/>
         <Card description="Card Description" subject="Card Subject" />

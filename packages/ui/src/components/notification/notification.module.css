@@ -2,8 +2,8 @@
     position: absolute;
     display:flex;
     flex-direction: column;
-    top: 80px;
-    right: 20px;
+    /* top: 80px;
+    right: 20px; */
     width: 350px;
     z-index: 1000;
     border-radius: var(--radius-lg);
@@ -13,6 +13,22 @@
     justify-content: space-between;
     opacity: 0;
     transition: opacity 0.3s ease-out;
+    &.top-right {
+        top: 100px;
+        right: 20px;
+    }
+    &.top-left {
+        top: 100px;
+        left: 20px;
+    }
+    &.bottom-right {
+        bottom: 0px;
+        right: 20px;
+    }
+    &.bottom-left {
+        bottom: 0px;
+        left: 20px;
+    }
     &.fadingIn {
         opacity: 1;
     }
