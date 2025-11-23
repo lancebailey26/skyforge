@@ -11,7 +11,6 @@ export async function GET() {
       .find({ status: { $ne: 'archived' }})
       .sort({ featured: -1, priority: 1 })
       .toArray();
-
     const projects: Project[] = docs.map((doc: WithId<Document>) => ({
       _id: doc._id ? doc._id.toString() : undefined,
       slug: (doc.slug as string) ?? '',
