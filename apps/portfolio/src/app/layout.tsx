@@ -3,6 +3,7 @@ import "@skyforge/ui/theme/tokens.css";
 import { Header } from "@skyforge/ui";
 import { ThemeProvider } from "next-themes";
 import { HeaderActions } from "../components/HeaderActions";
+import { ScrollToTop } from "../components/ScrollToTop";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -25,7 +26,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             }}
             actions={<HeaderActions />}
           />
-          {children}
+          <ScrollToTop />
+          <main style={{ minHeight: "100vh" }}>
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

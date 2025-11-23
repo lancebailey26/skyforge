@@ -10,7 +10,7 @@ interface NotificationProps {
     description: string;
     icon?: IconProp;
     type?: 'success' | 'error' | 'warning' | 'info';
-    onClose: () => void;
+    onClose?: () => void;
     className?: string;
     style?: React.CSSProperties;
     onClick?: () => void;
@@ -24,7 +24,7 @@ interface NotificationProps {
 }
 
 export function Notification(props: NotificationProps) {
-    const { timeout, onClose } = props;
+    const { timeout, onClose = () => {} } = props;
     const [isVisible, setIsVisible] = useState(props.visible ?? true);
     const [isMounted, setIsMounted] = useState(false);
     const [isFadingOut, setIsFadingOut] = useState(false);
@@ -45,7 +45,9 @@ export function Notification(props: NotificationProps) {
                 setIsFadingOut(true);
                 removeTimeout = setTimeout(() => {
                     setIsVisible(false);
-                    onClose();
+                    if(onClose) {
+                        onClose();
+                    }
                 }, 300);
             }, timeout);
             return () => {
@@ -61,7 +63,9 @@ export function Notification(props: NotificationProps) {
         setIsFadingOut(true);
         setTimeout(() => {
             setIsVisible(false);
-            onClose();
+            if(onClose) {
+                onClose();
+            }
         }, 300);
     };
 

@@ -25,11 +25,9 @@ export function useTitle(
     const prepend = options?.prepend ?? false;
 
     useEffect(() => {
-        const previousTitle = document.title;
-        const fullTitle = prepend ? `${title}${separator}${baseTitle}` : `${baseTitle}${separator}${title}`;
+        const fullTitle = title ?
+          (prepend ? `${title}${separator}${baseTitle}` : `${baseTitle}${separator}${title}`) :
+          baseTitle;
         document.title = fullTitle;
-        return () => {
-            document.title = previousTitle;
-        };
     }, [title, baseTitle, separator, prepend]);
 }

@@ -17,33 +17,45 @@ interface CardProps {
     description?: string;
     title?: string;
     subject: string | { src: string; alt?: string } | { color: string } | React.ReactNode;
+    footer?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
     subjectStyle?: React.CSSProperties;
     headerStyle?: React.CSSProperties;
     captionStyle?: React.CSSProperties;
+    footerStyle?: React.CSSProperties;
     overlayStyle?: React.CSSProperties;
     size?: 'small' | 'medium' | 'large' | 'xlarge';
     mode?: 'inlaid' | 'popup';
     closeable?: boolean;
     onClose?: () => void;
+    onClick?: () => void;
     container?: HTMLElement | null;
     captionAlign?: 'center' | 'left' | 'right';
     titleAlign?: 'center' | 'left';
     headerControls?: HeaderControl[];
+    maxDescriptionLength?: number;
 }
 
 export function Card(props: CardProps) {
     const [mounted, setMounted] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
     const mode = props.mode ?? 'inlaid';
     const isPopup = mode === 'popup';
     const closeable = props.closeable ?? isPopup;
     const captionAlign = props.captionAlign ?? 'center';
     const titleAlign = props.titleAlign ?? 'left';
+    const maxLength = props.maxDescriptionLength ?? 150;
+    
     useEffect(() => {
         setMounted(true);
         return () => setMounted(false);
     }, []);
+
+    const shouldTruncate = props.description ? props.description.length > maxLength : false;
+    const displayDescription = shouldTruncate && !isExpanded && props.description ?
+        `${props.description.substring(0, maxLength)}...` :
+        props.description;
 
     const handleClose = () => {
         setMounted(false);
@@ -77,8 +89,22 @@ export function Card(props: CardProps) {
                 ${isPopup ? styles.popup : ''}
                 ${props.className ?? ''} 
                 ${styles[props.size ?? 'medium']}
+                ${props.onClick ?
+                  styles.clickable :
+                  ''}
             `}
             style={props.style}
+            onClick={props.onClick}
+            role={props.onClick ? 'button' : undefined}
+            tabIndex={props.onClick ? 0 : undefined}
+            onKeyDown={props.onClick ?
+              (e) => {
+                if(e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  props.onClick?.();
+                }
+              } :
+              undefined}
         >
             {(closeable || props.title || props.headerControls) && (
                 <div
@@ -100,6 +126,7 @@ export function Card(props: CardProps) {
                                     icon={control.icon}
                                     onClick={(e) => {
                                         e.preventDefault();
+                                        e.stopPropagation();
                                         control.onClick();
                                     }}
                                     size="tiny"
@@ -117,6 +144,7 @@ export function Card(props: CardProps) {
                                     text=""
                                     onClick={(e) => {
                                         e.preventDefault();
+                                        e.stopPropagation();
                                         handleClose();
                                     }}
                                     size="tiny"
@@ -171,9 +199,30 @@ export function Card(props: CardProps) {
             >
                 <h3 className={styles.tagline}>{props.tagline}</h3>
                 {props.description && (
-                    <p className={styles.description}>{props.description}</p>
+                    <>
+                        <p className={styles.description}>{displayDescription}</p>
+                        {shouldTruncate && (
+                            <button
+                                type="button"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setIsExpanded(!isExpanded);
+                                }}
+                                className={styles.expandButton}
+                                aria-label={isExpanded ? 'Show less' : 'Show more'}
+                            >
+                                {isExpanded ? 'Show less' : 'Show more'}
+                            </button>
+                        )}
+                    </>
                 )}
             </div>
+            {props.footer && (
+                <div className={styles.footer} style={props.footerStyle}>
+                    {props.footer}
+                </div>
+            )}
         </div>
     );
 

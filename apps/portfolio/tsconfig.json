@@ -1,11 +1,15 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
+      "baseUrl": ".",
       "plugins": [
         {
           "name": "next"
         }
-      ]
+      ],
+      "paths": {
+        "@/*": ["./src/*"]
+      }
     },
     "include": [
       "next-env.d.ts",

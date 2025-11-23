@@ -27,6 +27,26 @@
     overflow: hidden;
 }
 
+.card.clickable {
+    cursor: pointer;
+    transition: transform var(--standard-time) var(--standard-ease),
+                box-shadow var(--standard-time) var(--standard-ease);
+}
+
+.card.clickable:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card.clickable:active {
+    transform: translateY(0);
+}
+
+.card.clickable:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
 .card.popup {
     position: relative;
     z-index: 1;
@@ -210,14 +230,37 @@
     color: var(--color-on-surface-alt);
     line-height: 1.5;
 }
-.small {
-}
-.medium {
-}
-.large {
+
+.expandButton {
+    margin-top: var(--space-2);
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--standard-time) var(--standard-ease);
 }
 
-.xlarge {
+.expandButton:hover {
+    color: var(--color-primary-soft);
+}
+
+.expandButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+.footer {
+    padding-top: var(--space-2);
+    margin-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .card.popup.xlarge {
