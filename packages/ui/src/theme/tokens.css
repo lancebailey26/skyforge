@@ -75,6 +75,19 @@ html:not(.dark) {
   --color-error: var(--color-danger);
   --color-info: #0ea5e9;
 
+  /* Secondary/Tertiary */
+  --color-secondary: #8b5cf6;
+  --color-tertiary: #ec4899;
+
+  /* "On" colors for semantic and brand colors */
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-on-tertiary: #ffffff;
+  --color-on-error: #ffffff;
+  --color-on-warning: #111827;
+  --color-on-info: #ffffff;
+  --color-on-success: #ffffff;
+
   /* Interaction states */
   --color-surface-hover: #e5e7eb;
   --color-surface-pressed: #d4d4d8;
@@ -127,6 +140,19 @@ html.dark {
   --color-danger: #ef4444;
   --color-error: var(--color-danger);
   --color-info: #38bdf8;
+
+  /* Secondary/Tertiary */
+  --color-secondary: #a78bfa;
+  --color-tertiary: #f472b6;
+
+  /* "On" colors for semantic and brand colors */
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-on-tertiary: #ffffff;
+  --color-on-error: #ffffff;
+  --color-on-warning: #020617;
+  --color-on-info: #ffffff;
+  --color-on-success: #ffffff;
 
   /* Interaction */
   --color-surface-hover: #1e293b;
