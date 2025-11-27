@@ -35,6 +35,7 @@ interface CardProps {
     titleAlign?: 'center' | 'left';
     headerControls?: HeaderControl[];
     maxDescriptionLength?: number;
+    type?: 'flat' | 'glass'
 }
 
 export function Card(props: CardProps) {
@@ -46,7 +47,7 @@ export function Card(props: CardProps) {
     const captionAlign = props.captionAlign ?? 'center';
     const titleAlign = props.titleAlign ?? 'left';
     const maxLength = props.maxDescriptionLength ?? 150;
-    
+    const type = props.type ?? '';
     useEffect(() => {
         setMounted(true);
         return () => setMounted(false);
@@ -92,9 +93,13 @@ export function Card(props: CardProps) {
                 ${props.onClick ?
                   styles.clickable :
                   ''}
+                ${type === 'glass' ? styles.glass : ''}
             `}
             style={props.style}
-            onClick={props.onClick}
+            onClick={(e) => {
+                e.preventDefault();
+                props.onClick?.();
+            }}
             role={props.onClick ? 'button' : undefined}
             tabIndex={props.onClick ? 0 : undefined}
             onKeyDown={props.onClick ?
@@ -131,7 +136,7 @@ export function Card(props: CardProps) {
                                     }}
                                     size="tiny"
                                     subColor="clear"
-                                    className={styles.headerControlButton}
+                                    className={`header-control-button ${styles.closeButton}`}
                                     attributes={{
                                         'aria-label': control.ariaLabel ?? 'Action',
                                         ...({} as { [key: `data-${string}`]: unknown })
@@ -141,7 +146,6 @@ export function Card(props: CardProps) {
                             {closeable && (
                                 <Button
                                     icon={faXmark as IconProp}
-                                    text=""
                                     onClick={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
@@ -149,7 +153,7 @@ export function Card(props: CardProps) {
                                     }}
                                     size="tiny"
                                     subColor="clear"
-                                    className={styles.headerControlButton}
+                                    className={`header-control-button ${styles.closeButton}`}
                                     attributes={{
                                         'aria-label': 'Close',
                                         ...({} as { [key: `data-${string}`]: unknown })

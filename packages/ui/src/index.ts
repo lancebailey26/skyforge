@@ -9,3 +9,6 @@ export type { NavigationProps, NavigationItem } from "./components/header/naviga
 export { Toggle } from "./components/toggle/toggle";
 export { Tag } from "./components/tag/tag";
 export { Notification } from "./components/notification/notification";
+export { Container } from "./components/container/container";
+export { IconBar } from "./components/iconbar/iconbar";
+export type { IconItem } from "./components/iconbar/iconbar";

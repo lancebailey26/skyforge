@@ -1,11 +1,11 @@
 'use client';
-import { Button, Notification } from "@skyforge/ui";
+import { Button, Notification, Container } from "@skyforge/ui";
 import { useTitle } from "../hooks/useTitle";
 import Link from "next/link";
 
 export default function HomePage() {
   useTitle("");
-  
+
   return (
     <div style={{
       display: "flex",
@@ -25,57 +25,60 @@ export default function HomePage() {
         timeout={5000}
         placement="top-right"
       />
-      <div style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%" }}>
-        <div>
-          <h1 style={{
-            fontSize: "clamp(2.5rem, 5vw, 4rem)",
-            fontWeight: 700,
-            marginBottom: "1rem",
-            lineHeight: 1.2
-          }}>
-            Skyforge
-          </h1>
-          <p style={{
-            fontSize: "1.25rem",
-            color: "var(--color-on-surface-alt)",
-            lineHeight: 1.6,
-            marginBottom: "2rem"
-          }}>
-            Building modern web experiences with clean code and thoughtful design.
-          </p>
-        </div>
+      <Container size="large" padding="lg" glass={true}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%" }}>
+          <div>
+            <h1 style={{
+              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+              fontWeight: 700,
+              marginBottom: "1rem",
+              lineHeight: 1.2
+            }}>
+              Skyforge
+            </h1>
+            <p style={{
+              fontSize: "1.25rem",
+              color: "var(--color-on-surface-alt)",
+              lineHeight: 1.6,
+              marginBottom: "2rem"
+            }}>
+              Building modern web experiences with clean code and thoughtful design.
+            </p>
+          </div>
 
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1.5rem",
-          alignItems: "center"
-        }}>
-          <Link href="/projects" style={{ textDecoration: "none" }}>
-            <Button
-              text="View Projects"
-              size="large"
-              color="primary"
-            />
-          </Link>
-          
           <div style={{
             display: "flex",
-            gap: "1rem",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            marginTop: "1rem"
+            flexDirection: "column",
+            gap: "1.5rem",
+            alignItems: "center"
           }}>
-            <Link href="/about" style={{ textDecoration: "none", color: "var(--color-on-surface-alt)" }}>
-              About
+            <Link href="/projects" style={{ textDecoration: "none" }}>
+              <Button
+                text="View Projects"
+                size="large"
+                color="primary"
+                type="link"
+              />
             </Link>
-            <span style={{ color: "var(--color-on-surface-alt)" }}>•</span>
-            <Link href="/contact" style={{ textDecoration: "none", color: "var(--color-on-surface-alt)" }}>
-              Contact
-            </Link>
+
+            <div style={{
+              display: "flex",
+              gap: "1rem",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              marginTop: "1rem"
+            }}>
+              <Link href="/about" style={{ textDecoration: "none", color: "var(--color-on-surface-alt)" }}>
+                About
+              </Link>
+              <span style={{ color: "var(--color-on-surface-alt)" }}>•</span>
+              <Link href="/contact" style={{ textDecoration: "none", color: "var(--color-on-surface-alt)" }}>
+                Contact
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

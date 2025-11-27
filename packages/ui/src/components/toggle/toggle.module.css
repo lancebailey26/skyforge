@@ -27,8 +27,11 @@
   align-items: center;
   background-color: var(--color-disabled-container);
   border-radius: var(--radius-pill);
-  transition: background-color var(--standard-time) var(--standard-ease);
+  transition:
+    background-color var(--standard-time) var(--standard-ease),
+    box-shadow var(--standard-time) var(--standard-ease);
   flex-shrink: 0;
+  box-shadow: var(--shadow-inset-disabled-container);
 }
 
 .thumb {
@@ -75,10 +78,11 @@
 
 .medium .input:checked + .track {
   background-color: var(--color-primary);
+  box-shadow: var(--shadow-inset-primary);
 }
 
 .medium .input:checked + .track .thumb {
-  transform: translateX(22px);
+  transform: translateX(24px);
 }
 
 .medium .input:checked + .track .icon {
@@ -103,6 +107,7 @@
 
 .small .input:checked + .track {
   background-color: var(--color-primary);
+  box-shadow: var(--shadow-inset-primary);
 }
 
 .small .input:checked + .track .thumb {
@@ -131,6 +136,7 @@
 
 .large .input:checked + .track {
   background-color: var(--color-primary);
+  box-shadow: var(--shadow-inset-primary);
 }
 
 .large .input:checked + .track .thumb {
@@ -167,7 +173,7 @@
 }
 
 .small.toggle:not(.disabled):active .input:checked + .track .thumb {
-  transform: translateX(16px) scale(0.95);
+  transform: translateX(18px) scale(0.95);
 }
 
 .large.toggle:not(.disabled):active .input:checked + .track .thumb {
@@ -182,7 +188,6 @@
 
 .toggle.disabled .input:checked + .track {
   background-color: var(--color-disabled-container);
-  opacity: 0.5;
 }
 
 .toggle.disabled .thumb {

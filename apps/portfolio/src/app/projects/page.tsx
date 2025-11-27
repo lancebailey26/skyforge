@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Card, Tag } from '@skyforge/ui';
 import { Project } from '@/types/project';
 import { useTitle } from '@/hooks/useTitle';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   useTitle("Projects");
@@ -42,6 +43,8 @@ export default function ProjectsPage() {
               subject={subjectContent}
               description={project.description}
               onClick={() => project.url && window.open(project.url, '_blank')}
+              headerControls={[{ icon: faGithub, onClick: () => project.repoUrl && window.open(project.repoUrl, '_blank') }]}
+              type="glass"
                 footer={
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                     {project.techStack?.map((tech, idx) => (

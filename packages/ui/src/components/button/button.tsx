@@ -16,6 +16,7 @@ interface ButtonProps {
   style?: React.CSSProperties,
   tabbable?: boolean,
   attributes?: React.ButtonHTMLAttributes<HTMLButtonElement> & { [key: `data-${string}`]: unknown }
+  type?: 'link',
 }
 
 export function Button(props: ButtonProps) {

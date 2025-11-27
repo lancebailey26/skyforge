@@ -1,0 +1,99 @@
+.iconBar {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.iconLink {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color var(--standard-time) var(--standard-ease);
+}
+
+.icon {
+    font-size: 1.5rem;
+}
+
+.tiny .icon {
+    font-size: 1rem;
+}
+
+.small .icon {
+    font-size: 1.25rem;
+}
+
+.medium .icon {
+    font-size: 1.5rem;
+}
+
+.large .icon {
+    font-size: 2rem;
+}
+
+/* Color variants */
+.primary .iconLink {
+    color: var(--color-primary);
+}
+
+.primary .iconLink:hover {
+    color: var(--color-primary);
+    opacity: 0.8;
+}
+
+.secondary .iconLink {
+    color: var(--color-secondary);
+}
+
+.secondary .iconLink:hover {
+    color: var(--color-secondary);
+    opacity: 0.8;
+}
+
+.tertiary .iconLink {
+    color: var(--color-tertiary);
+}
+
+.tertiary .iconLink:hover {
+    color: var(--color-tertiary);
+    opacity: 0.8;
+}
+
+.error .iconLink {
+    color: var(--color-error);
+}
+
+.error .iconLink:hover {
+    color: var(--color-error);
+    opacity: 0.8;
+}
+
+.warning .iconLink {
+    color: var(--color-warning);
+}
+
+.warning .iconLink:hover {
+    color: var(--color-warning);
+    opacity: 0.8;
+}
+
+.info .iconLink {
+    color: var(--color-info);
+}
+
+.info .iconLink:hover {
+    color: var(--color-info);
+    opacity: 0.8;
+}
+
+.success .iconLink {
+    color: var(--color-success);
+}
+
+.success .iconLink:hover {
+    color: var(--color-success);
+    opacity: 0.8;
+}
+
