@@ -6,17 +6,26 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "eslint src"
     },
     "dependencies": {
         "@skyforge/ui": "0.0.1",
-        "next": "latest",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "mongodb": "^7.0.0",
+        "next": "16.0.3",
+        "next-themes": "^0.4.6",
+        "react": "19.2.0",
+        "react-dom": "19.2.0",
+        "resend": "^6.5.2"
     },
     "devDependencies": {
-        "@types/node": "24.10.1",
+        "@fortawesome/fontawesome-svg-core": "^7.1.0",
+        "@fortawesome/free-brands-svg-icons": "^7.1.0",
+        "@fortawesome/free-regular-svg-icons": "^7.1.0",
+        "@fortawesome/free-solid-svg-icons": "^7.1.0",
+        "@fortawesome/react-fontawesome": "^3.1.0",
+        "@types/node": "^22.9.3",
         "@types/react": "^19.0.0",
-        "@types/react-dom": "^19.0.0"
+        "@types/react-dom": "^19.0.0",
+        "typescript": "^5.9.3"
     }
 }

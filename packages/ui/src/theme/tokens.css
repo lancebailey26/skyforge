@@ -1,0 +1,245 @@
+/* Theme-agnostic values - defined once */
+:root {
+  /* Radius */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+  --radius-pill: 9999px;
+
+  /* Spacing (8px base scale) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Typography */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 48px;
+
+  /* Motion */
+  --standard-time: 140ms;
+  --standard-ease: cubic-bezier(0.2, 0.0, 0.2, 1);
+}
+
+/* Light Theme */
+:root,
+html:not(.dark) {
+  /* Brand */
+  --color-primary: #0084ff;
+  --color-primary-soft: #e0f2fe;
+  --color-primary-inset: rgba(0, 132, 255, 0.8);
+
+  /* Surfaces */
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f5f5f5;
+
+  /* Containers */
+  --color-container-low: #fafafa;
+  --color-container: #ffffff;
+  --color-container-high: #ffffff;
+
+  /* "On" colors — text/icons on surfaces */
+  --color-on-surface: #1a1a1a;
+  --color-on-surface-alt: #4a4a4a;
+
+  /* "On" colors — text/icons on containers */
+  --color-on-container: #1a1a1a;
+  --color-on-container-alt: #4a4a4a;
+
+  /* Disabled */
+  --color-disabled: #94a3b8;
+  --color-disabled-inset: rgba(100, 116, 139, 0.8);
+  --color-disabled-container: #e2e8f0;
+  --color-disabled-container-inset: rgba(203, 213, 225, 0.8);
+  --color-on-disabled-container: #64748b;
+
+  /* Border / outline */
+  --color-border: #cbd5e1;
+  --color-outline: #94a3b8;
+
+  /* Semantic */
+  --color-success: #22c55e;
+  --color-success-inset: rgba(21, 128, 61, 0.8);
+  --color-warning: #f59e0b;
+  --color-warning-inset: rgba(217, 119, 6, 0.8);
+  --color-danger: #ef4444;
+  --color-danger-inset: rgba(220, 38, 38, 0.8);
+  --color-error: var(--color-danger);
+  --color-error-inset: var(--color-danger-inset);
+  --color-info: #3b82f6;
+  --color-info-inset: rgba(37, 99, 235, 0.8);
+
+  /* Secondary/Tertiary */
+  --color-secondary: #ff6314;
+  --color-secondary-inset: rgba(255, 99, 20, 0.8);
+  --color-tertiary: #46d160;
+  --color-tertiary-inset: rgba(70, 209, 96, 0.8);
+
+  /* "On" colors for semantic and brand colors */
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-on-tertiary: #ffffff;
+  --color-on-error: #ffffff;
+  --color-on-warning: #1a1a1a;
+  --color-on-info: #ffffff;
+  --color-on-success: #ffffff;
+
+  /* Interaction states */
+  --color-surface-hover: #e2e8f0;
+  --color-surface-pressed: #cbd5e1;
+
+  /* Base */
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* Shadows - Outset */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+
+  /* Shadows - Inset (recessed effect) */
+  --shadow-inset-sm: inset 1px 1px 2px rgba(0, 0, 0, 0.1), inset -1px -1px 2px rgba(255, 255, 255, 0.5);
+  --shadow-inset-md: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px rgba(255, 255, 255, 0.6);
+  --shadow-inset-lg: inset 3px 3px 8px rgba(0, 0, 0, 0.15), inset -3px -3px 8px rgba(255, 255, 255, 0.7);
+
+  /* Shadows - Inset with color */
+  --shadow-inset-primary: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-primary-inset);
+  --shadow-inset-success: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-success-inset);
+  --shadow-inset-warning: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-warning-inset);
+  --shadow-inset-danger: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-danger-inset);
+  --shadow-inset-error: var(--shadow-inset-danger);
+  --shadow-inset-info: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-info-inset);
+  --shadow-inset-secondary: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-secondary-inset);
+  --shadow-inset-tertiary: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-tertiary-inset);
+  --shadow-inset-disabled: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-disabled-inset);
+  --shadow-inset-disabled-container: inset 2px 2px 5px rgba(0, 0, 0, 0.12), inset -2px -2px 5px var(--color-disabled-container-inset);
+}
+
+/* Dark Theme */
+html.dark {
+  /* Brand */
+  --color-primary: #4a9eff;
+  --color-primary-soft: #1a2e4a;
+  --color-primary-inset: rgba(74, 158, 255, 0.8);
+
+  /* Background / surfaces - Reddit-inspired */
+  --color-bg: #1a1a1b;
+  --color-surface: #272729;
+  --color-surface-alt: #343536;
+
+  /* Containers */
+  --color-container-low: #272729;
+  --color-container: #272729;
+  --color-container-high: #272729;
+
+  /* On colors */
+  --color-on-surface: #d7dadc;
+  --color-on-surface-alt: #b1b3b5;
+
+  --color-on-container: #d7dadc;
+  --color-on-container-alt: #b1b3b5;
+
+  /* Disabled */
+  --color-disabled: #818384;
+  --color-disabled-inset: rgba(129, 131, 132, 0.8);
+  --color-disabled-container: #343536;
+  --color-disabled-container-inset: rgba(52, 53, 54, 0.8);
+  --color-on-disabled-container: #818384;
+
+  /* Borders */
+  --color-border: #343536;
+  --color-outline: #474748;
+
+  /* Semantic */
+  --color-success: #46d160;
+  --color-success-inset: rgba(70, 209, 96, 0.8);
+  --color-warning: #ffb800;
+  --color-warning-inset: rgba(255, 184, 0, 0.8);
+  --color-danger: #ff585b;
+  --color-danger-inset: rgba(255, 88, 91, 0.8);
+  --color-error: var(--color-danger);
+  --color-error-inset: var(--color-danger-inset);
+  --color-info: #4a9eff;
+  --color-info-inset: rgba(74, 158, 255, 0.8);
+
+  /* Secondary/Tertiary */
+  --color-secondary: #ff6314;
+  --color-secondary-inset: rgba(255, 99, 20, 0.8);
+  --color-tertiary: #46d160;
+  --color-tertiary-inset: rgba(70, 209, 96, 0.8);
+
+  /* "On" colors for semantic and brand colors */
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-on-tertiary: #ffffff;
+  --color-on-error: #ffffff;
+  --color-on-warning: #1a1a1a;
+  --color-on-info: #ffffff;
+  --color-on-success: #ffffff;
+
+  /* Interaction */
+  --color-surface-hover: #343536;
+  --color-surface-pressed: #2d2d2f;
+
+  /* Base */
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* Shadows - Outset */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.8);
+
+  /* Shadows - Inset (recessed effect) */
+  --shadow-inset-sm: inset 1px 1px 2px rgba(0, 0, 0, 0.5), inset -1px -1px 2px rgba(255, 255, 255, 0.05);
+  --shadow-inset-md: inset 2px 2px 5px rgba(0, 0, 0, 0.6), inset -2px -2px 5px rgba(255, 255, 255, 0.08);
+  --shadow-inset-lg: inset 3px 3px 8px rgba(0, 0, 0, 0.7), inset -3px -3px 8px rgba(255, 255, 255, 0.1);
+
+  /* Shadows - Inset with color */
+  --shadow-inset-primary: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-primary-inset);
+  --shadow-inset-success: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-success-inset);
+  --shadow-inset-warning: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-warning-inset);
+  --shadow-inset-danger: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-danger-inset);
+  --shadow-inset-error: var(--shadow-inset-danger);
+  --shadow-inset-info: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-info-inset);
+  --shadow-inset-secondary: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-secondary-inset);
+  --shadow-inset-tertiary: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-tertiary-inset);
+  --shadow-inset-disabled: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-disabled-inset);
+  --shadow-inset-disabled-container: inset 2px 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 5px var(--color-disabled-container-inset);
+}
+
+/* Global styles */
+* {
+  transition: background-color var(--standard-time) var(--standard-ease),
+              color var(--standard-time) var(--standard-ease),
+              border-color var(--standard-time) var(--standard-ease);
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-on-surface);
+  transition: background-color var(--standard-time) var(--standard-ease),
+              color var(--standard-time) var(--standard-ease);
+  scrollbar-gutter: stable;
+}

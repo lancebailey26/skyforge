@@ -1,0 +1,13 @@
+/* Portfolio-specific theme variables */
+
+/* Light Theme */
+:root,
+html:not(.dark) {
+  --portfolio-bg-image: url('/assets/light.png');
+}
+
+/* Dark Theme */
+html.dark {
+  --portfolio-bg-image: url('/assets/dark.png');
+}
+

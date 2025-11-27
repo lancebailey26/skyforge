@@ -1,0 +1,223 @@
+.button {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
+    border-radius: 100px;
+    border: none;
+    isolation: isolate;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    user-select: none;
+    cursor: pointer;
+
+    .icon {
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    &.noHover {
+      pointer-events: none;
+    }
+    p {
+      margin: 0;
+    }
+  
+    &:disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+      color: var(--color-on-disabled-container) !important;
+      background-color: var(--color-disabled-container) !important;
+    }
+  
+    &:focus-visible {
+      outline: 2px solid var(--color-inverse-on-surface);
+    }
+  
+    &:active {
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        background-color: var(--color-surface-pressed);
+        border-radius: inherit;
+        z-index: 1;
+      }
+    }
+  
+    &:hover {
+      color: var(--color-on-surface);
+      background-color: var(--color-surface-hover);
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        z-index: 1;
+      }
+    }
+  
+    * {
+      z-index: 2;
+    }
+  }
+  
+  .noText {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    .icon {
+      font-size: 17px;
+      margin: 0 0 0 1px;
+    }
+  }
+  
+  .small {
+    padding: 8px 16px;
+    &.noText {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  .large {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    .icon {
+      font-size: 17px;
+    }
+    &.noText {
+      width: 52px;
+      height: 52px;
+    }
+  }
+  
+  .tiny {
+    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    &.noText {
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
+    }
+  }
+
+  /* Primary Color Styles */
+  :global(.primary.filled) {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  :global(.primary.tonal) {
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+  }
+
+  :global(.primary.outline) {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+
+  :global(.primary.surface) {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+  }
+
+  :global(.primary.clear),
+  :global(.primary.underline) {
+    background-color: transparent;
+    color: var(--color-primary);
+  }
+
+  /* Secondary Color Styles */
+  :global(.secondary.filled) {
+    background-color: var(--color-on-surface-alt);
+    color: var(--color-white);
+  }
+
+  :global(.secondary.tonal) {
+    background-color: var(--color-surface-alt);
+    color: var(--color-on-surface);
+  }
+
+  :global(.secondary.outline) {
+    background-color: transparent;
+    color: var(--color-on-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  :global(.secondary.surface) {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+  }
+
+  :global(.secondary.clear),
+  :global(.secondary.underline) {
+    background-color: transparent;
+    color: var(--color-on-surface);
+  }
+
+  /* Tertiary Color Styles */
+  :global(.tertiary.filled) {
+    background-color: var(--color-on-container-alt);
+    color: var(--color-white);
+  }
+
+  :global(.tertiary.tonal) {
+    background-color: var(--color-container-low);
+    color: var(--color-on-container);
+  }
+
+  :global(.tertiary.outline) {
+    background-color: transparent;
+    color: var(--color-on-container);
+    border: 1px solid var(--color-border);
+  }
+
+  :global(.tertiary.surface) {
+    background-color: var(--color-surface);
+    color: var(--color-on-container);
+  }
+
+  :global(.tertiary.clear),
+  :global(.tertiary.underline) {
+    background-color: transparent;
+    color: var(--color-on-container);
+  }
+
+  /* Error Color Styles */
+  :global(.error.filled) {
+    background-color: var(--color-error);
+    color: var(--color-white);
+  }
+
+  :global(.error.tonal) {
+    background-color: var(--color-error);
+    opacity: 0.1;
+    color: var(--color-error);
+  }
+
+  :global(.error.outline) {
+    background-color: transparent;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+  }
+
+  :global(.error.surface) {
+    background-color: var(--color-surface);
+    color: var(--color-error);
+  }
+
+  :global(.error.clear),
+  :global(.error.underline) {
+    background-color: transparent;
+    color: var(--color-error);
+  }
