@@ -18,6 +18,7 @@ export default function HomePage() {
       margin: "0 auto",
       textAlign: "center"
     }}>
+      {process.env.NODE_ENV === 'development' && (
       <Notification
         title="Welcome to Skyforge"
         description="You are viewing the development version of my portfolio. Some features may not be available yet, and some may be buggy, because this is in active development."
@@ -25,6 +26,7 @@ export default function HomePage() {
         timeout={5000}
         placement="top-right"
       />
+      )}
       <Container size="large" padding="lg" glass={true}>
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem", width: "100%" }}>
           <div>
