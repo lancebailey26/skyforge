@@ -1,5 +1,4 @@
 'use client';
-import type React from 'react';
 import { useState, useMemo } from 'react';
 import { Container } from '@skyforge/ui';
 import { Slider } from '@skyforge/ui';
