@@ -12,3 +12,4 @@ export { Notification } from "./components/notification/notification";
 export { Container } from "./components/container/container";
 export { IconBar } from "./components/iconbar/iconbar";
 export type { IconItem } from "./components/iconbar/iconbar";
+export { Slider } from "./components/slider/slider";

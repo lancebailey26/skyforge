@@ -4,10 +4,12 @@ import { useTitle } from '@/hooks/useTitle';
 import { Lab } from '@/types/lab';
 import { useRouter } from 'next/navigation';
 import { metadata as prismMetadata } from './prism/metadata';
+import { metadata as refractMetadata } from './refract/metadata';
 
 // Import all lab metadata here
 const labs: Lab[] = [
   prismMetadata,
+  refractMetadata,
 ];
 
 export default function LabsPage() {
@@ -38,7 +40,7 @@ export default function LabsPage() {
               lineHeight: 1.6,
               maxWidth: '800px'
             }}>
-              Experimental projects and tools.
+              Experimental projects and tools. Usually things too small to be a full app.
             </p>
           </div>
 
@@ -52,7 +54,7 @@ export default function LabsPage() {
               <Card
                 key={lab.id}
                 title={lab.title}
-                subject={lab.color ? { color: lab.color } : undefined}
+                subject={{ src: `/assets/${lab.id}.png`, alt: `${lab.title} screenshot` }}
                 description={lab.description}
                 size="small"
                 type="glass"

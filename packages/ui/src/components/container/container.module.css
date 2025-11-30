@@ -56,15 +56,16 @@
   /* GLASS VARIANT (based on glass-card) */
   .glass {
     position: relative;
-    background: rgba(255, 255, 255, 0.32);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow:
+    background: var(--glass-bg, rgba(255, 255, 255, 0.32));
+    backdrop-filter: var(--glass-blur, blur(50px));
+    -webkit-backdrop-filter: var(--glass-blur, blur(50px));
+    border: var(--glass-border, 1px solid rgba(255, 255, 255, 0.3));
+    box-shadow: var(--glass-shadow,
       0 8px 32px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.5),
       inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-      inset 0 0 30px 15px rgba(255, 255, 255, 0.15);
+      inset 0 0 30px 15px rgba(255, 255, 255, 0.15)
+    );
     overflow: hidden;
   }
   
@@ -75,12 +76,12 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(
+    background: var(--glass-border-top, linear-gradient(
       90deg,
       transparent,
       rgba(255, 255, 255, 0.8),
       transparent
-    );
+    ));
   }
   
   .glass::after {
@@ -90,11 +91,11 @@
     left: 0;
     width: 1px;
     height: 100%;
-    background: linear-gradient(
+    background: var(--glass-border-left, linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.8),
       transparent,
       rgba(255, 255, 255, 0.3)
-    );
+    ));
   }
   

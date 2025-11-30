@@ -1,0 +1,90 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    width: 100%;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: var(--color-on-surface);
+  }
+  
+  .label {
+    font-weight: 500;
+  }
+  
+  .currentValue {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  
+  .controlRow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  
+  .range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-surface-alt);
+    outline: none;
+  }
+  
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 30%, transparent);
+    cursor: pointer;
+    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+  }
+  
+  .range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 30%, transparent);
+    cursor: pointer;
+    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+  }
+  
+  .range::-webkit-slider-thumb:hover {
+    transform: scale(1.05);
+  }
+  
+  .range::-moz-range-thumb:hover {
+    transform: scale(1.05);
+  }
+  
+  .range::-webkit-slider-thumb:active {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
+  
+  .range::-moz-range-thumb:active {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 40%, transparent);
+  }
+  
+  .range::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-surface-alt);
+  }
+  
