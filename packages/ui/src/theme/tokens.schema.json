@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Skyforge UI semantic tokens",
+  "description": "Contract for CSS custom properties consumed by @skyforge/ui. Theme switches via html.dark (next-themes) and optional html[data-density].",
+  "type": "object",
+  "properties": {
+    "primitives": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "--radius-xs",
+          "--radius-sm",
+          "--radius-md",
+          "--radius-lg",
+          "--radius-xl",
+          "--radius-pill",
+          "--space-1",
+          "--space-2",
+          "--space-3",
+          "--space-4",
+          "--space-5",
+          "--space-6",
+          "--space-8",
+          "--space-10",
+          "--space-12",
+          "--font-sans",
+          "--font-size-xs",
+          "--font-size-sm",
+          "--font-size-md",
+          "--font-size-lg",
+          "--font-size-xl",
+          "--font-size-2xl",
+          "--font-size-3xl",
+          "--standard-time",
+          "--standard-ease",
+          "--focus-ring-width",
+          "--focus-ring-offset",
+          "--z-header",
+          "--z-tooltip",
+          "--z-notification"
+        ]
+      }
+    },
+    "semantic": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "--color-bg",
+          "--color-surface",
+          "--color-surface-alt",
+          "--color-on-surface",
+          "--color-on-surface-alt",
+          "--color-primary",
+          "--color-border",
+          "--color-outline",
+          "--focus-ring-color",
+          "--elevation-0",
+          "--elevation-1",
+          "--elevation-2",
+          "--elevation-3",
+          "--glass-bg",
+          "--glass-blur",
+          "--glass-border-color",
+          "--glass-border-width"
+        ]
+      }
+    }
+  }
+}

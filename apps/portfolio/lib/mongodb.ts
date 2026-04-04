@@ -52,14 +52,16 @@ declare global {
 }
 
 function getClientPromise(): Promise<MongoClient> {
+  console.log('getting client promise');
   if(clientPromise) {
     return clientPromise;
   }
-
+  console.log('getting uri');
   const uri = getMongoUri();
-
+  console.log('uri', uri);
   if(process.env.NODE_ENV === 'development') {
     if(!global._mongoClientPromise) {
+      console.log('uri', uri);
       client = new MongoClient(uri);
       global._mongoClientPromise = client.connect();
     }
@@ -73,6 +75,7 @@ function getClientPromise(): Promise<MongoClient> {
 }
 
 export async function getDb(): Promise<Db> {
+  console.log('getting db');
   const client = await getClientPromise();
   const env = getEnvironment();
   // Both 'local' and 'dev' use 'skyforge-dev'

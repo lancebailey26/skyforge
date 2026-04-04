@@ -1,5 +1,5 @@
 'use client';
-import { Button, Notification, Container } from "@skyforge/ui";
+import { Button, Notification, Container, Tooltip } from "@skyforge/ui";
 import { useTitle } from "../hooks/useTitle";
 import Link from "next/link";
 
@@ -60,7 +60,7 @@ export default function HomePage() {
                 size="large"
                 color="primary"
                 type="link"
-              />
+              />    
             </Link>
 
             <div style={{
@@ -74,9 +74,11 @@ export default function HomePage() {
                 About
               </Link>
               <span style={{ color: "var(--color-on-surface-alt)" }}>•</span>
-              <Link href="/contact" style={{ textDecoration: "none", color: "var(--color-on-surface-alt)" }}>
-                Contact
-              </Link>
+              <Tooltip placement="top" content="About" size="large" style={{ color: "linear-gradient(to right, #0084ff, #0052cc)" }}>
+                <Link href="/contact" style={{ textDecoration: "none", color: "var(--color-on-surface-alt)" }}>
+                  Contact
+                </Link>
+              </Tooltip>
             </div>
           </div>
         </div>

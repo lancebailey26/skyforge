@@ -5,11 +5,14 @@ import { Lab } from '@/types/lab';
 import { useRouter } from 'next/navigation';
 import { metadata as prismMetadata } from './prism/metadata';
 import { metadata as refractMetadata } from './refract/metadata';
-
+import { metadata as wasteOfTimeMetadata } from './wasteOfTime/metadata';
+import { metadata as workflowMetadata } from './workflow/metadata';
 // Import all lab metadata here
 const labs: Lab[] = [
   prismMetadata,
   refractMetadata,
+  wasteOfTimeMetadata,
+  workflowMetadata,
 ];
 
 export default function LabsPage() {

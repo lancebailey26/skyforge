@@ -15,7 +15,6 @@ export default function ProjectsPage() {
       })
       .catch(err => console.error(err));
   }, []);
-
   return (
     <div style={{
       padding: '2rem',

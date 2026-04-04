@@ -122,15 +122,17 @@ export default function ContactPage() {
           }}>
             <Input
               label="Name"
+              name="name"
               type="text"
               value={formData.name}
               onChange={handleInputChange('name')}
-              placeholder="Your name"
+              // placeholder="Your name"
               style="fill"
             />
 
             <Input
               label="Email"
+              name="email"
               type="email"
               value={formData.email}
               onChange={handleInputChange('email')}

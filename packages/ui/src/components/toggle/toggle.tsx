@@ -59,7 +59,7 @@ export function Toggle(props: ToggleProps) {
         onChange={handleChange}
         disabled={props.disabled}
         ref={ref}
-        tabIndex={props.tabbable === false ? -1 : 0}
+        tabIndex={props.tabbable === false ? -1 : undefined}
         className={styles.input}
         {...props.attributes}
       />

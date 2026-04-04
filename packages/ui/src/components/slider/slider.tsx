@@ -1,6 +1,6 @@
 'use client';
 import type React from 'react';
-import { useMemo } from 'react';
+import { useMemo, useId } from 'react';
 import styles from './slider.module.css';
 
 interface SliderProps {
@@ -37,16 +37,26 @@ export function Slider(props: SliderProps) {
     [value, formatValue]
   );
 
+  const reactId = useId();
+  const rangeId = `slider-${reactId.replace(/:/g, '')}`;
+
   return (
     <div className={[styles.wrapper, className].filter(Boolean).join(' ')} style={style}>
       {label && (
         <div className={styles.header}>
-          <span className={styles.label}>{label}</span>
-          {showValue && <span className={styles.currentValue}>{displayValue}</span>}
+          <label className={styles.label} htmlFor={rangeId}>
+            {label}
+          </label>
+          {showValue && (
+            <span className={styles.currentValue} aria-live="polite">
+              {displayValue}
+            </span>
+          )}
         </div>
       )}
       <div className={styles.controlRow}>
         <input
+          id={rangeId}
           type="range"
           className={styles.range}
           min={min}
@@ -54,6 +64,10 @@ export function Slider(props: SliderProps) {
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuenow={value}
+          aria-valuetext={displayValue}
           {...attributes}
         />
       </div>

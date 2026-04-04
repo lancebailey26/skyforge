@@ -1,0 +1,210 @@
+.tooltip {
+  position: fixed;
+  z-index: var(--z-tooltip);
+  pointer-events: none;
+  opacity: 0;
+  animation: tooltipFadeIn var(--motion-enter-duration) var(--standard-ease) forwards;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+.content {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-container-high);
+  color: var(--color-on-container);
+  box-shadow: var(--elevation-2);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* Size variants */
+.small .content {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  max-width: 200px;
+}
+
+.medium .content {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  max-width: 300px;
+}
+
+.large .content {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-md);
+  max-width: 400px;
+}
+
+/* Color variants */
+.default .content {
+  background-color: var(--color-container-high);
+  color: var(--color-on-container);
+}
+
+.primary .content {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.secondary .content {
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+}
+
+.tertiary .content {
+  background-color: var(--color-tertiary);
+  color: var(--color-on-tertiary);
+}
+
+/* Arrow */
+.arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Arrow for top placement */
+.top .arrow,
+.top-left .arrow,
+.top-right .arrow {
+  bottom: -6px;
+  border-width: 6px 6px 0 6px;
+  border-color: var(--color-container-high) transparent transparent transparent;
+}
+
+.top .arrow {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.top-left .arrow {
+  left: 12px;
+}
+
+.top-right .arrow {
+  right: 12px;
+}
+
+/* Arrow for bottom placement */
+.bottom .arrow,
+.bottom-left .arrow,
+.bottom-right .arrow {
+  top: -6px;
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent var(--color-container-high) transparent;
+}
+
+.bottom .arrow {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom-left .arrow {
+  left: 12px;
+}
+
+.bottom-right .arrow {
+  right: 12px;
+}
+
+/* Arrow for left placement */
+.left .arrow {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 6px;
+  border-color: transparent transparent transparent var(--color-container-high);
+}
+
+/* Arrow for right placement */
+.right .arrow {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 6px 6px 0;
+  border-color: transparent var(--color-container-high) transparent transparent;
+}
+
+/* Arrow colors for primary variant */
+.primary.top .arrow,
+.primary.top-left .arrow,
+.primary.top-right .arrow {
+  border-color: var(--color-primary) transparent transparent transparent;
+}
+
+.primary.bottom .arrow,
+.primary.bottom-left .arrow,
+.primary.bottom-right .arrow {
+  border-color: transparent transparent var(--color-primary) transparent;
+}
+
+.primary.left .arrow {
+  border-color: transparent transparent transparent var(--color-primary);
+}
+
+.primary.right .arrow {
+  border-color: transparent var(--color-primary) transparent transparent;
+}
+
+/* Arrow colors for secondary variant */
+.secondary.top .arrow,
+.secondary.top-left .arrow,
+.secondary.top-right .arrow {
+  border-color: var(--color-secondary) transparent transparent transparent;
+}
+
+.secondary.bottom .arrow,
+.secondary.bottom-left .arrow,
+.secondary.bottom-right .arrow {
+  border-color: transparent transparent var(--color-secondary) transparent;
+}
+
+.secondary.left .arrow {
+  border-color: transparent transparent transparent var(--color-secondary);
+}
+
+.secondary.right .arrow {
+  border-color: transparent var(--color-secondary) transparent transparent;
+}
+
+/* Arrow colors for tertiary variant */
+.tertiary.top .arrow,
+.tertiary.top-left .arrow,
+.tertiary.top-right .arrow {
+  border-color: var(--color-tertiary) transparent transparent transparent;
+}
+
+.tertiary.bottom .arrow,
+.tertiary.bottom-left .arrow,
+.tertiary.bottom-right .arrow {
+  border-color: transparent transparent var(--color-tertiary) transparent;
+}
+
+.tertiary.left .arrow {
+  border-color: transparent transparent transparent var(--color-tertiary);
+}
+
+.tertiary.right .arrow {
+  border-color: transparent var(--color-tertiary) transparent transparent;
+}
+

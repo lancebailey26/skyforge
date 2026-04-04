@@ -38,6 +38,11 @@
     background: var(--color-surface-alt);
     outline: none;
   }
+
+  .range:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
   
   .range::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -49,7 +54,8 @@
     border: 2px solid var(--color-surface);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 30%, transparent);
     cursor: pointer;
-    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    transition: transform var(--standard-time) var(--standard-ease),
+      box-shadow var(--standard-time) var(--standard-ease);
   }
   
   .range::-moz-range-thumb {
@@ -60,7 +66,8 @@
     border: 2px solid var(--color-surface);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 30%, transparent);
     cursor: pointer;
-    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    transition: transform var(--standard-time) var(--standard-ease),
+      box-shadow var(--standard-time) var(--standard-ease);
   }
   
   .range::-webkit-slider-thumb:hover {

@@ -1,0 +1,79 @@
+.node {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-container);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-height: 40px;
+  box-sizing: border-box;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-on-surface);
+  transition: background-color var(--standard-time) var(--standard-ease),
+              box-shadow var(--standard-time) var(--standard-ease);
+}
+
+.node.clickable {
+  cursor: pointer;
+}
+
+.node.clickable:hover {
+  background-color: var(--color-surface-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.node.clickable:active {
+  background-color: var(--color-surface-pressed);
+}
+
+.node.clickable:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.node.customized {
+  background-color: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.node.add {
+  background-color: var(--color-container);
+  border-color: var(--color-border);
+  opacity: 0.8;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.node.add .icon {
+  color: var(--color-on-surface-alt);
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-on-surface);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.node.customized .label {
+  color: var(--color-on-surface);
+}
+
+
+
+

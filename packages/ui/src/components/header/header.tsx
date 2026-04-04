@@ -44,6 +44,7 @@ export function Header(props: HeaderProps) {
               onClick={toggleMobileMenu}
               aria-label="Toggle navigation menu"
               aria-expanded={isMobileMenuOpen}
+              aria-controls={isMobileMenuOpen ? 'skyforge-primary-nav-menu' : undefined}
             >
               <FontAwesomeIcon icon={isMobileMenuOpen ? faXmark : faBars} />
             </button>
@@ -57,9 +58,9 @@ export function Header(props: HeaderProps) {
         </div>
 
         {(props.navigation || props.actions) && isMobileMenuOpen && (
-          <div className={styles.mobileMenu}>
+          <div id="skyforge-primary-nav-menu" className={styles.mobileMenu}>
             {props.navigation && (
-              <nav className={styles.mobileNav}>
+              <nav className={styles.mobileNav} aria-label="Primary">
                 <ul className={styles.mobileNavList}>
                   {props.navigation.items.map((item, index) => (
                     <li key={index} className={styles.mobileNavItem}>

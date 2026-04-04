@@ -77,5 +77,6 @@ export async function getDb(): Promise<Db> {
   const env = getEnvironment();
   // Both 'local' and 'dev' use 'skyforge-dev'
   const dbName = (env === 'local' || env === 'dev') ? 'skyforge-dev' : `skyforge-${env}`;
+  console.log('dbName', dbName);
   return client.db(dbName);
 }

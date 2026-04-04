@@ -6,69 +6,64 @@
     flex-direction: column;
     gap: var(--space-4);
     background-color: var(--color-surface);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--elevation-3);
     border-radius: var(--radius-lg);
   }
-  
+
   /* SIZE VARIANTS */
   .small {
     max-width: 420px;
     border-radius: var(--radius-md);
   }
-  
+
   .medium {
     max-width: 640px;
   }
-  
+
   .large {
     max-width: 960px;
   }
-  
+
   .xlarge {
     max-width: 1280px;
   }
-  
+
   .full {
     max-width: 100%;
   }
-  
+
   /* PADDING */
   .none {
     padding: 0;
   }
-  
+
   .sm {
     padding: var(--space-3);
   }
-  
+
   .md {
     padding: var(--space-4);
   }
-  
+
   .lg {
     padding: var(--space-6);
   }
-  
+
   .xl {
     padding: var(--space-8);
   }
-  
-  /* GLASS VARIANT (based on glass-card) */
+
+  /* Glass — semantic tokens from theme */
   .glass {
     position: relative;
-    background: var(--glass-bg, rgba(255, 255, 255, 0.32));
-    backdrop-filter: var(--glass-blur, blur(50px));
-    -webkit-backdrop-filter: var(--glass-blur, blur(50px));
-    border: var(--glass-border, 1px solid rgba(255, 255, 255, 0.3));
-    box-shadow: var(--glass-shadow,
-      0 8px 32px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-      inset 0 0 30px 15px rgba(255, 255, 255, 0.15)
-    );
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border-width) solid var(--glass-border-color);
+    box-shadow: var(--glass-shadow);
     overflow: hidden;
   }
-  
+
   .glass::before {
     content: '';
     position: absolute;
@@ -76,14 +71,16 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: var(--glass-border-top, linear-gradient(
+    background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.8),
+      var(--glass-highlight),
       transparent
-    ));
+    );
+    opacity: 0.85;
+    pointer-events: none;
   }
-  
+
   .glass::after {
     content: '';
     position: absolute;
@@ -91,11 +88,12 @@
     left: 0;
     width: 1px;
     height: 100%;
-    background: var(--glass-border-left, linear-gradient(
+    background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.8),
+      var(--glass-highlight),
       transparent,
-      rgba(255, 255, 255, 0.3)
-    ));
+      color-mix(in oklch, var(--glass-highlight) 40%, transparent)
+    );
+    opacity: 0.6;
+    pointer-events: none;
   }
-  

@@ -1,5 +1,8 @@
 import "./theme/tokens.css";
+export { setSkyforgeDensity } from "./density";
+export type { SkyforgeDensity } from "./density";
 export { Button } from "./components/button/button";
+export type { ButtonProps } from "./components/button/button";
 export { Input } from "./components/input/input";
 export { Card } from "./components/card/card";
 export { Header } from "./components/header/header";
@@ -13,3 +16,19 @@ export { Container } from "./components/container/container";
 export { IconBar } from "./components/iconbar/iconbar";
 export type { IconItem } from "./components/iconbar/iconbar";
 export { Slider } from "./components/slider/slider";
+export { Tooltip } from "./components/tooltip/tooltip";
+export { WorkflowBuilder } from "./components/workflow/workflow";
+export type { 
+  WorkflowBuilderProps,
+  WorkflowInput,
+  WorkflowOutput,
+  WorkflowProcessingNode,
+  WorkflowJunction,
+  WorkflowConnection
+} from "./components/workflow/workflow";
+export { WorkflowNode } from "./components/workflow/node/node";
+export type { WorkflowNodeProps } from "./components/workflow/node/node";
+export { ProcessingNode } from "./components/workflow/processing-node/processing-node";
+export type { ProcessingNodeProps } from "./components/workflow/processing-node/processing-node";
+export { Junction } from "./components/workflow/junction/junction";
+export type { JunctionProps } from "./components/workflow/junction/junction";
