@@ -1,5 +1,5 @@
 'use client';
-import { Container, Button } from '@skyforge/ui';
+import { Container, Button } from '@lancebailey26/skyforge-ui';
 import { useTitle } from '@/hooks/useTitle';
 import { useState } from 'react';
 export default function WasteOfTimePage() {

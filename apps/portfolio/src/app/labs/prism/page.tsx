@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
-import { Card, Input, Button, Container } from '@skyforge/ui';
+import { Card, Input, Button, Container } from '@lancebailey26/skyforge-ui';
 import { useTitle } from '@/hooks/useTitle';
 
 export default function PrismPage() {

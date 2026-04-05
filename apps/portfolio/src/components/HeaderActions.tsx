@@ -1,6 +1,6 @@
 'use client';
 
-import { Toggle } from '@skyforge/ui';
+import { Toggle } from '@lancebailey26/skyforge-ui';
 import { useTheme } from 'next-themes';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';

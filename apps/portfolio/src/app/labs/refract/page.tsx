@@ -1,7 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
-import { Container } from '@skyforge/ui';
-import { Slider } from '@skyforge/ui';
+import { Container } from '@lancebailey26/skyforge-ui';
+import { Slider } from '@lancebailey26/skyforge-ui';
 import { useTitle } from '@/hooks/useTitle';
 
 export default function RefractPage() {

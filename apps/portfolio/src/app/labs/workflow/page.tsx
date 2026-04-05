@@ -1,6 +1,6 @@
 'use client';
 import { useState, useCallback, useMemo } from 'react';
-import { Container, WorkflowBuilder, Button } from '@skyforge/ui';
+import { Container, WorkflowBuilder, Button } from '@lancebailey26/skyforge-ui';
 import { useTitle } from '@/hooks/useTitle';
 import type { 
   WorkflowInput, 
@@ -8,7 +8,7 @@ import type {
   WorkflowProcessingNode,
   WorkflowJunction,
   WorkflowConnection 
-} from '@skyforge/ui';
+} from '@lancebailey26/skyforge-ui';
 import { 
   faInfoCircle, 
   faArrowLeft, 

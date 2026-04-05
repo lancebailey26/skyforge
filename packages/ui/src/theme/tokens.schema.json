@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Skyforge UI semantic tokens",
-  "description": "Contract for CSS custom properties consumed by @skyforge/ui. Theme switches via html.dark (next-themes) and optional html[data-density].",
+  "description": "Contract for CSS custom properties consumed by @lancebailey26/skyforge-ui. Theme switches via html.dark (next-themes) and optional html[data-density].",
   "type": "object",
   "properties": {
     "primitives": {

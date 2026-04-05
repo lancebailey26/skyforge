@@ -1,10 +1,10 @@
 import "./theme/tokens.css";
-export { setSkyforgeDensity } from "./density";
-export type { SkyforgeDensity } from "./density";
 export { Button } from "./components/button/button";
 export type { ButtonProps } from "./components/button/button";
 export { Input } from "./components/input/input";
 export { Card } from "./components/card/card";
+export { Crawler } from "./components/crawler/crawler";
+export type { CrawlerProps } from "./components/crawler/crawler";
 export { Header } from "./components/header/header";
 export type { HeaderProps } from "./components/header/header";
 export { Navigation } from "./components/header/navigation/navigation";

@@ -21,7 +21,7 @@ skyforge/
 │   ├── portfolio/      # Primary website
 │   └── labs/           # Experimental playgrounds and prototypes
 └── packages/
-    └── ui/             # Shared React component library (@skyforge/ui)
+    └── ui/             # Shared React component library (@lancebailey26/skyforge-ui)
 ```    
 
 
