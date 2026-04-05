@@ -5,7 +5,6 @@ import ReactFlow, {
   Background,
   Controls,
   Node,
-  Edge,
   Connection,
   useNodesState,
   useEdgesState,
@@ -13,7 +12,6 @@ import ReactFlow, {
   ConnectionMode,
   MarkerType,
   ReactFlowProvider,
-  useReactFlow,
   Handle,
   Position,
 } from 'reactflow';
@@ -26,6 +24,7 @@ import { FitViewHelper } from './workflow-inner';
 import styles from './workflow.module.css';
 
 export interface WorkflowInput {
+  onToggle: (enabled: boolean) => void;
   id: string;
   label: string;
   icon?: IconProp;
@@ -61,6 +60,12 @@ export interface WorkflowConnection {
   enabled?: boolean;
 }
 
+/** React Flow node data for outputs (toggle handler injected by the builder). */
+type WorkflowOutputNodeData = WorkflowOutput & {
+  enabled: boolean;
+  onToggle: (enabled: boolean) => void;
+};
+
 export interface WorkflowBuilderProps {
   title: string;
   inputs: WorkflowInput[];
@@ -78,7 +83,7 @@ export interface WorkflowBuilderProps {
 }
 
 // Custom node types
-const InputNodeType = ({ data }: { data: any }) => {
+const InputNodeType = ({ data }: { data: WorkflowInput }) => {
   return (
     <div className={styles.reactFlowNode}>
       <Handle type="source" position={Position.Right} />
@@ -86,7 +91,7 @@ const InputNodeType = ({ data }: { data: any }) => {
         id={data.id}
         label={data.label}
         icon={data.icon}
-        enabled={data.enabled}
+        enabled={data.enabled ?? false}
         onToggle={data.onToggle}
         variant="input"
       />
@@ -94,7 +99,7 @@ const InputNodeType = ({ data }: { data: any }) => {
   );
 };
 
-const OutputNodeType = ({ data }: { data: any }) => {
+const OutputNodeType = ({ data }: { data: WorkflowOutputNodeData }) => {
   return (
     <div className={styles.reactFlowNode}>
       <Handle type="target" position={Position.Left} />
@@ -110,7 +115,7 @@ const OutputNodeType = ({ data }: { data: any }) => {
   );
 };
 
-const ProcessingNodeType = ({ data }: { data: any }) => {
+const ProcessingNodeType = ({ data }: { data: WorkflowProcessingNode }) => {
   return (
     <div className={styles.reactFlowNode}>
       <Handle type="target" position={Position.Left} />
@@ -126,7 +131,7 @@ const ProcessingNodeType = ({ data }: { data: any }) => {
   );
 };
 
-const JunctionNodeType = ({ data }: { data: any }) => {
+const JunctionNodeType = ({ data }: { data: WorkflowJunction }) => {
   return (
     <div className={styles.reactFlowNode}>
       <Handle type="target" position={Position.Left} />
@@ -235,7 +240,7 @@ function WorkflowBuilderInner({
     junctions.forEach(junction => {
       // Connect all active inputs to this junction
       inputs.forEach(input => {
-        if (input.enabled) {
+        if(input.enabled) {
           auto.push({
             from: input.id,
             to: junction.id,
@@ -248,7 +253,7 @@ function WorkflowBuilderInner({
       
       // Connect junction to all active outputs
       outputs.forEach(output => {
-        if (output.enabled) {
+        if(output.enabled) {
           auto.push({
             from: junction.id,
             to: output.id,
@@ -266,7 +271,7 @@ function WorkflowBuilderInner({
   // Merge manual connections with auto-generated ones
   const allConnections = useMemo(() => {
     // If there are junctions, use auto-connections; otherwise use manual connections
-    if (junctions.length > 0) {
+    if(junctions.length > 0) {
       return autoConnections;
     }
     return connections;
@@ -279,14 +284,14 @@ function WorkflowBuilderInner({
     junctions.forEach(junction => {
       // Count active inputs connecting to this junction
       const inputCount = allConnections.filter(conn => {
-        if (conn.to !== junction.id) return false;
+        if(conn.to !== junction.id)return false;
         const sourceEnabled = enabledStates.get(conn.from) ?? true;
         return conn.enabled !== false && sourceEnabled;
       }).length;
       
       // Count active outputs connecting from this junction
       const outputCount = allConnections.filter(conn => {
-        if (conn.from !== junction.id) return false;
+        if(conn.from !== junction.id)return false;
         const targetEnabled = enabledStates.get(conn.to) ?? true;
         return conn.enabled !== false && targetEnabled;
       }).length;
@@ -365,9 +370,12 @@ function WorkflowBuilderInner({
       });
     
     // Debug logging
-    if (process.env.NODE_ENV === 'development') {
+    if(process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
       console.log('Creating edges:', edges.length, edges);
+      // eslint-disable-next-line no-console
       console.log('Node IDs:', Array.from(allNodeIds));
+      // eslint-disable-next-line no-console
       console.log('Connections:', allConnections);
     }
     

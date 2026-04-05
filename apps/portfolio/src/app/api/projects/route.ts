@@ -5,9 +5,7 @@ import { WithId, Document } from 'mongodb';
 
 export async function GET() {
   try {
-    console.log('getting db');
     const db = await getDb();
-    console.log('db is connected', db);
     const docs = await db
       .collection('projects')
       .find({ status: { $ne: 'archived' }})
