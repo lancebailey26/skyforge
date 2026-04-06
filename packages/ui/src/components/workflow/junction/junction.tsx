@@ -31,4 +31,3 @@ export const Junction = forwardRef<HTMLDivElement, JunctionProps>(
 );
 
 Junction.displayName = 'Junction';
-

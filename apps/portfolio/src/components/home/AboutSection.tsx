@@ -12,9 +12,8 @@ export function AboutSection() {
           <h2 className="about-hero-title">Skyforge</h2>
           <p className="about-hero-lead">Hi! I&apos;m Lance.</p>
           <p className="about-hero-body">
-            Welcome to Skyforge, which is a goofy name I use for my portfolio. Here you get a glimpse of the technologies
-            I&apos;m familiar with. You&apos;ll also find some of the projects I&apos;ve worked on, and some that are in
-            active development. This is where all my inspiration and creativity comes from.
+            Welcome to Skyforge — my portfolio and playground. Explore the technologies I use, the projects I&apos;ve
+            shipped, and what I&apos;m building. This is where my inspiration and creativity come from.
           </p>
         </div>
       </div>

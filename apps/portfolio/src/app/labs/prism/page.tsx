@@ -10,9 +10,9 @@ const INITIAL_COLOR = '#0084ff';
 
 function normalizeHexForApi(value: string): string | null {
   let h = value.trim();
-  if(h.length === 0) return null;
+  if(h.length === 0)return null;
   if(!h.startsWith('#')) h = `#${h}`;
-  if(/^#[0-9A-Fa-f]{6}$/i.test(h)) return h.toLowerCase();
+  if(/^#[0-9A-Fa-f]{6}$/i.test(h))return h.toLowerCase();
   if(/^#[0-9A-Fa-f]{3}$/i.test(h)) {
     const r = h[1];
     const g = h[2];
@@ -58,7 +58,7 @@ export default function PrismPage() {
 
   useEffect(() => {
     const el = colorInputRef.current;
-    if(!el) return;
+    if(!el)return;
     const onPickerCommit = () => {
       void fetchPalette(el.value);
     };
@@ -73,14 +73,14 @@ export default function PrismPage() {
 
   const handleHexBlur = (value: string) => {
     const apiHex = normalizeHexForApi(value);
-    if(!apiHex || apiHex === lastFetchedColorRef.current) return;
+    if(!apiHex || apiHex === lastFetchedColorRef.current)return;
     setBaseColor(apiHex);
     void fetchPalette(apiHex);
   };
 
   const handleGenerate = () => {
     const apiHex = normalizeHexForApi(baseColor);
-    if(!apiHex) return;
+    if(!apiHex)return;
     setBaseColor(apiHex);
     void fetchPalette(apiHex);
   };

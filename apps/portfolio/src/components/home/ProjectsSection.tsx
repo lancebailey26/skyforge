@@ -15,7 +15,7 @@ function MoreToComeCard() {
   return (
     <Card
       title="More to come soon"
-      description="Additional projects and case studies will show up here—this space is reserved for what ships next."
+      description="Additional projects and case studies will show up here. Stay tuned!."
       subject={{ color: 'color-mix(in oklch, var(--color-primary) 8%, var(--color-container-high))' }}
       type="glass"
       size="medium"
@@ -124,7 +124,7 @@ export function ProjectsSection() {
               Projects
             </h2>
             <p className="tech-marquee-subtitle">
-              Things I&apos;ve built or shaped end to end—product work, side quests, and ideas pushed close to the
+              Things I&apos;ve built or shaped end to end. Product work, side quests, and ideas pushed close to the
               finish line.
             </p>
           </header>

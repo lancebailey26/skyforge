@@ -7,7 +7,3 @@ export const metadata: Lab = {
   route: '/labs/workflow',
   color: '#0084ff'
 };
-
-
-
-

@@ -47,9 +47,9 @@ export const ProcessingNode = forwardRef<HTMLDivElement, ProcessingNodeProps>(
       setEditing(false);
     }, [label]);
 
-    const displayIcon = variant === 'customized' 
-      ? (icon || faCheck)
-      : icon;
+    const displayIcon = variant === 'customized' ? 
+      (icon || faCheck) :
+      icon;
 
     const iconActivatesClick = Boolean(onClick && onLabelChange);
 
@@ -64,10 +64,10 @@ export const ProcessingNode = forwardRef<HTMLDivElement, ProcessingNodeProps>(
         role={onClick && !iconActivatesClick ? 'button' : undefined}
         tabIndex={onClick && !iconActivatesClick ? 0 : undefined}
         onKeyDown={(e) => {
-          if (!onClick || iconActivatesClick) {
+          if(!onClick || iconActivatesClick) {
             return;
           }
-          if (e.key === 'Enter' || e.key === ' ') {
+          if(e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             onClick();
           }
@@ -79,23 +79,23 @@ export const ProcessingNode = forwardRef<HTMLDivElement, ProcessingNodeProps>(
             role={iconActivatesClick ? 'button' : undefined}
             tabIndex={iconActivatesClick ? 0 : undefined}
             onClick={
-              iconActivatesClick && onClick
-                ? (e) => {
+              iconActivatesClick && onClick ?
+                (e) => {
                     e.stopPropagation();
                     onClick();
-                  }
-                : undefined
+                  } :
+                undefined
             }
             onKeyDown={
-              iconActivatesClick && onClick
-                ? (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+              iconActivatesClick && onClick ?
+                (e) => {
+                    if(e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       e.stopPropagation();
                       onClick();
                     }
-                  }
-                : undefined
+                  } :
+                undefined
             }
           >
             <FontAwesomeIcon icon={displayIcon} />
@@ -122,8 +122,8 @@ export const ProcessingNode = forwardRef<HTMLDivElement, ProcessingNodeProps>(
               }
             }}
             aria-label="Node name"
-          />
-        : (
+          /> :
+        (
           <span
             className={`${styles.label} nodrag`}
             onDoubleClick={(e) => {
@@ -145,4 +145,3 @@ export const ProcessingNode = forwardRef<HTMLDivElement, ProcessingNodeProps>(
 );
 
 ProcessingNode.displayName = 'ProcessingNode';
-

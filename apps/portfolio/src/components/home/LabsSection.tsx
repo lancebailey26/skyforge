@@ -44,8 +44,8 @@ export function LabsSection() {
               Labs
             </h2>
             <p className="portfolio-showcase-subtitle">
-              Smaller builds and half-finished sparks—where I try interactions, workflows, and ideas that don&apos;t
-              need a full product wrapper.
+              Smaller builds and half-finished sparks. Where I try interactions, workflows, and ideas that don&apos;t
+              need a full product.
             </p>
           </header>
 
@@ -84,7 +84,7 @@ export function LabsSection() {
               </div>
             ) :
 (
-              <p className="portfolio-showcase-empty">No labs here yet—something new usually shows up soon.</p>
+              <p className="portfolio-showcase-empty">No labs here yet, something new will show up soon.</p>
             )}
           </div>
         </div>
