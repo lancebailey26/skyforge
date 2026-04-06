@@ -29,7 +29,7 @@ function getConnectionPoint(
   side?: 'left' | 'right',
   variant?: 'input' | 'output'
 ): { x: number; y: number } | null {
-  if (!element || !container) return null;
+  if(!element || !container)return null;
 
   const elementRect = element.getBoundingClientRect();
   const containerRect = container.getBoundingClientRect();
@@ -41,16 +41,16 @@ function getConnectionPoint(
   
   let x: number;
 
-  if (side !== undefined) {
+  if(side !== undefined) {
     // Processing node or junction - use specified side
-    x = side === 'left'
-      ? relativeX
-      : relativeX + elementRect.width;
-  } else if (variant !== undefined) {
+    x = side === 'left' ?
+      relativeX :
+      relativeX + elementRect.width;
+  } else if(variant !== undefined) {
     // Workflow node - use variant to determine side
-    x = variant === 'input'
-      ? relativeX + elementRect.width
-      : relativeX;
+    x = variant === 'input' ?
+      relativeX + elementRect.width :
+      relativeX;
   } else {
     // Default to right side
     x = relativeX + elementRect.width;
@@ -83,7 +83,7 @@ export function WorkflowConnections({
   const rafRef = useRef<number | null>(null);
 
   const updatePaths = useCallback(() => {
-    if (!containerRef.current || !svgRef.current || !containerElement) return;
+    if(!containerRef.current || !svgRef.current || !containerElement)return;
 
     // Update SVG dimensions to match container
     const containerRect = containerElement.getBoundingClientRect();
@@ -97,7 +97,7 @@ export function WorkflowConnections({
       const fromElement = nodeElements.get(conn.from);
       const toElement = nodeElements.get(conn.to);
 
-      if (!fromElement || !toElement) return;
+      if(!fromElement || !toElement)return;
 
       // Determine node types and variants
       const fromVariant = fromElement.getAttribute('data-node-variant') as 'input' | 'output' | null;
@@ -105,17 +105,17 @@ export function WorkflowConnections({
       const toVariant = toElement.getAttribute('data-node-variant') as 'input' | 'output' | null;
       const toType = toElement.getAttribute('data-node-type');
 
-      const fromSide = (fromType === 'processing-node' || fromType === 'junction') 
-        ? (conn.fromSide || 'right')
-        : undefined;
-      const toSide = (toType === 'processing-node' || toType === 'junction')
-        ? (conn.toSide || 'left')
-        : undefined;
+      const fromSide = (fromType === 'processing-node' || fromType === 'junction') ? 
+        (conn.fromSide || 'right') :
+        undefined;
+      const toSide = (toType === 'processing-node' || toType === 'junction') ?
+        (conn.toSide || 'left') :
+        undefined;
 
       const startPoint = getConnectionPoint(fromElement, containerElement, fromSide, fromVariant || undefined);
       const endPoint = getConnectionPoint(toElement, containerElement, toSide, toVariant || undefined);
 
-      if (startPoint && endPoint) {
+      if(startPoint && endPoint) {
         const path = createBezierPath(startPoint, endPoint);
         const isEnabled = conn.enabled !== false && 
           (enabledStates.get(conn.from) !== false) && 
@@ -133,10 +133,10 @@ export function WorkflowConnections({
   }, [connections, nodeElements, enabledStates, containerElement]);
 
   useEffect(() => {
-    if (!containerElement) return;
+    if(!containerElement)return;
 
     // Cancel any pending animation frame
-    if (rafRef.current) {
+    if(rafRef.current) {
       cancelAnimationFrame(rafRef.current);
     }
 
@@ -162,7 +162,7 @@ export function WorkflowConnections({
 
     // Observe all node elements
     nodeElements.forEach((element) => {
-      if (element) {
+      if(element) {
         resizeObserver.observe(element);
       }
     });
@@ -195,7 +195,7 @@ export function WorkflowConnections({
 
     return () => {
       clearTimeout(initialTimeout);
-      if (rafRef.current) {
+      if(rafRef.current) {
         cancelAnimationFrame(rafRef.current);
       }
       resizeObserver.disconnect();
@@ -207,7 +207,7 @@ export function WorkflowConnections({
 
   // Also update when connections or enabled states change
   useEffect(() => {
-    if (containerElement) {
+    if(containerElement) {
       const timeout = setTimeout(() => {
         updatePaths();
       }, 50);

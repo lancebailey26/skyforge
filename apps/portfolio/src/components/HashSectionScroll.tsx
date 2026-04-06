@@ -37,7 +37,7 @@ function samePageSectionId(href: string): string | null {
     }
     const id = u.hash.slice(1);
     return id ? decodeURIComponent(id) : null;
-  } catch {
+  } catch{
     return null;
   }
 }

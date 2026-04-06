@@ -251,7 +251,7 @@ export function Crawler(props: CrawlerProps) {
 
         try {
           vp.setPointerCapture(ev.pointerId);
-        } catch {
+        } catch{
           return;
         }
 
@@ -307,7 +307,7 @@ export function Crawler(props: CrawlerProps) {
       dragCommittedRef.current = false;
       try {
         e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {
+      } catch{
         /* already released */
       }
       isPointerDraggingRef.current = false;
