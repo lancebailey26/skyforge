@@ -55,9 +55,7 @@ function getClientPromise(): Promise<MongoClient> {
   if(clientPromise) {
     return clientPromise;
   }
-
   const uri = getMongoUri();
-
   if(process.env.NODE_ENV === 'development') {
     if(!global._mongoClientPromise) {
       client = new MongoClient(uri);

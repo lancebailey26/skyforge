@@ -149,8 +149,8 @@
 
 /* Focus styles */
 .input:focus-visible + .track {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Hover styles */
@@ -168,8 +168,8 @@
   transform: scale(0.95);
 }
 
-.toggle:not(.disabled):active .input:checked + .track .thumb {
-  transform: translateX(20px) scale(0.95);
+.medium.toggle:not(.disabled):active .input:checked + .track .thumb {
+  transform: translateX(24px) scale(0.95);
 }
 
 .small.toggle:not(.disabled):active .input:checked + .track .thumb {
@@ -177,7 +177,7 @@
 }
 
 .large.toggle:not(.disabled):active .input:checked + .track .thumb {
-  transform: translateX(24px) scale(0.95);
+  transform: translateX(26px) scale(0.95);
 }
 
 /* Disabled styles */

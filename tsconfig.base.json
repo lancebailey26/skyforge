@@ -15,7 +15,7 @@
       "noEmit": true,
       "baseUrl": ".",
       "paths": {
-        "@skyforge/ui": [
+        "@lancebailey26/skyforge-ui": [
           "packages/ui/src"
         ]
       }

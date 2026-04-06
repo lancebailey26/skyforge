@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
-import "@skyforge/ui/theme/tokens.css";
+import "@lancebailey26/skyforge-ui/theme/tokens.css";
+import "reactflow/dist/style.css";
 import "./portfolio-theme.css";
-import { Header } from "@skyforge/ui";
+import { Header, FloatingActionLink } from "@lancebailey26/skyforge-ui";
 import { ThemeProvider } from "next-themes";
 import { HeaderActions } from "../components/HeaderActions";
-import { ScrollToTop } from "../components/ScrollToTop";
+import { HashSectionScroll } from "../components/HashSectionScroll";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -16,28 +17,26 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <Header
-            title="Skyforge"
-            navigation={{
-              items: [
-                { label: "About", href: "/about" },
-                { label: "Projects", href: "/projects" },
-                { label: "Labs", href: "/labs" },
-                { label: "Contact", href: "/contact" },
-              ],
-            }}
-            actions={<HeaderActions />}
-          />
-          <ScrollToTop />
-          <main style={{
-            minHeight: "100vh",
-            backgroundImage: "var(--portfolio-bg-image)",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center center",
-            backgroundSize: "cover",
-            backgroundAttachment: "fixed"
-          }}>
+          <HashSectionScroll />
+          <main style={{ minHeight: "100vh" }}>
+            <Header
+              navigation={{
+                items: [
+                  { label: "About", href: "/#about" },
+                  { label: "Stack", href: "/#tech-stack" },
+                  { label: "Projects", href: "/#projects" },
+                  { label: "Labs", href: "/#labs" },
+                  { label: "Contact", href: "/#contact" },
+                ],
+              }}
+              actions={<HeaderActions />}
+            />
             {children}
+            <FloatingActionLink
+              href="/#contact"
+              label="Contact"
+              ariaLabel="Go to contact section"
+            />
           </main>
         </ThemeProvider>
       </body>

@@ -15,7 +15,7 @@ export interface NavigationProps {
 
 export function Navigation(props: NavigationProps) {
   return (
-    <nav className={`${styles.navigation} ${props.className || ''}`}>
+    <nav className={`${styles.navigation} ${props.className || ''}`} aria-label="Primary">
       <ul className={styles.navList}>
         {props.items.map((item, index) => (
           <li key={index} className={styles.navItem}>

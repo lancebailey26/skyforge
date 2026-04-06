@@ -58,3 +58,7 @@
   opacity: 0.8;
 }
 
+.navLink:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}

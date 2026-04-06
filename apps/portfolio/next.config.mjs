@@ -1,6 +1,6 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@skyforge/ui'],
+  transpilePackages: ['@lancebailey26/skyforge-ui'],
 }
 
 export default nextConfig

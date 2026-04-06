@@ -13,7 +13,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@skyforge/ui": ["packages/ui/src"]
+      "@lancebailey26/skyforge-ui": ["./src"]
     },
 
     "esModuleInterop": true,

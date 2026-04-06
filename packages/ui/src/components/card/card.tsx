@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useId } from 'react';
 import { createPortal } from 'react-dom';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -41,6 +41,7 @@ interface CardProps {
 export function Card(props: CardProps) {
     const [mounted, setMounted] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
+    const descId = useId();
     const mode = props.mode ?? 'inlaid';
     const isPopup = mode === 'popup';
     const closeable = props.closeable ?? isPopup;
@@ -102,6 +103,7 @@ export function Card(props: CardProps) {
             }}
             role={props.onClick ? 'button' : undefined}
             tabIndex={props.onClick ? 0 : undefined}
+            aria-label={props.onClick && props.title ? props.title : undefined}
             onKeyDown={props.onClick ?
               (e) => {
                 if(e.key === 'Enter' || e.key === ' ') {
@@ -204,7 +206,7 @@ export function Card(props: CardProps) {
                 <h3 className={styles.tagline}>{props.tagline}</h3>
                 {props.description && (
                     <>
-                        <p className={styles.description}>{displayDescription}</p>
+                        <p id={descId} className={styles.description}>{displayDescription}</p>
                         {shouldTruncate && (
                             <button
                                 type="button"
@@ -214,7 +216,9 @@ export function Card(props: CardProps) {
                                     setIsExpanded(!isExpanded);
                                 }}
                                 className={styles.expandButton}
-                                aria-label={isExpanded ? 'Show less' : 'Show more'}
+                                aria-expanded={isExpanded}
+                                aria-controls={descId}
+                                aria-label={isExpanded ? 'Show less description' : 'Show more description'}
                             >
                                 {isExpanded ? 'Show less' : 'Show more'}
                             </button>

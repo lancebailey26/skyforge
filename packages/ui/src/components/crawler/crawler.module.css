@@ -1,0 +1,137 @@
+.viewport.draggable {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.viewport.draggable.dragging {
+  cursor: grabbing;
+}
+
+/*
+ * Horizontal marquee: extra hit area above/below the card row. Padding is still on the
+ * viewport, so drags there hit empty surface (not card content). Center the strip in it.
+ */
+.viewport.draggable:not(.vertical) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  padding-block: clamp(0.5rem, 2vh, 1.125rem);
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
+/* Horizontal reverse: fade follows right-to-left motion */
+.viewport.horizontalReverse {
+  mask-image: linear-gradient(
+    to left,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
+.viewport.draggable.vertical {
+  touch-action: pan-x;
+}
+
+.viewport.vertical {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.track.horizontal {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.track.vertical {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+  height: max-content;
+}
+
+.set {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.set.horizontal {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.set.vertical {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.item {
+  flex-shrink: 0;
+}
+
+.item.horizontal {
+  display: flex;
+  align-items: stretch;
+}
+
+.item.vertical {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+}
