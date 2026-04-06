@@ -2,9 +2,11 @@
 
 export function AboutSection() {
   return (
-    <section id="about" className="portfolio-section-anchor portfolio-snap-section about-hero-section" style={{
-      backgroundImage: "var(--portfolio-bg-image)",
-    }}>
+    <section
+      id="about"
+      className="portfolio-section-anchor portfolio-snap-section portfolio-section-ambient about-hero-section"
+      data-ambient="1"
+    >
       <div className="about-hero-inner">
         <div className="about-hero-text">
           <h2 className="about-hero-title">Skyforge</h2>

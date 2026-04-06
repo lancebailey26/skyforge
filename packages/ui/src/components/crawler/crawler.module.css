@@ -1,3 +1,29 @@
+.viewport.draggable {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.viewport.draggable.dragging {
+  cursor: grabbing;
+}
+
+/*
+ * Horizontal marquee: extra hit area above/below the card row. Padding is still on the
+ * viewport, so drags there hit empty surface (not card content). Center the strip in it.
+ */
+.viewport.draggable:not(.vertical) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  padding-block: clamp(0.5rem, 2vh, 1.125rem);
+}
+
 .viewport {
   position: relative;
   width: 100%;
@@ -16,6 +42,28 @@
     black 88%,
     transparent
   );
+}
+
+/* Horizontal reverse: fade follows right-to-left motion */
+.viewport.horizontalReverse {
+  mask-image: linear-gradient(
+    to left,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
+.viewport.draggable.vertical {
+  touch-action: pan-x;
 }
 
 .viewport.vertical {

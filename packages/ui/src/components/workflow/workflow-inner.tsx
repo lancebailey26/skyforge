@@ -8,7 +8,6 @@ export function FitViewHelper() {
   const hasFitted = useRef(false);
 
   useEffect(() => {
-    // Only fit view on initial load, not on every node change
     if (nodes.length > 0 && !hasFitted.current) {
       const timeout = setTimeout(() => {
         fitView({ padding: 0.2, duration: 400 });

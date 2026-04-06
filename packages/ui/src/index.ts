@@ -15,6 +15,8 @@ export { Notification } from "./components/notification/notification";
 export { Container } from "./components/container/container";
 export { IconBar } from "./components/iconbar/iconbar";
 export type { IconItem } from "./components/iconbar/iconbar";
+export { FloatingActionLink } from "./components/floating-action-link/floating-action-link";
+export type { FloatingActionLinkProps } from "./components/floating-action-link/floating-action-link";
 export { Slider } from "./components/slider/slider";
 export { Tooltip } from "./components/tooltip/tooltip";
 export { WorkflowBuilder } from "./components/workflow/workflow";

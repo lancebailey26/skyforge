@@ -1,0 +1,71 @@
+.root {
+  position: fixed;
+  z-index: 105;
+  bottom: max(clamp(1rem, 4vw, 1.75rem), env(safe-area-inset-bottom, 0px));
+  right: max(clamp(1rem, 4vw, 1.75rem), env(safe-area-inset-right, 0px));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 3.25rem;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  box-shadow: var(--elevation-2);
+  border: 1px solid color-mix(in oklch, var(--color-on-primary) 18%, transparent);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition:
+    background-color var(--standard-time) var(--standard-ease),
+    color var(--standard-time) var(--standard-ease),
+    box-shadow var(--standard-time) var(--standard-ease),
+    transform var(--standard-time) var(--standard-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+}
+
+.root:hover {
+  filter: brightness(1.06);
+  box-shadow: var(--elevation-3);
+}
+
+.root:active {
+  transform: scale(0.98);
+}
+
+.root:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.icon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.iconOnly {
+  width: 3.5rem;
+  height: 3.5rem;
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.iconOnly .icon {
+  font-size: 1.25rem;
+  margin: 0;
+}

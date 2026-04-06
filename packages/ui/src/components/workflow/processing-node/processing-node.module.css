@@ -74,6 +74,21 @@
   color: var(--color-on-surface);
 }
 
+.labelInput {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-on-surface);
+  padding: 0 var(--space-1);
+  margin: 0 calc(-1 * var(--space-1));
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-container);
+  box-sizing: border-box;
+}
+
 
 
 

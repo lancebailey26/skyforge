@@ -29,16 +29,18 @@ export const WorkflowNode = forwardRef<HTMLDivElement, WorkflowNodeProps>(
         data-node-type="workflow-node"
       >
         {icon && (
-          <div className={styles.icon}>
+          <div className={`${styles.icon} nodrag`}>
             <FontAwesomeIcon icon={icon} />
           </div>
         )}
-        <span className={styles.label}>{label}</span>
-        <Toggle
-          checked={enabled}
-          onChange={(checked) => onToggle(checked)}
-          size="small"
-        />
+        <span className={`${styles.label} nodrag`}>{label}</span>
+        <div className="nodrag">
+          <Toggle
+            checked={enabled}
+            onChange={(checked) => onToggle(checked)}
+            size="small"
+          />
+        </div>
       </div>
     );
   }

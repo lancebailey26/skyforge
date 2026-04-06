@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Container, Input, Button, Notification } from '@lancebailey26/skyforge-ui';
+import { Input, Button, Notification, IconBar } from '@lancebailey26/skyforge-ui';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { IconBar } from '@lancebailey26/skyforge-ui';
+
+const contactTags = ['Collaboration', 'Roles & opportunities', 'Quick hello'];
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ export function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.message) {
+    if(!formData.name || !formData.email || !formData.message) {
       setNotificationMessage('Please fill in all fields.');
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);
@@ -30,7 +31,7 @@ export function ContactSection() {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
+    if(!emailRegex.test(formData.email)) {
       setNotificationMessage('Please enter a valid email address.');
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);
@@ -50,7 +51,7 @@ export function ContactSection() {
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if(!response.ok) {
         throw new Error(data.error || 'Failed to send message');
       }
 
@@ -59,7 +60,7 @@ export function ContactSection() {
       setTimeout(() => setShowNotification(false), 5000);
 
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
+    } catch(error) {
       console.error('Error submitting form:', error);
       setNotificationMessage('Failed to send message. Please try again later.');
       setShowNotification(true);
@@ -72,14 +73,9 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="portfolio-section-anchor portfolio-snap-section"
-      style={{
-        padding: '2rem',
-        maxWidth: '800px',
-        margin: '0 auto',
-        width: '100%',
-        boxSizing: 'border-box',
-      }}
+      className="portfolio-section-anchor portfolio-snap-section portfolio-section-ambient tech-marquee-section"
+      data-ambient="4"
+      aria-labelledby="contact-heading"
     >
       {showNotification && (
         <Notification
@@ -91,27 +87,27 @@ export function ContactSection() {
         />
       )}
 
-      <Container size="large" padding="lg" glass={true}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1rem',
-            }}
-          >
-            <h2
-              style={{
-                fontSize: 'clamp(2rem, 4vw, 3rem)',
-                fontWeight: 700,
-                marginBottom: '0.5rem',
-              }}
-            >
+      <div className="portfolio-contact-shell">
+        <div className="portfolio-contact-header">
+          <header className="tech-marquee-header">
+            <p className="tech-marquee-eyebrow">Reach out</p>
+            <h2 id="contact-heading" className="tech-marquee-title">
               Contact
             </h2>
+            <p className="tech-marquee-subtitle">
+              Questions, collaboration, or just saying hi—drop a note and I&apos;ll reply when I can.
+            </p>
+          </header>
+
+          <ul className="tech-marquee-tags portfolio-contact-tags" aria-label="Contact themes">
+            {contactTags.map((label) => (
+              <li key={label}>
+                <span className="tech-marquee-tag">{label}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="portfolio-contact-social">
             <IconBar
               size="large"
               icons={[
@@ -128,71 +124,51 @@ export function ContactSection() {
               ]}
             />
           </div>
-
-          <form
-            onSubmit={handleSubmit}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.5rem',
-            }}
-          >
-            <Input label="Name" name="name" type="text" value={formData.name} onChange={handleInputChange('name')} style="fill" />
-
-            <Input
-              label="Email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleInputChange('email')}
-              placeholder="your.email@example.com"
-              style="fill"
-            />
-
-            <div style={{ position: 'relative' }}>
-              <label
-                style={{
-                  display: 'block',
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                  marginBottom: '0.5rem',
-                  color: 'var(--color-on-surface)',
-                }}
-              >
-                Message
-              </label>
-              <textarea
-                value={formData.message}
-                onChange={(e) => handleInputChange('message')(e.target.value)}
-                placeholder="Your message"
-                style={{
-                  width: '100%',
-                  minHeight: '150px',
-                  padding: '1rem',
-                  fontSize: '1rem',
-                  fontFamily: 'inherit',
-                  backgroundColor: 'var(--color-container-high)',
-                  color: 'var(--color-on-surface)',
-                  border: '1px solid var(--color-outline)',
-                  borderRadius: '8px',
-                  resize: 'vertical',
-                  boxSizing: 'border-box',
-                }}
-              />
-            </div>
-
-            <Button
-              text={isSubmitting ? 'Sending...' : 'Send Message'}
-              size="large"
-              color="primary"
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              style={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}
-              attributes={{ type: 'submit' }}
-            />
-          </form>
         </div>
-      </Container>
+
+        <div className="portfolio-contact-form-wrap">
+          <div className="tech-marquee-stage portfolio-contact-stage">
+            <p className="tech-marquee-stage-kicker">Send a message</p>
+            <form className="portfolio-contact-form" onSubmit={handleSubmit}>
+              <Input label="Name" name="name" type="text" value={formData.name} onChange={handleInputChange('name')} style="fill" />
+
+              <Input
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange('email')}
+                placeholder="your.email@example.com"
+                style="fill"
+              />
+
+              <div>
+                <label htmlFor="contact-message" className="portfolio-contact-textarea-label">
+                  Message
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  value={formData.message}
+                  onChange={(e) => handleInputChange('message')(e.target.value)}
+                  placeholder="Your message"
+                  className="portfolio-contact-textarea"
+                  rows={6}
+                />
+              </div>
+
+              <Button
+                text={isSubmitting ? 'Sending...' : 'Send message'}
+                size="large"
+                color="primary"
+                disabled={isSubmitting}
+                className="portfolio-contact-submit"
+                attributes={{ type: 'submit' }}
+              />
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,10 +1,11 @@
 'use client';
-import { useMemo, useCallback, useEffect, useRef } from 'react';
+import { useMemo, useCallback, useEffect } from 'react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import ReactFlow, {
   Background,
   Controls,
   Node,
+  NodeProps,
   Connection,
   useNodesState,
   useEdgesState,
@@ -14,8 +15,12 @@ import ReactFlow, {
   ReactFlowProvider,
   Handle,
   Position,
+  NodeResizer,
+  type NodeTypes,
+  type EdgeTypes,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
+import '@reactflow/node-resizer/dist/style.css';
 import { Button } from '../button/button';
 import { WorkflowNode } from './node/node';
 import { ProcessingNode } from './processing-node/processing-node';
@@ -44,6 +49,8 @@ export interface WorkflowProcessingNode {
   variant?: 'customized' | 'add';
   icon?: IconProp;
   onClick?: () => void;
+  /** When set, double-click the label to rename (builder injects this for editable labs). */
+  onLabelChange?: (label: string) => void;
 }
 
 export interface WorkflowJunction {
@@ -60,7 +67,6 @@ export interface WorkflowConnection {
   enabled?: boolean;
 }
 
-/** React Flow node data for outputs (toggle handler injected by the builder). */
 type WorkflowOutputNodeData = WorkflowOutput & {
   enabled: boolean;
   onToggle: (enabled: boolean) => void;
@@ -75,6 +81,8 @@ export interface WorkflowBuilderProps {
   connections: WorkflowConnection[];
   onInputToggle?: (id: string, enabled: boolean) => void;
   onOutputToggle?: (id: string, enabled: boolean) => void;
+  /** Called when the user connects two nodes on the canvas (source must have a source handle, target a target handle). */
+  onWorkflowConnect?: (from: string, to: string) => void;
   onAddConnection?: (side: 'input' | 'output') => void;
   suggestionsCount?: number;
   onSuggestionsClick?: () => void;
@@ -82,74 +90,110 @@ export interface WorkflowBuilderProps {
   style?: React.CSSProperties;
 }
 
-// Custom node types
-const InputNodeType = ({ data }: { data: WorkflowInput }) => {
+const NODE_RESIZE_MIN = { w: 140, h: 40 } as const;
+const DEFAULT_IO_STYLE = { width: 260, minHeight: NODE_RESIZE_MIN.h } as const;
+const DEFAULT_PROCESSING_STYLE = { width: 220, minHeight: NODE_RESIZE_MIN.h } as const;
+const DEFAULT_JUNCTION_STYLE = { width: 140, minHeight: 56 } as const;
+
+const EMPTY_EDGE_TYPES = {} as EdgeTypes;
+
+const InputNodeType = ({ data }: NodeProps<WorkflowInput>) => {
   return (
-    <div className={styles.reactFlowNode}>
-      <Handle type="source" position={Position.Right} />
-      <WorkflowNode
-        id={data.id}
-        label={data.label}
-        icon={data.icon}
-        enabled={data.enabled ?? false}
-        onToggle={data.onToggle}
-        variant="input"
+    <>
+      <NodeResizer
+        isVisible
+        minWidth={NODE_RESIZE_MIN.w}
+        minHeight={NODE_RESIZE_MIN.h}
+        lineClassName="nodrag"
+        handleClassName="nodrag"
       />
-    </div>
+      <div className={styles.reactFlowNode}>
+        <Handle id="out" type="source" position={Position.Right} />
+        <WorkflowNode
+          id={data.id}
+          label={data.label}
+          icon={data.icon}
+          enabled={data.enabled ?? false}
+          onToggle={data.onToggle}
+          variant="input"
+        />
+      </div>
+    </>
   );
 };
 
-const OutputNodeType = ({ data }: { data: WorkflowOutputNodeData }) => {
+const OutputNodeType = ({ data }: NodeProps<WorkflowOutputNodeData>) => {
   return (
-    <div className={styles.reactFlowNode}>
-      <Handle type="target" position={Position.Left} />
-      <WorkflowNode
-        id={data.id}
-        label={data.label}
-        icon={data.icon}
-        enabled={data.enabled}
-        onToggle={data.onToggle}
-        variant="output"
+    <>
+      <NodeResizer
+        isVisible
+        minWidth={NODE_RESIZE_MIN.w}
+        minHeight={NODE_RESIZE_MIN.h}
+        lineClassName="nodrag"
+        handleClassName="nodrag"
       />
-    </div>
+      <div className={styles.reactFlowNode}>
+        <Handle id="in" type="target" position={Position.Left} />
+        <WorkflowNode
+          id={data.id}
+          label={data.label}
+          icon={data.icon}
+          enabled={data.enabled}
+          onToggle={data.onToggle}
+          variant="output"
+        />
+      </div>
+    </>
   );
 };
 
-const ProcessingNodeType = ({ data }: { data: WorkflowProcessingNode }) => {
+const ProcessingNodeType = ({ data }: NodeProps<WorkflowProcessingNode>) => {
   return (
-    <div className={styles.reactFlowNode}>
-      <Handle type="target" position={Position.Left} />
-      <Handle type="source" position={Position.Right} />
-      <ProcessingNode
-        id={data.id}
-        label={data.label}
-        variant={data.variant}
-        icon={data.icon}
-        onClick={data.onClick}
+    <>
+      <NodeResizer
+        isVisible
+        minWidth={NODE_RESIZE_MIN.w}
+        minHeight={NODE_RESIZE_MIN.h}
+        lineClassName="nodrag"
+        handleClassName="nodrag"
       />
-    </div>
+      <div className={styles.reactFlowNode}>
+        <Handle id="in" type="target" position={Position.Left} />
+        <Handle id="out" type="source" position={Position.Right} />
+        <ProcessingNode
+          id={data.id}
+          label={data.label}
+          variant={data.variant}
+          icon={data.icon}
+          onClick={data.onClick}
+          onLabelChange={data.onLabelChange}
+        />
+      </div>
+    </>
   );
 };
 
-const JunctionNodeType = ({ data }: { data: WorkflowJunction }) => {
+const JunctionNodeType = ({ data }: NodeProps<WorkflowJunction>) => {
   return (
-    <div className={styles.reactFlowNode}>
-      <Handle type="target" position={Position.Left} />
-      <Handle type="source" position={Position.Right} />
-      <Junction
-        id={data.id}
-        inputCount={data.inputCount}
-        outputCount={data.outputCount}
+    <>
+      <NodeResizer
+        isVisible
+        minWidth={NODE_RESIZE_MIN.w}
+        minHeight={NODE_RESIZE_MIN.h}
+        lineClassName="nodrag"
+        handleClassName="nodrag"
       />
-    </div>
+      <div className={styles.reactFlowNode}>
+        <Handle id="in" type="target" position={Position.Left} />
+        <Handle id="out" type="source" position={Position.Right} />
+        <Junction
+          id={data.id}
+          inputCount={data.inputCount}
+          outputCount={data.outputCount}
+        />
+      </div>
+    </>
   );
-};
-
-const nodeTypes = {
-  input: InputNodeType,
-  output: OutputNodeType,
-  processing: ProcessingNodeType,
-  junction: JunctionNodeType,
 };
 
 function WorkflowBuilderInner({
@@ -161,18 +205,29 @@ function WorkflowBuilderInner({
   connections,
   onInputToggle,
   onOutputToggle,
+  onWorkflowConnect,
   onAddConnection,
   suggestionsCount,
   onSuggestionsClick,
   className,
   style
 }: WorkflowBuilderProps) {
-  // Convert inputs to React Flow nodes - positioned on the left
+  const flowNodeTypes = useMemo<NodeTypes>(
+    () => ({
+      input: InputNodeType,
+      output: OutputNodeType,
+      processing: ProcessingNodeType,
+      junction: JunctionNodeType,
+    }),
+    []
+  );
+
   const inputNodes = useMemo(() => {
     return inputs.map((input, index) => ({
       id: input.id,
       type: 'input' as const,
       position: { x: 0, y: index * 80 },
+      style: { ...DEFAULT_IO_STYLE },
       data: {
         id: input.id,
         label: input.label,
@@ -187,12 +242,12 @@ function WorkflowBuilderInner({
     }));
   }, [inputs, onInputToggle]);
 
-  // Convert outputs to React Flow nodes - positioned on the right
   const outputNodes = useMemo(() => {
     return outputs.map((output, index) => ({
       id: output.id,
       type: 'output' as const,
       position: { x: 800, y: index * 80 },
+      style: { ...DEFAULT_IO_STYLE },
       data: {
         id: output.id,
         label: output.label,
@@ -207,25 +262,25 @@ function WorkflowBuilderInner({
     }));
   }, [outputs, onOutputToggle]);
 
-  // Convert processing nodes to React Flow nodes - positioned in the middle
   const processingNodes = useMemo(() => {
     return nodes.map((node, index) => ({
       id: node.id,
       type: 'processing' as const,
       position: { x: 350, y: index * 60 + 50 },
+      style: { ...DEFAULT_PROCESSING_STYLE },
       data: {
         id: node.id,
         label: node.label,
         variant: node.variant,
         icon: node.icon,
         onClick: node.onClick,
+        onLabelChange: node.onLabelChange,
       },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
     }));
   }, [nodes]);
 
-  // Get enabled states from nodes
   const enabledStates = useMemo(() => {
     const states = new Map<string, boolean>();
     inputNodes.forEach(node => states.set(node.id, node.data.enabled));
@@ -233,12 +288,10 @@ function WorkflowBuilderInner({
     return states;
   }, [inputNodes, outputNodes]);
 
-  // Generate connections automatically: active inputs → junctions → active outputs
   const autoConnections = useMemo(() => {
     const auto: WorkflowConnection[] = [];
-    
+
     junctions.forEach(junction => {
-      // Connect all active inputs to this junction
       inputs.forEach(input => {
         if(input.enabled) {
           auto.push({
@@ -250,8 +303,7 @@ function WorkflowBuilderInner({
           });
         }
       });
-      
-      // Connect junction to all active outputs
+
       outputs.forEach(output => {
         if(output.enabled) {
           auto.push({
@@ -264,45 +316,42 @@ function WorkflowBuilderInner({
         }
       });
     });
-    
+
     return auto;
   }, [inputs, outputs, junctions]);
 
-  // Merge manual connections with auto-generated ones
   const allConnections = useMemo(() => {
-    // If there are junctions, use auto-connections; otherwise use manual connections
+    if(connections.length > 0) {
+      return connections;
+    }
     if(junctions.length > 0) {
       return autoConnections;
     }
     return connections;
-  }, [junctions.length, autoConnections, connections]);
+  }, [connections, junctions.length, autoConnections]);
 
-  // Calculate junction counts based on active connections
   const junctionCounts = useMemo(() => {
     const counts = new Map<string, { inputCount: number; outputCount: number }>();
-    
+
     junctions.forEach(junction => {
-      // Count active inputs connecting to this junction
       const inputCount = allConnections.filter(conn => {
         if(conn.to !== junction.id)return false;
         const sourceEnabled = enabledStates.get(conn.from) ?? true;
         return conn.enabled !== false && sourceEnabled;
       }).length;
-      
-      // Count active outputs connecting from this junction
+
       const outputCount = allConnections.filter(conn => {
         if(conn.from !== junction.id)return false;
         const targetEnabled = enabledStates.get(conn.to) ?? true;
         return conn.enabled !== false && targetEnabled;
       }).length;
-      
+
       counts.set(junction.id, { inputCount, outputCount });
     });
-    
+
     return counts;
   }, [junctions, allConnections, enabledStates]);
 
-  // Convert junctions to React Flow nodes with updated counts
   const junctionNodes = useMemo(() => {
     return junctions.map((junction, index) => {
       const counts = junctionCounts.get(junction.id) || { inputCount: 0, outputCount: 0 };
@@ -310,6 +359,7 @@ function WorkflowBuilderInner({
         id: junction.id,
         type: 'junction' as const,
         position: { x: 350, y: (nodes.length * 60 + 50) + (index * 60) },
+        style: { ...DEFAULT_JUNCTION_STYLE },
         data: {
           id: junction.id,
           inputCount: counts.inputCount,
@@ -321,12 +371,10 @@ function WorkflowBuilderInner({
     });
   }, [junctions, nodes.length, junctionCounts]);
 
-  // Combine all nodes
   const initialNodes = useMemo(() => {
     return [...inputNodes, ...outputNodes, ...processingNodes, ...junctionNodes];
   }, [inputNodes, outputNodes, processingNodes, junctionNodes]);
 
-  // Get all node IDs for validation
   const allNodeIds = useMemo(() => {
     return new Set([
       ...inputNodes.map(n => n.id),
@@ -336,13 +384,9 @@ function WorkflowBuilderInner({
     ]);
   }, [inputNodes, outputNodes, processingNodes, junctionNodes]);
 
-  // Convert connections to React Flow edges
   const initialEdges = useMemo(() => {
     const edges = allConnections
-      .filter(conn => {
-        // Only create edges if both source and target nodes exist
-        return allNodeIds.has(conn.from) && allNodeIds.has(conn.to);
-      })
+      .filter(conn => allNodeIds.has(conn.from) && allNodeIds.has(conn.to))
       .map((conn, index) => {
         const sourceEnabled = enabledStates.get(conn.from) ?? true;
         const targetEnabled = enabledStates.get(conn.to) ?? true;
@@ -352,6 +396,8 @@ function WorkflowBuilderInner({
           id: `edge-${conn.from}-${conn.to}-${index}`,
           source: conn.from,
           target: conn.to,
+          sourceHandle: 'out',
+          targetHandle: 'in',
           type: 'smoothstep',
           animated: false,
           style: {
@@ -368,17 +414,7 @@ function WorkflowBuilderInner({
           },
         };
       });
-    
-    // Debug logging
-    if(process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
-      console.log('Creating edges:', edges.length, edges);
-      // eslint-disable-next-line no-console
-      console.log('Node IDs:', Array.from(allNodeIds));
-      // eslint-disable-next-line no-console
-      console.log('Connections:', allConnections);
-    }
-    
+
     return edges;
   }, [allConnections, enabledStates, allNodeIds]);
 
@@ -386,38 +422,93 @@ function WorkflowBuilderInner({
     initialNodes as Node[]
   );
   const [reactFlowEdges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const fitViewTriggered = useRef(false);
 
-  // Update nodes when inputs/outputs change, preserving positions
   useEffect(() => {
     setNodes((currentNodes) => {
-      // Create a map of existing node positions
-      const positionMap = new Map(currentNodes.map(node => [node.id, node.position]));
-      
-      // Create updated nodes with preserved positions
-      const updatedNodes = [...inputNodes, ...outputNodes, ...processingNodes, ...junctionNodes].map(newNode => {
-        const existingPosition = positionMap.get(newNode.id);
+      const byId = new Map(currentNodes.map((node) => [node.id, node]));
+      const nextBlueprint = [...inputNodes, ...outputNodes, ...processingNodes, ...junctionNodes] as Node[];
+
+      const updatedNodes = nextBlueprint.map((newNode) => {
+        const cur = byId.get(newNode.id);
+        const position = cur?.position ?? newNode.position;
         return {
           ...newNode,
-          position: existingPosition || newNode.position,
+          position,
+          width: cur?.width ?? newNode.width,
+          height: cur?.height ?? newNode.height,
+          style: { ...(newNode.style ?? {}), ...(cur?.style ?? {}) },
         };
       });
-      
+
       return updatedNodes as Node[];
     });
-    fitViewTriggered.current = false;
   }, [inputNodes, outputNodes, processingNodes, junctionNodes, setNodes]);
 
-  // Update edges when connections change
   useEffect(() => {
     setEdges(initialEdges);
   }, [initialEdges, setEdges]);
 
+  const isValidConnection = useCallback(
+    (connection: Connection) => {
+      const { source, target } = connection;
+      if(!source || !target || source === target) {
+        return false;
+      }
+      const sourceNode = reactFlowNodes.find((n) => n.id === source);
+      const targetNode = reactFlowNodes.find((n) => n.id === target);
+      if(!sourceNode || !targetNode) {
+        return false;
+      }
+      const sourceCanEmit =
+        sourceNode.type === 'input' ||
+        sourceNode.type === 'processing' ||
+        sourceNode.type === 'junction';
+      const targetCanReceive =
+        targetNode.type === 'output' ||
+        targetNode.type === 'processing' ||
+        targetNode.type === 'junction';
+      if(!sourceCanEmit || !targetCanReceive) {
+        return false;
+      }
+      const duplicate = allConnections.some(
+        (c) => c.from === source && c.to === target
+      );
+      if(duplicate) {
+        return false;
+      }
+      return true;
+    },
+    [reactFlowNodes, allConnections]
+  );
+
   const onConnect = useCallback(
     (params: Connection) => {
-      setEdges((eds) => addEdge(params, eds));
+      if(!params.source || !params.target) {
+        return;
+      }
+      const next = {
+        ...params,
+        sourceHandle: params.sourceHandle ?? 'out',
+        targetHandle: params.targetHandle ?? 'in',
+      };
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...next,
+            type: 'smoothstep',
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+              color: '#0084ff',
+              width: 20,
+              height: 20,
+            },
+          },
+          eds
+        )
+      );
+      onWorkflowConnect?.(params.source, params.target);
     },
-    [setEdges]
+    [setEdges, onWorkflowConnect]
   );
 
   return (
@@ -446,7 +537,9 @@ function WorkflowBuilderInner({
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          nodeTypes={nodeTypes}
+          isValidConnection={isValidConnection}
+          nodeTypes={flowNodeTypes}
+          edgeTypes={EMPTY_EDGE_TYPES}
           connectionMode={ConnectionMode.Loose}
           attributionPosition="bottom-right"
           minZoom={0.5}
