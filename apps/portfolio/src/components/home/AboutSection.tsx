@@ -14,7 +14,7 @@ export function AboutSection() {
           <p className="about-hero-body">
             Welcome to Skyforge, which is a goofy name I use for my portfolio. Here you get a glimpse of the technologies
             I&apos;m familiar with. You&apos;ll also find some of the projects I&apos;ve worked on, and some that are in
-            active development.
+            active development. This is where all my inspiration and creativity comes from.
           </p>
         </div>
       </div>
