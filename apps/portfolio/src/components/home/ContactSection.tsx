@@ -120,8 +120,26 @@ export function ContactSection() {
                   icon: faLinkedin,
                   href: 'https://linkedin.com/in/lance-bailey',
                   ariaLabel: 'LinkedIn profile',
-                },
+                }
               ]}
+            />
+            <Button
+              text="View Resume"
+              size="small"
+              color="secondary"
+              subColor="clear"
+              className="portfolio-contact-resume-button"
+              onClick={() => {
+                const el = document.createElement('a');
+                el.href = '/resume.pdf';
+                el.target = '_blank';
+                el.rel = 'noopener noreferrer';
+                el.click();
+              }}
+              attributes={{
+                type: 'button',
+                'aria-label': 'View résumé, opens PDF in a new tab',
+              }}
             />
           </div>
         </div>
@@ -158,7 +176,7 @@ export function ContactSection() {
               </div>
 
               <Button
-                text={isSubmitting ? 'Sending...' : 'Send message'}
+                text={isSubmitting ? 'Sending...' : 'Send Message'}
                 size="large"
                 color="primary"
                 disabled={isSubmitting}

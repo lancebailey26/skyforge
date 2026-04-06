@@ -28,6 +28,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   const buttonType =
     attrType === 'submit' || attrType === 'reset' ? attrType : 'button';
 
+  /* Submit/reset rely on native form actions; they must stay clickable without onClick. */
+  const useNoHover =
+    !props.onClick && buttonType !== 'submit' && buttonType !== 'reset';
+
   const handleClick = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.currentTarget.blur();
     props.onClick?.(evt);
@@ -46,7 +50,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         ${color} ${subColor}
         ${!props.text ? styles.noText : ''}
         ${props.className ?? ''}
-        ${!props.onClick ? styles.noHover : ''}
+        ${useNoHover ? styles.noHover : ''}
       `}
       onClick={handleClick}
       disabled={props.disabled}

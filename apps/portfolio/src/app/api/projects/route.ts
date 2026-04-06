@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getDb } from '../../../../lib/mongodb';
+import { getDb } from '@/lib/mongodb';
 import { Project } from '../../../types/project';
 import { WithId, Document } from 'mongodb';
 

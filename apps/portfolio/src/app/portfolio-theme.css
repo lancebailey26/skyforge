@@ -429,7 +429,57 @@ body {
 
 .portfolio-contact-social {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.portfolio-contact-header .portfolio-contact-social button.portfolio-contact-resume-button {
+  flex-shrink: 0;
+  padding: 0.4rem 0.9rem;
+  min-height: 0;
+  height: auto;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  border-radius: 999px;
+  color: var(--color-on-surface);
+  background-color: color-mix(in oklch, var(--color-on-surface) 8%, transparent);
+  border: 1px solid color-mix(in oklch, var(--color-on-surface-alt) 20%, transparent);
+  box-shadow: 0 1px 0 color-mix(in oklch, white 6%, transparent);
+  transition:
+    background-color var(--standard-time) var(--standard-ease),
+    border-color var(--standard-time) var(--standard-ease),
+    box-shadow var(--standard-time) var(--standard-ease),
+    transform var(--standard-time) var(--standard-ease);
+}
+
+.portfolio-contact-header .portfolio-contact-social button.portfolio-contact-resume-button:hover {
+  color: var(--color-on-surface);
+  background-color: color-mix(in oklch, var(--color-on-surface) 14%, transparent);
+  border-color: color-mix(in oklch, var(--color-on-surface-alt) 30%, transparent);
+  box-shadow: 0 1px 0 color-mix(in oklch, white 8%, transparent);
+}
+
+.portfolio-contact-header .portfolio-contact-social button.portfolio-contact-resume-button:hover::before,
+.portfolio-contact-header .portfolio-contact-social button.portfolio-contact-resume-button:active::before {
+  content: none;
+}
+
+.portfolio-contact-header .portfolio-contact-social button.portfolio-contact-resume-button:active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-contact-header .portfolio-contact-social button.portfolio-contact-resume-button {
+    transition: none;
+  }
+
+  .portfolio-contact-header .portfolio-contact-social button.portfolio-contact-resume-button:active {
+    transform: none;
+  }
 }
 
 .portfolio-contact-form-wrap {
