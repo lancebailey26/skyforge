@@ -8,7 +8,7 @@ export function FitViewHelper() {
   const hasFitted = useRef(false);
 
   useEffect(() => {
-    if (nodes.length > 0 && !hasFitted.current) {
+    if(nodes.length > 0 && !hasFitted.current) {
       const timeout = setTimeout(() => {
         fitView({ padding: 0.2, duration: 400 });
         hasFitted.current = true;
@@ -19,4 +19,3 @@ export function FitViewHelper() {
 
   return null;
 }
-

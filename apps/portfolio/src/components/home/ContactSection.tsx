@@ -95,7 +95,10 @@ export function ContactSection() {
               Contact
             </h2>
             <p className="tech-marquee-subtitle">
-              Questions, collaboration, or just saying hi—drop a note and I&apos;ll reply when I can.
+              Questions, collaboration, or just saying hello?
+            </p>
+            <p className="tech-marquee-subtitle">
+              Drop a note and I&apos;ll reply when I can.
             </p>
           </header>
 

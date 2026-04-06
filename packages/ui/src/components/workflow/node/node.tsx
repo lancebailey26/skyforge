@@ -1,5 +1,5 @@
 'use client';
-import { useRef, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Toggle } from '../../toggle/toggle';
@@ -47,4 +47,3 @@ export const WorkflowNode = forwardRef<HTMLDivElement, WorkflowNodeProps>(
 );
 
 WorkflowNode.displayName = 'WorkflowNode';
-
