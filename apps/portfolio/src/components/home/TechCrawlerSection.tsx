@@ -21,12 +21,27 @@ export function TechCrawlerSection() {
       <div className="tech-marquee-shell">
         <div className="tech-marquee-copy">
           <header className="tech-marquee-header">
-            <p className="tech-marquee-eyebrow">Stack</p>
+            <p className="tech-marquee-eyebrow">Who I am</p>
             <h2 id="tech-stack-heading" className="tech-marquee-title">
-              Tech I use
+              About Me
             </h2>
             <p className="tech-marquee-subtitle">
               Languages, frameworks, and tooling I reach for when building products and experiments.
+            </p>
+            <p className="tech-marquee-subtitle">
+              I get pretty obsessed with what people actually touch: screens, inputs, flows, and whether the whole thing
+              feels solid under your hands.
+            </p>
+            <p className="tech-marquee-subtitle">
+              I&apos;m not only on the frontend. I&apos;ve written plenty of services and APIs, and I care about those
+              parts landing well too.
+            </p>
+            <p className="tech-marquee-subtitle">
+              The work I like most is collaborative: teaming up with other developers, pairing closely with designers, and
+              pushing a shared vision until it exists for real in the product.
+            </p>
+            <p className="tech-marquee-subtitle">
+              I take great pride in being your favorite coworker's favorite coworker.
             </p>
           </header>
 

@@ -7,7 +7,10 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
-    "test": "turbo test"
+    "test": "turbo test",
+    "test:e2e": "turbo test:e2e",
+    "test:kit": "playwright test --config packages/ui/playwright.config.mjs",
+    "storybook:kit": "npm run storybook -w @lancebailey26/skyforge-ui"
   },
   "workspaces": [
     "apps/*",

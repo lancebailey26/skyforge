@@ -97,6 +97,10 @@ const DEFAULT_JUNCTION_STYLE = { width: 140, minHeight: 56 } as const;
 
 const EMPTY_EDGE_TYPES = {} as EdgeTypes;
 
+/** Stable defaults — `= []` in parameters creates a new array each render when the prop is omitted, retriggers sync effects, and can hit max update depth (React #185). */
+const EMPTY_WORKFLOW_NODES: WorkflowProcessingNode[] = [];
+const EMPTY_WORKFLOW_JUNCTIONS: WorkflowJunction[] = [];
+
 const InputNodeType = ({ data }: NodeProps<WorkflowInput>) => {
   return (
     <>
@@ -200,8 +204,8 @@ function WorkflowBuilderInner({
   title,
   inputs,
   outputs,
-  nodes = [],
-  junctions = [],
+  nodes = EMPTY_WORKFLOW_NODES,
+  junctions = EMPTY_WORKFLOW_JUNCTIONS,
   connections,
   onInputToggle,
   onOutputToggle,

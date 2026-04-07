@@ -11,3 +11,10 @@ yarn-error.log*
 .vscode
 .DS_Store
 .turbo
+playwright-report/
+test-results/
+blob-report/
+**/.cache/
+storybook-static/
+
+*storybook.log

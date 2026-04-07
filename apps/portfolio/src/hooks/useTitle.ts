@@ -20,7 +20,7 @@ export function useTitle(
     title: string,
     options?: UseTitleOptions
 ) {
-    const baseTitle = options?.baseTitle ?? 'Skyforge';
+    const baseTitle = options?.baseTitle ?? 'skyforge | lbailey';
     const separator = options?.separator ?? ' | ';
     const prepend = options?.prepend ?? false;
 

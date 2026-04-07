@@ -20,6 +20,6 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
-    "include": ["src", "src/**/*.d.ts"]
+    "include": ["src", "src/**/*.d.ts", "playwright"]
   }
   

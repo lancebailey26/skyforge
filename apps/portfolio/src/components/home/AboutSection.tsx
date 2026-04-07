@@ -10,11 +10,11 @@ export function AboutSection() {
       <div className="about-hero-inner">
         <div className="about-hero-text">
           <h2 className="about-hero-title">Skyforge</h2>
-          <p className="about-hero-lead">Hi! I&apos;m Lance.</p>
+          <p className="about-hero-lead">Hello there. I&apos;m Lance Bailey.</p>
           <p className="about-hero-body">
-          Welcome to Skyforge, which is a goofy name I use for my portfolio. Here you get a glimpse of the technologies
-            I&apos;m familiar with. You&apos;ll also find some of the projects I&apos;ve worked on, and some that are in
-            active development. This is where all my inspiration and creativity comes from.
+            Skyforge is just the wildly dramatic name I use for this site: a spot to show work in
+            progress, finished pieces, and side experiments. Wander on when you&apos;re ready; the story picks up as you
+            scroll.
           </p>
         </div>
       </div>
