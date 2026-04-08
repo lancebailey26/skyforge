@@ -77,16 +77,16 @@
   overflow: visible;
 }
 
-:global(.react-flow__edges) {
+.reactFlowContainer :global(.react-flow__edges) {
   z-index: 1;
   pointer-events: none;
 }
 
-:global(.react-flow__edge-path) {
+.reactFlowContainer :global(.react-flow__edge-path) {
   stroke-width: 2 !important;
 }
 
-:global(.react-flow__edge) {
+.reactFlowContainer :global(.react-flow__edge) {
   pointer-events: visibleStroke;
 }
 

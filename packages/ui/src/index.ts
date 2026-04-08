@@ -2,6 +2,21 @@ import "./theme/tokens.css";
 export { Button } from "./components/button/button";
 export type { ButtonProps } from "./components/button/button";
 export { Input } from "./components/input/input";
+export { SimpleInput } from "./components/simple-input/simple-input";
+export type { SimpleInputProps } from "./components/simple-input/simple-input";
+export {
+  Dropdown,
+  DropdownTrigger,
+  DropdownContent,
+  DropdownItem,
+  DropdownSeparator,
+} from "./components/dropdown/dropdown";
+export type {
+  DropdownProps,
+  DropdownTriggerProps,
+  DropdownContentProps,
+  DropdownItemProps,
+} from "./components/dropdown/dropdown";
 export { Card } from "./components/card/card";
 export { Crawler } from "./components/crawler/crawler";
 export type { CrawlerProps } from "./components/crawler/crawler";

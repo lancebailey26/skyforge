@@ -79,8 +79,7 @@
     * {
       z-index: 2;
     }
-  }
-  
+
   .noText {
     padding: 0;
     width: 40px;
@@ -238,3 +237,4 @@
     background-color: transparent;
     color: var(--color-error);
   }
+}

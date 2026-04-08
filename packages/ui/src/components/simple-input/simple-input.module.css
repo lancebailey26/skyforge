@@ -1,0 +1,92 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 4px);
+  width: 100%;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-on-surface-alt);
+  user-select: none;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-3, 12px);
+  background-color: var(--color-container-high);
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--color-border);
+  transition:
+    background-color var(--standard-time) var(--standard-ease),
+    box-shadow var(--standard-time) var(--standard-ease),
+    border-color var(--standard-time) var(--standard-ease);
+}
+
+.root:hover:not(.disabled) .field {
+  background-color: var(--color-surface-hover);
+}
+
+.focusWithin .field {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.invalid .field {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 1px var(--color-error);
+}
+
+.disabled .field {
+  background-color: var(--color-disabled-container);
+  border-color: var(--color-disabled);
+  pointer-events: none;
+}
+
+.disabled .input,
+.disabled .label {
+  color: var(--color-on-disabled-container);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--color-on-surface);
+  caret-color: var(--color-primary);
+}
+
+.input::placeholder {
+  color: var(--color-on-surface-alt);
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.invalid .input {
+  caret-color: var(--color-error);
+}
+
+/* e.g. read-only dropdown trigger: pointer affordance, no I-beam / text drag */
+.asPointer .field,
+.asPointer .input {
+  cursor: pointer;
+  user-select: none;
+}
+
+.asPointer .input {
+  caret-color: transparent;
+}
