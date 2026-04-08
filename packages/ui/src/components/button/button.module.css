@@ -80,7 +80,7 @@
       z-index: 2;
     }
 
-  .noText {
+  &.noText {
     padding: 0;
     width: 40px;
     height: 40px;
@@ -90,16 +90,20 @@
       margin: 0 0 0 1px;
     }
   }
-  
-  .small {
+
+  &.circle {
+    border-radius: 50%;
+  }
+
+  &.small {
     padding: 8px 16px;
     &.noText {
       width: 32px;
       height: 32px;
     }
   }
-  
-  .large {
+
+  &.large {
     padding: 14px 32px;
     font-size: 16px;
     font-weight: 600;
@@ -112,8 +116,8 @@
       height: 52px;
     }
   }
-  
-  .tiny {
+
+  &.tiny {
     padding: 2px 8px;
     font-size: 14px;
     font-weight: 500;

@@ -7,6 +7,8 @@ import { forwardRef, MouseEvent } from 'react';
 export interface ButtonProps {
   icon?: IconProp;
   text?: string;
+  /** Rounded pill (default) or perfect circle. Circle applies with `icon` and no `text` (icon-only control). */
+  shape?: 'pill' | 'circle';
   size?: 'tiny' | 'small' | 'medium' | 'large';
   disabled?: boolean;
   color?: 'primary' | 'secondary' | 'tertiary' | 'error';
@@ -40,6 +42,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   const tabIndex =
     props.tabbable === false ? -1 : attrTabIndex ?? undefined;
 
+  const shape = props.shape ?? 'pill';
+  const iconOnly = !props.text;
+  const showCircle = shape === 'circle' && props.icon && iconOnly;
+
   return (
     <button
       type={buttonType}
@@ -48,7 +54,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
         ${styles.uiTransition}
         ${props.size ? styles[props.size] : ''}
         ${color} ${subColor}
-        ${!props.text ? styles.noText : ''}
+        ${iconOnly ? styles.noText : ''}
+        ${showCircle ? styles.circle : ''}
         ${props.className ?? ''}
         ${useNoHover ? styles.noHover : ''}
       `}

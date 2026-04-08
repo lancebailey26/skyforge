@@ -17,11 +17,13 @@ const meta = {
     },
     disabled: { control: 'boolean' },
     text: { control: 'text' },
+    shape: { control: 'select', options: ['pill', 'circle'] },
     icon: { table: { disable: true }},
     onClick: { action: 'clicked' },
   },
   args: {
     onClick: fn(),
+    shape: 'pill',
   },
 } satisfies Meta<typeof Button>;
 
@@ -45,6 +47,16 @@ export const WithIcon: Story = {
     icon: faPaperPlane,
     color: 'primary',
     subColor: 'filled',
+  },
+};
+
+export const CircleIcon: Story = {
+  args: {
+    icon: faPaperPlane,
+    shape: 'circle',
+    color: 'primary',
+    subColor: 'filled',
+    attributes: { 'aria-label': 'Send' },
   },
 };
 
