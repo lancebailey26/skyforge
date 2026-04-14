@@ -22,6 +22,8 @@ interface TooltipProps {
   style?: React.CSSProperties;
   container?: HTMLElement | null;
   offset?: number;
+  /** Sets the DOM `id` on the trigger wrapper (string children) or merges onto the child element. */
+  id?: string;
 }
 
 export function Tooltip(props: TooltipProps) {
@@ -42,6 +44,7 @@ export function Tooltip(props: TooltipProps) {
     style,
     container,
     offset = 8,
+    id: triggerDomId,
   } = props;
 
   const [isVisible, setIsVisible] = useState(defaultVisible);
@@ -252,6 +255,7 @@ export function Tooltip(props: TooltipProps) {
 
     triggerElement = React.cloneElement(childElement, {
       ...childProps,
+      id: (triggerDomId ?? childProps.id) as string | undefined,
       'aria-describedby': mergeDescribedBy(childProps['aria-describedby']),
       ref: (node: HTMLElement | null) => {
         if(node) {
@@ -291,6 +295,7 @@ export function Tooltip(props: TooltipProps) {
   } else {
     triggerElement = (
       <span
+        id={triggerDomId}
         ref={(node) => {
           if(node) triggerRef.current = node;
         }}

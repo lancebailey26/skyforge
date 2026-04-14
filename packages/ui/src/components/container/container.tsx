@@ -10,6 +10,7 @@ interface ContainerProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'full';
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   attributes?: React.HTMLAttributes<HTMLDivElement> & { [key: `data-${string}`]: unknown };
+  id?: string;
 }
 
 export function Container(props: ContainerProps) {
@@ -34,6 +35,7 @@ export function Container(props: ContainerProps) {
       `}
       style={{ ...glassStyles, ...props.style }}
       {...props.attributes}
+      id={props.id}
     >
       {props.children}
     </div>

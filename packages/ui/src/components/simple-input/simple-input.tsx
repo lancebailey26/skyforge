@@ -14,6 +14,8 @@ export type SimpleInputProps = Omit<
 > & {
   /** Optional text label above the field */
   label?: string;
+  /** `id` on the outer wrapper (the native input uses `id` from HTML attributes for label association). */
+  rootId?: string;
   /** Class on the native input */
   inputClassName?: string;
   /** Class on the outer root (width, margins, dropdown trigger ref target) */
@@ -31,6 +33,7 @@ export const SimpleInput = forwardRef<HTMLDivElement, SimpleInputProps>(
   function SimpleInput(props, ref) {
     const {
       label,
+      rootId,
       id: idProp,
       className,
       inputClassName,
@@ -60,6 +63,7 @@ export const SimpleInput = forwardRef<HTMLDivElement, SimpleInputProps>(
 
     return (
       <div
+        id={rootId}
         ref={ref}
         className={mergeClassNames(
           styles.root,

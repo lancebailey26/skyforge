@@ -14,13 +14,16 @@ export interface WorkflowNodeProps {
   variant?: 'input' | 'output';
   className?: string;
   style?: React.CSSProperties;
+  /** DOM `id` on the root element (distinct from workflow node `id`). */
+  rootId?: string;
 }
 
 export const WorkflowNode = forwardRef<HTMLDivElement, WorkflowNodeProps>(
-  ({ id, label, icon, enabled, onToggle, variant = 'input', className, style }, ref) => {
+  ({ id, label, icon, enabled, onToggle, variant = 'input', className, style, rootId }, ref) => {
 
     return (
       <div
+        id={rootId}
         ref={ref}
         className={`${styles.node} ${styles[variant]} ${className || ''}`}
         style={style}

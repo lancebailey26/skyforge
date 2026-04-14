@@ -15,6 +15,7 @@ interface ConnectionsProps {
   nodeElements: Map<string, HTMLElement>;
   enabledStates: Map<string, boolean>;
   containerElement: HTMLElement | null;
+  id?: string;
 }
 
 interface ConnectionPath {
@@ -70,11 +71,12 @@ function createBezierPath(start: { x: number; y: number }, end: { x: number; y: 
   return `M ${start.x} ${start.y} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${end.x} ${end.y}`;
 }
 
-export function WorkflowConnections({ 
-  connections, 
-  nodeElements, 
-  enabledStates, 
-  containerElement 
+export function WorkflowConnections({
+  connections,
+  nodeElements,
+  enabledStates,
+  containerElement,
+  id,
 }: ConnectionsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -216,7 +218,7 @@ export function WorkflowConnections({
   }, [connections, enabledStates, containerElement, updatePaths]);
 
   return (
-    <div ref={containerRef} className={styles.container}>
+    <div id={id} ref={containerRef} className={styles.container}>
       <svg
         ref={svgRef}
         className={styles.svg}

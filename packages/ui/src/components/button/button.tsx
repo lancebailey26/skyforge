@@ -19,6 +19,7 @@ export interface ButtonProps {
   tabbable?: boolean;
   attributes?: React.ButtonHTMLAttributes<HTMLButtonElement> & { [key: `data-${string}`]: unknown };
   type?: 'link';
+  id?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
@@ -65,6 +66,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
       style={props.style}
       tabIndex={tabIndex}
       {...restAttributes}
+      id={props.id}
     >
       {props.icon && <FontAwesomeIcon icon={props.icon} className={styles.icon} aria-hidden />}
       {props.text ? <span className={styles.label}>{props.text}</span> : null}

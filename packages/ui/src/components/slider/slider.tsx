@@ -15,6 +15,10 @@ interface SliderProps {
   className?: string;
   style?: React.CSSProperties;
   attributes?: React.InputHTMLAttributes<HTMLInputElement> & { [key: `data-${string}`]: unknown };
+  /** When set, used as the range input `id` (otherwise a stable generated id is used). */
+  id?: string;
+  /** `id` on the outer wrapper. */
+  wrapperId?: string;
 }
 
 export function Slider(props: SliderProps) {
@@ -30,6 +34,8 @@ export function Slider(props: SliderProps) {
     className,
     style,
     attributes,
+    id: inputId,
+    wrapperId,
   } = props;
 
   const displayValue = useMemo(
@@ -38,10 +44,14 @@ export function Slider(props: SliderProps) {
   );
 
   const reactId = useId();
-  const rangeId = `slider-${reactId.replace(/:/g, '')}`;
+  const rangeId = inputId ?? `slider-${reactId.replace(/:/g, '')}`;
 
   return (
-    <div className={[styles.wrapper, className].filter(Boolean).join(' ')} style={style}>
+    <div
+      id={wrapperId}
+      className={[styles.wrapper, className].filter(Boolean).join(' ')}
+      style={style}
+    >
       {label && (
         <div className={styles.header}>
           <label className={styles.label} htmlFor={rangeId}>
@@ -56,7 +66,6 @@ export function Slider(props: SliderProps) {
       )}
       <div className={styles.controlRow}>
         <input
-          id={rangeId}
           type="range"
           className={styles.range}
           min={min}
@@ -69,6 +78,7 @@ export function Slider(props: SliderProps) {
           aria-valuenow={value}
           aria-valuetext={displayValue}
           {...attributes}
+          id={rangeId}
         />
       </div>
     </div>

@@ -15,6 +15,7 @@ export interface FloatingActionLinkProps {
   icon?: IconProp;
   className?: string;
   style?: CSSProperties;
+  id?: string;
 }
 
 export function FloatingActionLink(props: FloatingActionLinkProps) {
@@ -25,6 +26,7 @@ export function FloatingActionLink(props: FloatingActionLinkProps) {
     icon = faEnvelope as IconProp,
     className,
     style,
+    id,
   } = props;
 
   const resolvedAria = ariaLabel ?? label ?? 'Open link';
@@ -33,6 +35,7 @@ export function FloatingActionLink(props: FloatingActionLinkProps) {
   return (
     <a
       href={href}
+      id={id}
       className={[styles.root, iconOnly ? styles.iconOnly : '', className ?? ''].filter(Boolean).join(' ')}
       style={style}
       aria-label={resolvedAria}

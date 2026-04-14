@@ -11,11 +11,12 @@ export interface NavigationItem {
 export interface NavigationProps {
   items: NavigationItem[];
   className?: string;
+  id?: string;
 }
 
 export function Navigation(props: NavigationProps) {
   return (
-    <nav className={`${styles.navigation} ${props.className || ''}`} aria-label="Primary">
+    <nav id={props.id} className={`${styles.navigation} ${props.className || ''}`} aria-label="Primary">
       <ul className={styles.navList}>
         {props.items.map((item, index) => (
           <li key={index} className={styles.navItem}>

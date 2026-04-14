@@ -61,6 +61,7 @@ export type DropdownProps = {
   className?: string;
   /** When true, {@link DropdownContent} shows a filter field above the list; {@link DropdownItem} rows match the query. */
   searchable?: boolean;
+  id?: string;
 };
 
 function flattenText(node: ReactNode): string {
@@ -92,6 +93,7 @@ export function Dropdown(props: DropdownProps) {
     onOpenChange,
     className,
     searchable = false,
+    id,
   } = props;
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [searchQuery, setSearchQuery] = useState('');
@@ -133,7 +135,7 @@ export function Dropdown(props: DropdownProps) {
 
   return (
     <DropdownContext.Provider value={value}>
-      <div className={`${styles.root} ${className ?? ''}`.trim()}>{children}</div>
+      <div id={id} className={`${styles.root} ${className ?? ''}`.trim()}>{children}</div>
     </DropdownContext.Provider>
   );
 }
@@ -266,6 +268,7 @@ export type DropdownContentProps = {
   searchPlaceholder?: string;
   /** Accessible label for the filter field (default: "Filter options") */
   searchAriaLabel?: string;
+  id?: string;
 };
 
 export function DropdownContent(props: DropdownContentProps) {
@@ -276,6 +279,7 @@ export function DropdownContent(props: DropdownContentProps) {
     container,
     searchPlaceholder = 'Search…',
     searchAriaLabel = 'Filter options',
+    id,
   } = props;
   const { open, setOpen, triggerRef, contentId, searchable, searchQuery, setSearchQuery } =
     useDropdownContext('DropdownContent');
@@ -323,6 +327,7 @@ export function DropdownContent(props: DropdownContentProps) {
 
   const panel = (
     <div
+      id={id}
       ref={contentRef}
       className={`${styles.content} ${className ?? ''}`.trim()}
       style={{ ...positionStyle, ...styleProp }}
@@ -358,10 +363,11 @@ export type DropdownItemProps = {
   onSelect?: () => void;
   /** When {@link Dropdown} is searchable, used to match the query (defaults to text content of `children`) */
   filterText?: string;
+  id?: string;
 };
 
 export function DropdownItem(props: DropdownItemProps) {
-  const { children, selected, disabled, className, onSelect, filterText } = props;
+  const { children, selected, disabled, className, onSelect, filterText, id } = props;
   const { setOpen, searchable, searchQuery } = useDropdownContext('DropdownItem');
 
   const text = filterText ?? flattenText(children);
@@ -374,6 +380,7 @@ export function DropdownItem(props: DropdownItemProps) {
 
   return (
     <button
+      id={id}
       type="button"
       role="option"
       aria-selected={selected ?? false}

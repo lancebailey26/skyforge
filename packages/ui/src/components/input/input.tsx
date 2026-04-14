@@ -26,6 +26,7 @@ interface InputProps {
   name?: string;
   attributes?: React.InputHTMLAttributes<HTMLInputElement> & { [key: `data-${string}`]: unknown };
   ref?: React.RefObject<HTMLInputElement | null>;
+  id?: string;
 }
 
 export function Input(props: InputProps) {
@@ -126,6 +127,7 @@ export function Input(props: InputProps) {
           min={props.min}
           max={props.max}
           {...props.attributes}
+          id={props.id}
         />
       </div>
       {hasFocus && currentValue && (

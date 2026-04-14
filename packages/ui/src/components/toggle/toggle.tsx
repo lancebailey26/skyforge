@@ -16,7 +16,8 @@ interface ToggleProps {
   className?: string;
   style?: React.CSSProperties;
   tabbable?: boolean;
-  attributes?: React.InputHTMLAttributes<HTMLInputElement> & { [key: `data-${string}`]: unknown }
+  attributes?: React.InputHTMLAttributes<HTMLInputElement> & { [key: `data-${string}`]: unknown };
+  id?: string;
 }
 
 export function Toggle(props: ToggleProps) {
@@ -62,6 +63,7 @@ export function Toggle(props: ToggleProps) {
         tabIndex={props.tabbable === false ? -1 : undefined}
         className={styles.input}
         {...props.attributes}
+        id={props.id}
       />
       <span className={styles.track}>
         <span className={styles.thumb}>

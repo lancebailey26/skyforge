@@ -18,9 +18,10 @@ interface IconBarProps {
   className?: string;
   style?: React.CSSProperties;
   gap?: number | string;
+  id?: string;
 }
 
-export function IconBar({ icons, size = 'medium', color = 'primary', className, style, gap }: IconBarProps) {
+export function IconBar({ icons, size = 'medium', color = 'primary', className, style, gap, id }: IconBarProps) {
   if(!icons || icons.length === 0) {
     return null;
   }
@@ -31,7 +32,8 @@ export function IconBar({ icons, size = 'medium', color = 'primary', className, 
   };
 
   return (
-    <div 
+    <div
+      id={id}
       className={`${styles.iconBar} ${styles[size]} ${styles[color]} ${className || ''}`}
       style={containerStyle}
     >

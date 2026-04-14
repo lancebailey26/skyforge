@@ -1,6 +1,12 @@
 import "./theme/tokens.css";
 export { Button } from "./components/button/button";
 export type { ButtonProps } from "./components/button/button";
+export { DraggableChip } from "./components/draggable-chip/draggable-chip";
+export type {
+  DraggableChipProps,
+  DraggableChipTone,
+  DraggableChipFill,
+} from "./components/draggable-chip/draggable-chip";
 export { Input } from "./components/input/input";
 export { SimpleInput } from "./components/simple-input/simple-input";
 export type { SimpleInputProps } from "./components/simple-input/simple-input";

@@ -22,6 +22,7 @@ interface NotificationProps {
   progressBarValue?: number;
   progressBarMax?: number;
   placement?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+  id?: string;
 }
 
 function liveRoleForType(type: NotificationProps['type']): 'alert' | 'status' {
@@ -96,6 +97,7 @@ export function Notification(props: NotificationProps) {
         role={liveRole}
         aria-live={liveRole === 'alert' ? 'assertive' : 'polite'}
         {...restAttributes}
+        id={props.id}
       >
         <div className={styles.notificationHeader}>
           <div className={styles.iconAndTitle}>

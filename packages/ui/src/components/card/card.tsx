@@ -35,7 +35,8 @@ interface CardProps {
     titleAlign?: 'center' | 'left';
     headerControls?: HeaderControl[];
     maxDescriptionLength?: number;
-    type?: 'flat' | 'glass'
+    type?: 'flat' | 'glass';
+    id?: string;
 }
 
 export function Card(props: CardProps) {
@@ -86,6 +87,7 @@ export function Card(props: CardProps) {
 
     const cardElement = (
         <div
+            id={props.id}
             className={`
                 ${styles.card}
                 ${isPopup ? styles.popup : ''}

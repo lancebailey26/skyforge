@@ -15,10 +15,12 @@ export interface ProcessingNodeProps {
   icon?: IconProp;
   className?: string;
   style?: React.CSSProperties;
+  /** DOM `id` on the root element (distinct from workflow node `id`). */
+  rootId?: string;
 }
 
 export const ProcessingNode = forwardRef<HTMLDivElement, ProcessingNodeProps>(
-  ({ id, label, variant = 'add', onClick, onLabelChange, icon, className, style }, ref) => {
+  ({ id, label, variant = 'add', onClick, onLabelChange, icon, className, style, rootId }, ref) => {
     const [editing, setEditing] = useState(false);
     const [draft, setDraft] = useState(label);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -55,6 +57,7 @@ export const ProcessingNode = forwardRef<HTMLDivElement, ProcessingNodeProps>(
 
     return (
       <div
+        id={rootId}
         ref={ref}
         className={`${styles.node} ${styles[variant]} ${onClick ? styles.clickable : ''} ${className || ''}`}
         style={style}

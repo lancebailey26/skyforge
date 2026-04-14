@@ -11,6 +11,7 @@ export interface HeaderProps {
   navigation?: NavigationProps;
   actions?: ReactNode;
   className?: string;
+  id?: string;
 }
 
 export function Header(props: HeaderProps) {
@@ -29,7 +30,7 @@ export function Header(props: HeaderProps) {
 
   return (
     <>
-      <header className={`${styles.header} ${props.className || ''}`}>
+      <header id={props.id} className={`${styles.header} ${props.className || ''}`}>
         <div className={styles.container}>
           {props.title && (
             <a href="/" className={styles.title}>

@@ -15,6 +15,7 @@ interface TagProps {
     removable?: boolean;
     onRemove?: () => void;
     onClick?: () => void;
+    id?: string;
 }
 
 export function Tag(props: TagProps) {
@@ -29,6 +30,7 @@ export function Tag(props: TagProps) {
             `}
             style={props.style}
             {...props.attributes}
+            id={props.id}
             onClick={props.onClick}
         >
             {props.icon && (

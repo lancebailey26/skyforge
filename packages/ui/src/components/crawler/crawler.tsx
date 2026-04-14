@@ -40,6 +40,7 @@ export interface CrawlerProps {
   style?: React.CSSProperties;
   /** Max height for vertical orientation (horizontal uses full width of parent). */
   maxHeight?: string | number;
+  id?: string;
 }
 
 function isNativeControlTarget(target: EventTarget | null): boolean {
@@ -69,6 +70,7 @@ export function Crawler(props: CrawlerProps) {
     className,
     style,
     maxHeight,
+    id,
   } = props;
 
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -348,6 +350,7 @@ export function Crawler(props: CrawlerProps) {
 
   return (
     <div
+      id={id}
       ref={viewportRef}
       className={[
         styles.viewport,

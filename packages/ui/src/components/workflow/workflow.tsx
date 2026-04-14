@@ -34,6 +34,8 @@ export interface WorkflowInput {
   label: string;
   icon?: IconProp;
   enabled?: boolean;
+  /** Passed to {@link WorkflowNode} as DOM `id` on the root element. */
+  rootId?: string;
 }
 
 export interface WorkflowOutput {
@@ -41,6 +43,7 @@ export interface WorkflowOutput {
   label: string;
   icon?: IconProp;
   enabled?: boolean;
+  rootId?: string;
 }
 
 export interface WorkflowProcessingNode {
@@ -51,12 +54,14 @@ export interface WorkflowProcessingNode {
   onClick?: () => void;
   /** When set, double-click the label to rename (builder injects this for editable labs). */
   onLabelChange?: (label: string) => void;
+  rootId?: string;
 }
 
 export interface WorkflowJunction {
   id: string;
   inputCount: number;
   outputCount: number;
+  rootId?: string;
 }
 
 export interface WorkflowConnection {
@@ -88,6 +93,7 @@ export interface WorkflowBuilderProps {
   onSuggestionsClick?: () => void;
   className?: string;
   style?: React.CSSProperties;
+  id?: string;
 }
 
 const NODE_RESIZE_MIN = { w: 140, h: 40 } as const;
@@ -120,6 +126,7 @@ const InputNodeType = ({ data }: NodeProps<WorkflowInput>) => {
           enabled={data.enabled ?? false}
           onToggle={data.onToggle}
           variant="input"
+          rootId={data.rootId}
         />
       </div>
     </>
@@ -145,6 +152,7 @@ const OutputNodeType = ({ data }: NodeProps<WorkflowOutputNodeData>) => {
           enabled={data.enabled}
           onToggle={data.onToggle}
           variant="output"
+          rootId={data.rootId}
         />
       </div>
     </>
@@ -171,6 +179,7 @@ const ProcessingNodeType = ({ data }: NodeProps<WorkflowProcessingNode>) => {
           icon={data.icon}
           onClick={data.onClick}
           onLabelChange={data.onLabelChange}
+          rootId={data.rootId}
         />
       </div>
     </>
@@ -194,6 +203,7 @@ const JunctionNodeType = ({ data }: NodeProps<WorkflowJunction>) => {
           id={data.id}
           inputCount={data.inputCount}
           outputCount={data.outputCount}
+          rootId={data.rootId}
         />
       </div>
     </>
@@ -214,7 +224,8 @@ function WorkflowBuilderInner({
   suggestionsCount,
   onSuggestionsClick,
   className,
-  style
+  style,
+  id,
 }: WorkflowBuilderProps) {
   const flowNodeTypes = useMemo<NodeTypes>(
     () => ({
@@ -237,6 +248,7 @@ function WorkflowBuilderInner({
         label: input.label,
         icon: input.icon,
         enabled: input.enabled ?? false,
+        rootId: input.rootId,
         onToggle: (enabled: boolean) => {
           onInputToggle?.(input.id, enabled);
         },
@@ -257,6 +269,7 @@ function WorkflowBuilderInner({
         label: output.label,
         icon: output.icon,
         enabled: output.enabled ?? false,
+        rootId: output.rootId,
         onToggle: (enabled: boolean) => {
           onOutputToggle?.(output.id, enabled);
         },
@@ -279,6 +292,7 @@ function WorkflowBuilderInner({
         icon: node.icon,
         onClick: node.onClick,
         onLabelChange: node.onLabelChange,
+        rootId: node.rootId,
       },
       sourcePosition: Position.Right,
       targetPosition: Position.Left,
@@ -368,6 +382,7 @@ function WorkflowBuilderInner({
           id: junction.id,
           inputCount: counts.inputCount,
           outputCount: counts.outputCount,
+          rootId: junction.rootId,
         },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
@@ -517,6 +532,7 @@ function WorkflowBuilderInner({
 
   return (
     <div
+      id={id}
       className={`${styles.workflow} ${className || ''}`}
       style={style}
       data-workflow-container
