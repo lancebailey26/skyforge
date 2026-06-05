@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import "@lancebailey26/skyforge-ui/theme/tokens.css";
 import "reactflow/dist/style.css";
 import "./portfolio-tokens.css";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               ariaLabel="Go to contact section"
             />
           </main>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
