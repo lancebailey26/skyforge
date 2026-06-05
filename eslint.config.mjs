@@ -98,7 +98,6 @@ export default tseslint.config(
           objectsInObjects: false
         }
       ],
-      'multiline-ternary': ['error', 'always-multiline'],
       'operator-linebreak': ['error', 'after'],
       'max-len': [
         'error',

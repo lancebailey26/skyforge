@@ -12,6 +12,12 @@ const meta = {
   argTypes: {
     orientation: { control: 'select', options: ['horizontal', 'vertical'] },
     draggable: { control: 'boolean' },
+    noScroll: { control: 'boolean' },
+    noScrollAlign: {
+      control: 'select',
+      options: ['start', 'end', 'center'],
+      if: { arg: 'noScroll', truthy: true },
+    },
     pauseOnHover: { control: 'boolean' },
     reverse: { control: 'boolean' },
   },
@@ -28,6 +34,8 @@ const meta = {
     gap: '0.75rem',
     pauseOnHover: true,
     draggable: true,
+    noScroll: false,
+    noScrollAlign: 'center',
     reverse: false,
   },
 } satisfies Meta<typeof Crawler>;
@@ -40,6 +48,51 @@ export const Playground: Story = {
     <Crawler {...args}>
       {items.map((name) => (
         <Tag key={name} text={name} color="secondary" size="small" />
+      ))}
+    </Crawler>
+  ),
+};
+
+export const NoScroll: Story = {
+  args: {
+    noScroll: true,
+    noScrollAlign: 'center',
+    speed: 32,
+  },
+  render: (args) => (
+    <Crawler {...args}>
+      {['Alpha', 'Beta'].map((name) => (
+        <Tag key={name} text={name} color="primary" size="small" />
+      ))}
+    </Crawler>
+  ),
+};
+
+export const NoScrollAnchoredStart: Story = {
+  args: {
+    noScroll: true,
+    noScrollAlign: 'start',
+    speed: 32,
+  },
+  render: (args) => (
+    <Crawler {...args}>
+      {['Alpha', 'Beta'].map((name) => (
+        <Tag key={name} text={name} color="primary" size="small" />
+      ))}
+    </Crawler>
+  ),
+};
+
+export const NoScrollAnchoredEnd: Story = {
+  args: {
+    noScroll: true,
+    noScrollAlign: 'end',
+    speed: 32,
+  },
+  render: (args) => (
+    <Crawler {...args}>
+      {['Alpha', 'Beta'].map((name) => (
+        <Tag key={name} text={name} color="primary" size="small" />
       ))}
     </Crawler>
   ),

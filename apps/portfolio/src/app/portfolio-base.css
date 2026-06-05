@@ -1,0 +1,48 @@
+/* Scroll, snap, flat sections */
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 4.75rem;
+  scroll-padding-bottom: max(5.5rem, calc(env(safe-area-inset-bottom, 0px) + 4rem));
+  scrollbar-gutter: stable;
+}
+
+body {
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    scroll-behavior: auto;
+  }
+
+  html {
+    scroll-snap-type: none;
+  }
+}
+
+.portfolio-snap-section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  box-sizing: border-box;
+}
+
+.portfolio-section-anchor {
+  scroll-margin-top: 4.5rem;
+}
+
+.portfolio-section-ambient {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.portfolio-section-ambient > * {
+  position: relative;
+  z-index: 1;
+}

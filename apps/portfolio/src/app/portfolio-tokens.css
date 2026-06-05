@@ -1,0 +1,47 @@
+/* Portfolio-scoped tokens — overrides skyforge-ui fonts + expressive type */
+
+:root {
+  --font-sans: var(--font-portfolio-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-portfolio-sans), var(--font-sans);
+  --font-size-display: clamp(3.25rem, 12vw, 8.5rem);
+  --font-size-section: clamp(2.5rem, 6.5vw, 4.5rem);
+  --portfolio-motion-reveal: 520ms;
+  --portfolio-motion-stagger: 90ms;
+  --portfolio-title-gradient: linear-gradient(
+    128deg,
+    var(--color-on-surface) 0%,
+    color-mix(in oklch, var(--color-on-surface) 88%, var(--color-primary)) 38%,
+    color-mix(in oklch, var(--color-primary) 78%, var(--color-on-surface)) 72%,
+    var(--color-primary) 100%
+  );
+  --portfolio-hero-gradient: linear-gradient(
+    128deg,
+    var(--color-on-surface) 0%,
+    color-mix(in oklch, var(--color-on-surface) 90%, var(--color-primary)) 45%,
+    var(--color-primary) 100%
+  );
+}
+
+html.dark {
+  --color-primary: oklch(0.72 0.17 292);
+  --color-secondary: oklch(0.78 0.11 58);
+  --color-info: oklch(0.68 0.12 230);
+  --color-tertiary: oklch(0.7 0.14 165);
+  --color-bg: oklch(0.155 0.012 285);
+  --color-surface: oklch(0.19 0.014 285);
+  --color-surface-alt: oklch(0.23 0.016 285);
+  --color-on-surface: oklch(0.94 0.012 292);
+  --color-on-surface-alt: oklch(0.72 0.028 292);
+  --color-border: oklch(0.28 0.04 292);
+}
+
+html:not(.dark) {
+  --color-primary: oklch(0.46 0.2 292);
+  --color-secondary: oklch(0.55 0.14 58);
+  --color-info: oklch(0.5 0.16 230);
+  --color-bg: oklch(0.992 0.003 285);
+  --color-surface: oklch(1 0 0);
+  --color-surface-alt: oklch(0.97 0.005 285);
+  --color-on-surface: oklch(0.2 0.04 292);
+  --color-on-surface-alt: oklch(0.44 0.035 292);
+}

@@ -74,7 +74,7 @@ export function ContactSection() {
     <section
       id="contact"
       className="portfolio-section-anchor portfolio-snap-section portfolio-section-ambient tech-marquee-section"
-      data-ambient="4"
+      data-ambient="5"
       aria-labelledby="contact-heading"
     >
       {showNotification && (

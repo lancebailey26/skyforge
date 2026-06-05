@@ -4,6 +4,7 @@ import { Notification } from '@lancebailey26/skyforge-ui';
 import { useTitle } from '../hooks/useTitle';
 import { AboutSection } from '../components/home/AboutSection';
 import { TechCrawlerSection } from '../components/home/TechCrawlerSection';
+import { ReferenceSection } from '../components/home/ReferenceSection';
 import { ProjectsSection } from '../components/home/ProjectsSection';
 import { LabsSection } from '../components/home/LabsSection';
 import { ContactSection } from '../components/home/ContactSection';
@@ -33,6 +34,7 @@ export default function HomePage() {
       )}
       <AboutSection />
       <TechCrawlerSection />
+      <ReferenceSection />
       <ProjectsSection />
       <LabsSection />
       <ContactSection />

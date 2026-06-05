@@ -36,6 +36,10 @@ export interface CrawlerProps {
   pauseOnHover?: boolean;
   /** Drag scrubs the strip; taps still work on buttons, links, inputs, etc. */
   draggable?: boolean;
+  /** Static strip: no auto-scroll, no duplicated children for looping. */
+  noScroll?: boolean;
+  /** When `noScroll` is set, anchor the strip (horizontal: start = left, end = right). */
+  noScrollAlign?: 'start' | 'end' | 'center';
   className?: string;
   style?: React.CSSProperties;
   /** Max height for vertical orientation (horizontal uses full width of parent). */
@@ -67,6 +71,8 @@ export function Crawler(props: CrawlerProps) {
     gap = '1rem',
     pauseOnHover = true,
     draggable = true,
+    noScroll = false,
+    noScrollAlign = 'center',
     className,
     style,
     maxHeight,
@@ -93,6 +99,7 @@ export function Crawler(props: CrawlerProps) {
   const dragCommittedRef = useRef(false);
 
   const arrayChildren = Children.toArray(children);
+  const isScrolling = !noScroll;
 
   const detachWindowDragProbe = useCallback(() => {
     if(windowDragCleanupRef.current) {
@@ -130,10 +137,16 @@ export function Crawler(props: CrawlerProps) {
   }, [orientation]);
 
   useLayoutEffect(() => {
+    if(!isScrolling) {
+      return;
+    }
     measure();
-  }, [measure, arrayChildren.length, orientation, gap]);
+  }, [isScrolling, measure, arrayChildren.length, orientation, gap]);
 
   useEffect(() => {
+    if(!isScrolling) {
+      return;
+    }
     const track = trackRef.current;
     if(!track || typeof ResizeObserver === 'undefined') {
       return;
@@ -141,7 +154,7 @@ export function Crawler(props: CrawlerProps) {
     const ro = new ResizeObserver(() => measure());
     ro.observe(track);
     return () => ro.disconnect();
-  }, [measure]);
+  }, [isScrolling, measure]);
 
   const applyTransform = useCallback(
     (offset: number) => {
@@ -159,7 +172,7 @@ export function Crawler(props: CrawlerProps) {
   );
 
   useEffect(() => {
-    if(setSize <= 0) {
+    if(!isScrolling || setSize <= 0) {
       return;
     }
 
@@ -184,12 +197,15 @@ export function Crawler(props: CrawlerProps) {
       cancelAnimationFrame(rafRef.current);
       lastTimeRef.current = null;
     };
-  }, [applyTransform, paused, reverse, setSize, speed]);
+  }, [applyTransform, isScrolling, paused, reverse, setSize, speed]);
 
   useEffect(() => {
+    if(!isScrolling) {
+      return;
+    }
     offsetRef.current = 0;
     applyTransform(0);
-  }, [setSize, applyTransform]);
+  }, [isScrolling, setSize, applyTransform]);
 
   const applyDragDelta = useCallback(
     (clientX: number, clientY: number) => {
@@ -339,7 +355,12 @@ export function Crawler(props: CrawlerProps) {
 
   const orientClass = orientation === 'horizontal' ? styles.horizontal : styles.vertical;
   const horizontalReverse = orientation === 'horizontal' && reverse;
-  const canDrag = draggable && setSize > 0 && arrayChildren.length > 0;
+  const canDrag = isScrolling && draggable && setSize > 0 && arrayChildren.length > 0;
+  const noScrollAlignClass =
+    noScroll && noScrollAlign === 'start' ? styles.noScrollAlignStart :
+      noScroll && noScrollAlign === 'end' ? styles.noScrollAlignEnd :
+        noScroll && noScrollAlign === 'center' ? styles.noScrollAlignCenter :
+          '';
 
   const viewportStyle: React.CSSProperties = {
     ...style,
@@ -358,6 +379,8 @@ export function Crawler(props: CrawlerProps) {
         horizontalReverse ? styles.horizontalReverse : '',
         canDrag ? styles.draggable : '',
         canDrag && isGrabbing ? styles.dragging : '',
+        noScroll ? styles.noScroll : '',
+        noScrollAlignClass,
         className,
       ]
         .filter(Boolean)
@@ -371,7 +394,7 @@ export function Crawler(props: CrawlerProps) {
       onPointerCancel={endPointerDrag}
       onLostPointerCapture={onLostPointerCapture}
       role="region"
-      aria-label="Scrolling content"
+      aria-label={noScroll ? 'Content' : 'Scrolling content'}
     >
       <div ref={trackRef} className={`${styles.track} ${orientClass}`} style={{ gap }}>
         <div
@@ -381,14 +404,16 @@ export function Crawler(props: CrawlerProps) {
         >
           {arrayChildren.map((child, i) => wrapChild(child, i, 'a', orientation))}
         </div>
-        <div
-          ref={setBRef}
-          className={`${styles.set} ${orientClass}`}
-          style={{ gap }}
-          aria-hidden
-        >
-          {arrayChildren.map((child, i) => wrapChild(child, i, 'b', orientation))}
-        </div>
+        {isScrolling ? (
+          <div
+            ref={setBRef}
+            className={`${styles.set} ${orientClass}`}
+            style={{ gap }}
+            aria-hidden
+          >
+            {arrayChildren.map((child, i) => wrapChild(child, i, 'b', orientation))}
+          </div>
+        ) : null}
       </div>
     </div>
   );

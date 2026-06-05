@@ -15,7 +15,7 @@ function MoreToComeCard() {
   return (
     <Card
       title="More to come soon"
-      description="Additional projects and case studies will show up here. Stay tuned!."
+      description="Additional projects will show up here. Stay tuned!."
       subject={{ color: 'color-mix(in oklch, var(--color-primary) 8%, var(--color-container-high))' }}
       type="glass"
       size="medium"
@@ -48,7 +48,7 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
       }
       size="medium"
-      style={{ height: '100%' }}
+      style={{ height: '100%', cursor: project.url ? 'pointer' : undefined }}
       footerStyle={{ padding: '1rem 1rem' }}
     />
   );
@@ -63,14 +63,16 @@ function DeckCard({ item }: { item: DeckItem }) {
 
 export function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [projectsLoaded, setProjectsLoaded] = useState(false);
 
   useEffect(() => {
     fetch('/api/projects')
       .then((res) => res.json())
       .then((data) => {
-        setProjects(data.projects);
+        setProjects(Array.isArray(data.projects) ? data.projects : []);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setProjectsLoaded(true));
   }, []);
 
   const deck = useMemo((): DeckItem[] => {
@@ -85,7 +87,7 @@ export function ProjectsSection() {
     <section
       id="projects"
       className="portfolio-section-anchor portfolio-snap-section portfolio-section-ambient tech-marquee-section"
-      data-ambient="2"
+      data-ambient="3"
       aria-labelledby="projects-heading"
     >
       <div className="tech-marquee-shell tech-marquee-shell--flip">
@@ -93,15 +95,17 @@ export function ProjectsSection() {
           <div className="tech-marquee-stage">
             <p className="tech-marquee-stage-kicker">On the record</p>
             <div className="tech-marquee-track">
-              {deck.length <= 1 ?
-(
+              {!projectsLoaded ? (
+                <p className="portfolio-showcase-empty">Loading projects…</p>
+              ) : deck.length === 0 ? (
+                <p className="portfolio-showcase-empty">Projects will appear here soon.</p>
+              ) : deck.length <= 1 ? (
                 <div className="tech-marquee-single-slot">
                   <div className="tech-marquee-single-slot-inner">
                     <DeckCard item={deck[0]} />
                   </div>
                 </div>
-              ) :
-(
+              ) : (
                 <Crawler orientation="horizontal" speed={32} gap="clamp(1rem, 3vw, 2rem)" pauseOnHover>
                   {deck.map((item) => (
                     <div

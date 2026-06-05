@@ -42,7 +42,7 @@ function samePageSectionId(href: string): string | null {
   }
 }
 
-/** Scroll with `block: 'end'` so tall sections (e.g. contact) reveal lower content. */
+/** Scroll with `block: 'center'` so header / in-page hash jumps land on the section midpoint. */
 export function scrollSectionIntoViewFromHash(hashedId: string) {
   const el = document.getElementById(hashedId);
   if(!el) {
@@ -62,7 +62,7 @@ export function scrollSectionIntoViewFromHash(hashedId: string) {
     restoreSnap();
   };
 
-  el.scrollIntoView({ behavior, block: 'end', inline: 'nearest' });
+  el.scrollIntoView({ behavior, block: 'center', inline: 'nearest' });
 
   if(typeof window !== 'undefined' && 'onscrollend' in window) {
     window.addEventListener('scrollend', finish, { once: true });

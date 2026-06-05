@@ -33,7 +33,7 @@ export function LabsSection() {
     <section
       id="labs"
       className="portfolio-section-anchor portfolio-snap-section portfolio-section-ambient portfolio-showcase-section"
-      data-ambient="3"
+      data-ambient="4"
       aria-labelledby="labs-heading"
     >
       <div className="portfolio-showcase-shell">

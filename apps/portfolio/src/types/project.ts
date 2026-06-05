@@ -13,6 +13,8 @@ export interface Project {
   url?: string;
   repoUrl?: string;
   imageUrl?: string;
+  /** In-app case study route (e.g. /work/tranztec-ui-kit). */
+  caseStudyRoute?: string;
   createdAt?: string;
   updatedAt?: string;
 };

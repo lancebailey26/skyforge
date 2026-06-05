@@ -24,6 +24,38 @@
   padding-block: clamp(0.5rem, 2vh, 1.125rem);
 }
 
+.viewport.noScroll {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.viewport.noScroll .track {
+  will-change: auto;
+}
+
+.viewport.noScroll .track.horizontal {
+  width: 100%;
+}
+
+.viewport.noScroll .track.vertical {
+  height: max-content;
+}
+
+.viewport.noScrollAlignStart .track.horizontal,
+.viewport.noScrollAlignStart .track.vertical {
+  justify-content: flex-start;
+}
+
+.viewport.noScrollAlignEnd .track.horizontal,
+.viewport.noScrollAlignEnd .track.vertical {
+  justify-content: flex-end;
+}
+
+.viewport.noScrollAlignCenter .track.horizontal,
+.viewport.noScrollAlignCenter .track.vertical {
+  justify-content: center;
+}
+
 .viewport {
   position: relative;
   width: 100%;
