@@ -9,8 +9,7 @@ export const referenceWork: ReferenceWorkItem[] = [
     title: 'Tranztec UI Kit',
     subtitle: 'Production React component library for Tranztec’s next-gen apps',
     description:
-      // eslint-disable-next-line max-len
-      'Built the initial React + TypeScript implementation of Tranztec’s UI Kit — a fully WCAG 2.1 compliant component library with reusable primitives, CSS Module styling, CSS-variable theming, Storybook documentation, and private package distribution across a monorepo of next-generation apps.',
+      'Built Tranztec’s initial React UI Kit — WCAG 2.1 components, CSS Modules, theming, Storybook, and NPM distribution.',
     techStack: [
       'React',
       'TypeScript',
@@ -35,8 +34,7 @@ export const referenceWork: ReferenceWorkItem[] = [
     title: 'Fuzion',
     subtitle: 'Integration workspace that put AI-assisted mapping in users’ hands',
     description:
-      // eslint-disable-next-line max-len
-      'Worked extensively on Fuzion — Tranztec’s integration workspace. Shipped React UI that let end users connect external systems, configure data flow between connections, and use embedded AI mapping without writing code — collapsing implementation time from weeks to under a day.',
+      'Built React UI for Fuzion — no-code integrations, data flows, and AI mapping that cut implementation from weeks to a day.',
     techStack: [
       'React',
       'TypeScript',

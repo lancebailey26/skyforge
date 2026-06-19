@@ -20,7 +20,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Lance Bailey</title>
+        <link rel="icon" href="/assets/favicon.svg" sizes="any" />
+        <title>lancebailey - dev</title>
       </head>
       <body className={satoshi.className}>
         <ThemeProvider attribute="class" defaultTheme="dark">

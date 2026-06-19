@@ -19,6 +19,8 @@ const meta = {
       if: { arg: 'noScroll', truthy: true },
     },
     pauseOnHover: { control: 'boolean' },
+    scrollButtons: { control: 'boolean' },
+    layout: { control: 'select', options: ['auto', 'list', 'scroll'] },
     reverse: { control: 'boolean' },
   },
   decorators: [
@@ -36,6 +38,7 @@ const meta = {
     draggable: true,
     noScroll: false,
     noScrollAlign: 'center',
+    scrollButtons: true,
     reverse: false,
   },
 } satisfies Meta<typeof Crawler>;

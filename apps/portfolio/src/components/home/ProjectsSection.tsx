@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Card, Crawler, Tag } from '@lancebailey26/skyforge-ui';
 import { Project } from '@/types/project';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { PortfolioStackItem, PortfolioStackList } from '@/components/PortfolioStackItem';
 
 const signalLabels = ['Shipped work', 'Live products', 'Polish & detail'];
 
@@ -61,6 +62,72 @@ function DeckCard({ item }: { item: DeckItem }) {
   return <ProjectCard project={item.project} />;
 }
 
+function ProjectStackItem({ item }: { item: DeckItem }) {
+  if(item.kind === 'filler') {
+    return (
+      <PortfolioStackItem
+        title="More to come soon"
+        description="Additional projects will show up here. Stay tuned!."
+        placeholderColor="color-mix(in oklch, var(--color-primary) 8%, var(--color-container-high))"
+      />
+    );
+  }
+
+  const { project } = item;
+  return (
+    <PortfolioStackItem
+      title={project.title}
+      meta={project.tags?.[0]}
+      description={project.description}
+      imageSrc={project.imageUrl}
+      imageAlt={project.title}
+      placeholderColor="var(--color-container-high)"
+      onClick={project.url ? () => window.open(project.url, '_blank') : undefined}
+    />
+  );
+}
+
+function ProjectsDeck({ deck }: { deck: DeckItem[] }) {
+  if(deck.length <= 1) {
+    return (
+      <div className="tech-marquee-single-slot">
+        <div className="tech-marquee-single-slot-inner">
+          <DeckCard item={deck[0]} />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Crawler
+      orientation="horizontal"
+      speed={32}
+      gap="clamp(1rem, 3vw, 2rem)"
+      pauseOnHover
+      layout="list"
+      list={
+        <PortfolioStackList>
+          {deck.map((item) => (
+            <ProjectStackItem
+              key={item.kind === 'project' ? (item.project._id ?? item.project.slug) : 'more-soon'}
+              item={item}
+            />
+          ))}
+        </PortfolioStackList>
+      }
+    >
+      {deck.map((item) => (
+        <div
+          key={item.kind === 'project' ? (item.project._id ?? item.project.slug) : 'more-soon'}
+          className="tech-marquee-crawler-card"
+        >
+          <DeckCard item={item} />
+        </div>
+      ))}
+    </Crawler>
+  );
+}
+
 export function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [projectsLoaded, setProjectsLoaded] = useState(false);
@@ -93,29 +160,14 @@ export function ProjectsSection() {
       <div className="tech-marquee-shell tech-marquee-shell--flip">
         <div className="tech-marquee-visual tech-marquee-visual--bleed-start">
           <div className="tech-marquee-stage">
-            <p className="tech-marquee-stage-kicker">On the record</p>
+            <p className="tech-marquee-stage-kicker" style={{ textAlign: 'right' }}>On the record</p>
             <div className="tech-marquee-track">
               {!projectsLoaded ? (
                 <p className="portfolio-showcase-empty">Loading projects…</p>
               ) : deck.length === 0 ? (
                 <p className="portfolio-showcase-empty">Projects will appear here soon.</p>
-              ) : deck.length <= 1 ? (
-                <div className="tech-marquee-single-slot">
-                  <div className="tech-marquee-single-slot-inner">
-                    <DeckCard item={deck[0]} />
-                  </div>
-                </div>
               ) : (
-                <Crawler orientation="horizontal" speed={32} gap="clamp(1rem, 3vw, 2rem)" pauseOnHover>
-                  {deck.map((item) => (
-                    <div
-                      key={item.kind === 'project' ? (item.project._id ?? item.project.slug) : 'more-soon'}
-                      className="tech-marquee-crawler-card"
-                    >
-                      <DeckCard item={item} />
-                    </div>
-                  ))}
-                </Crawler>
+                <ProjectsDeck deck={deck} />
               )}
             </div>
           </div>

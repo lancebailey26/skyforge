@@ -3,6 +3,7 @@
 import { Crawler } from '@lancebailey26/skyforge-ui';
 
 const technologies = [
+  { name: 'JavaScript', logo: 'https://skillicons.dev/icons?i=js' },
   { name: 'TypeScript', logo: 'https://skillicons.dev/icons?i=ts' },
   { name: 'React', logo: 'https://skillicons.dev/icons?i=react' },
   { name: 'Next.js', logo: 'https://skillicons.dev/icons?i=nextjs' },
@@ -58,7 +59,30 @@ export function TechCrawlerSection() {
           <div className="tech-marquee-stage">
             <p className="tech-marquee-stage-kicker">Along for the ride</p>
             <div className="tech-marquee-track">
-              <Crawler orientation="horizontal" speed={36} gap="clamp(1rem, 3vw, 2.25rem)">
+              <Crawler
+                orientation="horizontal"
+                speed={36}
+                gap="clamp(1rem, 3vw, 2.25rem)"
+                layout="list"
+                list={
+                  <ul className="tech-marquee-grid" aria-label="Technologies in this stack">
+                    {technologies.map((tech) => (
+                      <li key={tech.name} className="tech-marquee-grid-item">
+                        <img
+                          src={tech.logo}
+                          alt=""
+                          width={56}
+                          height={56}
+                          loading="lazy"
+                          decoding="async"
+                          draggable={false}
+                        />
+                        <span className="tech-marquee-name">{tech.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                }
+              >
                 {technologies.map((tech) => (
                   <div key={tech.name} className="tech-marquee-item" title={tech.name}>
                     <div className="tech-marquee-item-inner">

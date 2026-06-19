@@ -36,3 +36,33 @@ test('Crawler: noScrollAlign start anchors strip to the left', async ({ mount, p
   await expect(track).toBeVisible();
   await expect(track).toHaveCSS('justify-content', 'flex-start');
 });
+
+test('Crawler: scroll buttons advance one item', async ({ mount, page }) => {
+  await page.setViewportSize({ width: 900, height: 480 });
+
+  await mount(
+    <Crawler orientation="horizontal" speed={0} draggable={false} pauseOnHover={false} gap="16px">
+      <span style={{ display: 'inline-block', width: 220 }}>Alpha</span>
+      <span style={{ display: 'inline-block', width: 220 }}>Beta</span>
+      <span style={{ display: 'inline-block', width: 220 }}>Gamma</span>
+    </Crawler>,
+  );
+
+  const track = page.locator('[class*="track"]').first();
+  const readOffset = () =>
+    track.evaluate((el) => {
+      const matrix = new DOMMatrix(getComputedStyle(el).transform);
+      return Math.abs(matrix.m41);
+    });
+
+  const before = await readOffset();
+  await page.getByRole('button', { name: 'Scroll back' }).click();
+
+  await expect.poll(readOffset, { timeout: 1000 }).toBeGreaterThan(before + 200);
+
+  const after = await readOffset();
+  const delta = after - before;
+
+  expect(delta).toBeGreaterThan(200);
+  expect(delta).toBeLessThan(250);
+});

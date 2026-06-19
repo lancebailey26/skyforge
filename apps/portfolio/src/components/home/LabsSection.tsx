@@ -3,6 +3,7 @@
 import { Card, Crawler } from '@lancebailey26/skyforge-ui';
 import { Lab } from '@/types/lab';
 import { useRouter } from 'next/navigation';
+import { PortfolioStackItem, PortfolioStackList } from '@/components/PortfolioStackItem';
 import { metadata as prismMetadata } from '@/app/labs/prism/metadata';
 import { metadata as refractMetadata } from '@/app/labs/refract/metadata';
 import { metadata as wasteOfTimeMetadata } from '@/app/labs/wasteOfTime/metadata';
@@ -23,6 +24,48 @@ function LabCard({ lab, onOpen }: { lab: Lab; onOpen: () => void }) {
       style={{ cursor: 'pointer', height: '100%' }}
       onClick={onOpen}
     />
+  );
+}
+
+function LabsDeck({ labs, onOpen }: { labs: Lab[]; onOpen: (route: string) => void }) {
+  if(labs.length <= 1) {
+    return (
+      <div className="tech-marquee-single-slot">
+        <div className="tech-marquee-single-slot-inner">
+          <LabCard lab={labs[0]} onOpen={() => onOpen(labs[0].route)} />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Crawler
+      orientation="horizontal"
+      speed={32}
+      gap="clamp(1rem, 3vw, 2rem)"
+      pauseOnHover
+      layout="list"
+      list={
+        <PortfolioStackList>
+          {labs.map((lab) => (
+            <PortfolioStackItem
+              key={lab.id}
+              title={lab.title}
+              description={lab.description}
+              imageSrc={`/assets/${lab.id}.png`}
+              imageAlt={`${lab.title} screenshot`}
+              onClick={() => onOpen(lab.route)}
+            />
+          ))}
+        </PortfolioStackList>
+      }
+    >
+      {labs.map((lab) => (
+        <div key={lab.id} className="tech-marquee-crawler-card">
+          <LabCard lab={lab} onOpen={() => onOpen(lab.route)} />
+        </div>
+      ))}
+    </Crawler>
   );
 }
 
@@ -64,23 +107,7 @@ export function LabsSection() {
             {labs.length > 0 ?
 (
               <div className="tech-marquee-track">
-                {labs.length <= 1 ?
-(
-                  <div className="tech-marquee-single-slot">
-                    <div className="tech-marquee-single-slot-inner">
-                      <LabCard lab={labs[0]} onOpen={() => router.push(labs[0].route)} />
-                    </div>
-                  </div>
-                ) :
-(
-                  <Crawler orientation="horizontal" speed={32} gap="clamp(1rem, 3vw, 2rem)" pauseOnHover>
-                    {labs.map((lab) => (
-                      <div key={lab.id} className="tech-marquee-crawler-card">
-                        <LabCard lab={lab} onOpen={() => router.push(lab.route)} />
-                      </div>
-                    ))}
-                  </Crawler>
-                )}
+                <LabsDeck labs={labs} onOpen={(route) => router.push(route)} />
               </div>
             ) :
 (

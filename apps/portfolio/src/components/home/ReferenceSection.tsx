@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Card, Crawler, Tag } from '@lancebailey26/skyforge-ui';
 import { referenceWork } from '@/data/reference-work';
 import type { ReferenceWorkItem } from '@/types/reference-work';
+import { PortfolioStackItem, PortfolioStackList } from '@/components/PortfolioStackItem';
 
 const signalLabels = ['Design systems', 'Production UI', 'Architecture', 'Adoption at scale'];
 
@@ -32,6 +33,57 @@ function ReferenceWorkCard({ item, onOpen }: { item: ReferenceWorkItem; onOpen: 
       }
       footerStyle={{ padding: '1rem 1rem' }}
     />
+  );
+}
+
+function ReferenceWorkStackItem({ item, onOpen }: { item: ReferenceWorkItem; onOpen: () => void }) {
+  return (
+    <PortfolioStackItem
+      title={item.title}
+      meta={item.tags[0]}
+      description={item.description}
+      imageSrc={item.imageUrl}
+      imageAlt={item.title}
+      placeholderColor="color-mix(in oklch, var(--color-primary) 14%, var(--color-container-high))"
+      onClick={onOpen}
+    />
+  );
+}
+
+function ReferenceWorkDeck({ items, onOpenItem }: { items: ReferenceWorkItem[]; onOpenItem: (route: string) => void }) {
+  if(items.length <= 1) {
+    return (
+      <div className="tech-marquee-single-slot">
+        <div className="tech-marquee-single-slot-inner">
+          <ReferenceWorkCard item={items[0]} onOpen={() => onOpenItem(items[0].route)} />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Crawler
+      orientation="horizontal"
+      speed={32}
+      gap="clamp(1rem, 3vw, 2rem)"
+      pauseOnHover
+      noScroll={items.length === 2}
+      noScrollAlign="start"
+      layout="list"
+      list={
+        <PortfolioStackList>
+          {items.map((item) => (
+            <ReferenceWorkStackItem key={item.slug} item={item} onOpen={() => onOpenItem(item.route)} />
+          ))}
+        </PortfolioStackList>
+      }
+    >
+      {items.map((item) => (
+        <div key={item.slug} className="tech-marquee-crawler-card">
+          <ReferenceWorkCard item={item} onOpen={() => onOpenItem(item.route)} />
+        </div>
+      ))}
+    </Crawler>
   );
 }
 
@@ -82,30 +134,8 @@ export function ReferenceSection() {
             <div className="tech-marquee-track">
               {items.length === 0 ? (
                 <p className="portfolio-showcase-empty">Reference write-ups will appear here soon.</p>
-              ) :
-                items.length <= 1 ?
-                  (
-                    <div className="tech-marquee-single-slot">
-                      <div className="tech-marquee-single-slot-inner">
-                        <ReferenceWorkCard item={items[0]} onOpen={() => openItem(items[0].route)} />
-                      </div>
-                    </div>
-                  ) :
-                  (
-                <Crawler
-                  orientation="horizontal"
-                  speed={32}
-                  gap="clamp(1rem, 3vw, 2rem)"
-                  pauseOnHover
-                  noScroll={items.length === 2}
-                  noScrollAlign="start"
-                >
-                  {items.map((item) => (
-                    <div key={item.slug} className="tech-marquee-crawler-card">
-                      <ReferenceWorkCard item={item} onOpen={() => openItem(item.route)} />
-                    </div>
-                  ))}
-                </Crawler>
+              ) : (
+                <ReferenceWorkDeck items={items} onOpenItem={openItem} />
               )}
             </div>
           </div>

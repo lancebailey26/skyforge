@@ -9,9 +9,25 @@ import {
   useState,
   Children,
 } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import styles from './crawler.module.css';
 
 const DRAG_THRESHOLD_SQ = 8 * 8;
+const BUTTON_SCROLL_MS_PER_PX = 0.9;
+const BUTTON_SCROLL_DURATION_MIN = 320;
+const BUTTON_SCROLL_DURATION_MAX = 480;
+
+function easeOutCubic(t: number) {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+function normalizeOffset(offset: number, size: number) {
+  let next = offset;
+  while(next >= size) next -= size;
+  while(next < 0) next += size;
+  return next;
+}
 
 function swallowNextClickCapture() {
   const swallow = (ev: Event) => {
@@ -44,6 +60,12 @@ export interface CrawlerProps {
   style?: React.CSSProperties;
   /** Max height for vertical orientation (horizontal uses full width of parent). */
   maxHeight?: string | number;
+  /** Prev/next controls for manual scrubbing (horizontal scrolling crawlers). */
+  scrollButtons?: boolean;
+  /** Optional stacked list; pair with `layout` to switch away from the scrolling strip. */
+  list?: React.ReactNode;
+  /** With `list`: `auto` switches at 80rem; `list` / `scroll` force one mode. */
+  layout?: 'auto' | 'list' | 'scroll';
   id?: string;
 }
 
@@ -76,6 +98,9 @@ export function Crawler(props: CrawlerProps) {
     className,
     style,
     maxHeight,
+    scrollButtons = true,
+    list,
+    layout = 'auto',
     id,
   } = props;
 
@@ -97,6 +122,12 @@ export function Crawler(props: CrawlerProps) {
   const activeDragPointerIdRef = useRef<number | null>(null);
   const windowDragCleanupRef = useRef<(() => void) | null>(null);
   const dragCommittedRef = useRef(false);
+  const buttonAnimRef = useRef<{
+    start: number;
+    target: number;
+    startTime: number;
+    duration: number;
+  } | null>(null);
 
   const arrayChildren = Children.toArray(children);
   const isScrolling = !noScroll;
@@ -181,7 +212,19 @@ export function Crawler(props: CrawlerProps) {
       const dt = Math.min((t - lastTimeRef.current) / 1000, 0.1);
       lastTimeRef.current = t;
 
-      if(!paused && !isPointerDraggingRef.current && speed > 0) {
+      const anim = buttonAnimRef.current;
+      if(anim) {
+        const elapsed = t - anim.startTime;
+        const progress = Math.min(elapsed / anim.duration, 1);
+        const eased = easeOutCubic(progress);
+        offsetRef.current = anim.start + (anim.target - anim.start) * eased;
+        applyTransform(offsetRef.current);
+        if(progress >= 1) {
+          offsetRef.current = normalizeOffset(anim.target, setSize);
+          applyTransform(offsetRef.current);
+          buttonAnimRef.current = null;
+        }
+      } else if(!paused && !isPointerDraggingRef.current && speed > 0) {
         const dir = reverse ? -1 : 1;
         offsetRef.current += speed * dt * dir;
         while(offsetRef.current >= setSize) offsetRef.current -= setSize;
@@ -203,6 +246,7 @@ export function Crawler(props: CrawlerProps) {
     if(!isScrolling) {
       return;
     }
+    buttonAnimRef.current = null;
     offsetRef.current = 0;
     applyTransform(0);
   }, [isScrolling, setSize, applyTransform]);
@@ -276,6 +320,7 @@ export function Crawler(props: CrawlerProps) {
         dragCommittedRef.current = true;
         activeDragPointerIdRef.current = ev.pointerId;
         isPointerDraggingRef.current = true;
+        buttonAnimRef.current = null;
         dragLastRef.current = { x: ev.clientX, y: ev.clientY };
         setIsGrabbing(true);
       };
@@ -353,9 +398,80 @@ export function Crawler(props: CrawlerProps) {
     }
   }, [detachWindowDragProbe]);
 
+  const getItemStep = useCallback(() => {
+    const setA = setARef.current;
+    if(setA && setA.children.length >= 2) {
+      const first = setA.children[0].getBoundingClientRect();
+      const second = setA.children[1].getBoundingClientRect();
+      return second.left - first.left;
+    }
+    if(setA && setA.children.length === 1) {
+      return setA.children[0].getBoundingClientRect().width;
+    }
+    const viewport = viewportRef.current;
+    return viewport ? Math.max(viewport.clientWidth * 0.72, 180) : 180;
+  }, []);
+
+  const startButtonScroll = useCallback(
+    (visualDirection: 'left' | 'right') => {
+      if(setSize <= 0 || buttonAnimRef.current) {
+        return;
+      }
+
+      const step = getItemStep();
+      if(step <= 0) {
+        return;
+      }
+
+      const start = offsetRef.current;
+      const target = start + (visualDirection === 'left' ? step : -step);
+
+      if(reduceMotion) {
+        offsetRef.current = normalizeOffset(target, setSize);
+        applyTransform(offsetRef.current);
+        return;
+      }
+
+      buttonAnimRef.current = {
+        start,
+        target,
+        startTime: performance.now(),
+        duration: Math.min(
+          Math.max(step * BUTTON_SCROLL_MS_PER_PX, BUTTON_SCROLL_DURATION_MIN),
+          BUTTON_SCROLL_DURATION_MAX,
+        ),
+      };
+    },
+    [applyTransform, getItemStep, reduceMotion, setSize],
+  );
+
+  const onScrollBack = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      startButtonScroll('left');
+    },
+    [startButtonScroll],
+  );
+
+  const onScrollForward = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      startButtonScroll('right');
+    },
+    [startButtonScroll],
+  );
+
   const orientClass = orientation === 'horizontal' ? styles.horizontal : styles.vertical;
   const horizontalReverse = orientation === 'horizontal' && reverse;
   const canDrag = isScrolling && draggable && setSize > 0 && arrayChildren.length > 0;
+  const showScrollButtons =
+    scrollButtons &&
+    orientation === 'horizontal' &&
+    isScrolling &&
+    arrayChildren.length > 1 &&
+    setSize > 0;
   const noScrollAlignClass =
     noScroll && noScrollAlign === 'start' ? styles.noScrollAlignStart :
       noScroll && noScrollAlign === 'end' ? styles.noScrollAlignEnd :
@@ -369,52 +485,96 @@ export function Crawler(props: CrawlerProps) {
       {}),
   };
 
-  return (
+  const scrollStrip = (
     <div
-      id={id}
-      ref={viewportRef}
       className={[
-        styles.viewport,
-        orientation === 'vertical' ? styles.vertical : '',
-        horizontalReverse ? styles.horizontalReverse : '',
-        canDrag ? styles.draggable : '',
-        canDrag && isGrabbing ? styles.dragging : '',
-        noScroll ? styles.noScroll : '',
-        noScrollAlignClass,
-        className,
+        styles.shell,
+        showScrollButtons ? styles.shellWithScrollButtons : '',
       ]
         .filter(Boolean)
         .join(' ')}
-      style={viewportStyle}
-      onMouseEnter={() => pauseOnHover && setPaused(true)}
-      onMouseLeave={() => pauseOnHover && setPaused(false)}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endPointerDrag}
-      onPointerCancel={endPointerDrag}
-      onLostPointerCapture={onLostPointerCapture}
-      role="region"
-      aria-label={noScroll ? 'Content' : 'Scrolling content'}
     >
-      <div ref={trackRef} className={`${styles.track} ${orientClass}`} style={{ gap }}>
-        <div
-          ref={setARef}
-          className={`${styles.set} ${orientClass}`}
-          style={{ gap }}
-        >
-          {arrayChildren.map((child, i) => wrapChild(child, i, 'a', orientation))}
-        </div>
-        {isScrolling ? (
+      {showScrollButtons ?
+        (
+          <>
+            <button
+              type="button"
+              className={`${styles.scrollBtn} ${styles.scrollBtnPrev}`}
+              onClick={onScrollBack}
+              aria-label="Scroll back"
+              data-crawler-no-drag
+            >
+              <FontAwesomeIcon icon={faChevronLeft} aria-hidden />
+            </button>
+            <button
+              type="button"
+              className={`${styles.scrollBtn} ${styles.scrollBtnNext}`}
+              onClick={onScrollForward}
+              aria-label="Scroll forward"
+              data-crawler-no-drag
+            >
+              <FontAwesomeIcon icon={faChevronRight} aria-hidden />
+            </button>
+          </>
+        ) :
+        null}
+      <div
+        id={list == null ? id : undefined}
+        ref={viewportRef}
+        className={[
+          styles.viewport,
+          orientation === 'vertical' ? styles.vertical : '',
+          horizontalReverse ? styles.horizontalReverse : '',
+          canDrag ? styles.draggable : '',
+          canDrag && isGrabbing ? styles.dragging : '',
+          noScroll ? styles.noScroll : '',
+          noScrollAlignClass,
+          className,
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        style={viewportStyle}
+        onMouseEnter={() => pauseOnHover && setPaused(true)}
+        onMouseLeave={() => pauseOnHover && setPaused(false)}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endPointerDrag}
+        onPointerCancel={endPointerDrag}
+        onLostPointerCapture={onLostPointerCapture}
+        role="region"
+        aria-label={noScroll ? 'Content' : 'Scrolling content'}
+      >
+        <div ref={trackRef} className={`${styles.track} ${orientClass}`} style={{ gap }}>
           <div
-            ref={setBRef}
+            ref={setARef}
             className={`${styles.set} ${orientClass}`}
             style={{ gap }}
-            aria-hidden
           >
-            {arrayChildren.map((child, i) => wrapChild(child, i, 'b', orientation))}
+            {arrayChildren.map((child, i) => wrapChild(child, i, 'a', orientation))}
           </div>
-        ) : null}
+          {isScrolling ? (
+            <div
+              ref={setBRef}
+              className={`${styles.set} ${orientClass}`}
+              style={{ gap }}
+              aria-hidden
+            >
+              {arrayChildren.map((child, i) => wrapChild(child, i, 'b', orientation))}
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );
+
+  if(list != null) {
+    return (
+      <div className={styles.deck} data-layout={layout} id={id}>
+        <div className={styles.deckList}>{list}</div>
+        <div className={styles.deckScroll}>{scrollStrip}</div>
+      </div>
+    );
+  }
+
+  return scrollStrip;
 }
